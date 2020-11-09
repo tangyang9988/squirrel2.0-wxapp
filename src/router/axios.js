@@ -7,6 +7,7 @@ import {getToken} from '@/util/auth';
 axios.defaults.withCredentials = true;
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';//配置请求头
+// axios.defaults.baseURL = "http://172.20.0.72"
 
 //添加一个请求拦截器
 axios.interceptors.request.use(function (config) {
@@ -38,6 +39,8 @@ axios.interceptors.request.use(function (config) {
 axios.interceptors.response.use(function (response) {
   if (response.data && response.data.code) {
     if (parseInt(response.data.code) === 401) {
+      debugger
+      console.log("401")
       //未登录
       bus.$emit('goto', '/login')
     }

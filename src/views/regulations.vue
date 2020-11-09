@@ -1,7 +1,8 @@
 <template>
-<div>
-<van-tabs v-model="active" @click="onClick">
-    <van-tab title="实时数据"></van-tab>
+<div class="bodyClass">
+  <van-nav-bar title="监管" />
+<van-tabs v-model="active" @click="onClick" color="#39a9ed">
+    <van-tab title="首页"></van-tab>
     <van-tab title="异常"></van-tab>
     <van-tab title="统计报表"></van-tab>
   </van-tabs>
@@ -16,24 +17,27 @@
         </van-swipe>
       </div>
     <div>
-        <h3>公告</h3>
+        <h2>公告栏</h2>
         <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
-        <li v-for="(item,id) of list" :key="id">{{item.title}}</li>
+        <!-- <li v-for="(item,id) of list" :key="id">{{item.title}}</li> -->
+        <van-cell v-for="(item,id) of list" :key="id" :title="item.title" />
     </van-list>
       </div>
   </div>
   <!-- 异常 -->
     <div v-if="isWarning">
-     <h3>异常列表</h3>
+     <h2>异常列表</h2>
      <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
-        <li v-for="(item,date) of warning" :key="date">{{item.date}} ,{{item.noiseStatus}},{{item.tspStatus}}</li>
+        <!-- <li v-for="(item,date) of warning" :key="date">{{item.date}} ,{{item.noiseStatus}},{{item.tspStatus}}</li> -->
+        <van-cell v-for="(item,date) of warning" :key="date" :title="item.date+item.noiseStatus" />
     </van-list>
   </div>
   <!-- 统计报表 -->
  <div v-if="isExcel">
-     <h3>报表列表</h3>
+     <h2>报表列表</h2>
      <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
-        <li v-for="(item,id) of dustList" :key="id">{{item.name}}</li>
+        <!-- <li v-for="(item,id) of dustList" :key="id">{{item.name}}</li> -->
+        <van-cell v-for="(item,id) of dustList" :key="id" :title="item.name" />
     </van-list>
   </div>
 </div>
@@ -51,7 +55,7 @@ import {getHighWarning} from '@/api/warning';
   export default {
     data() {
       return {
-       active: 2,
+       active: 0,
        list: [],
        dustList:[],
        warning:[],
@@ -158,13 +162,23 @@ import {getHighWarning} from '@/api/warning';
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-
+  .bodyClass{
+    background-color:  #ffffff;
+  //  margin:0 5%;
+  }
   .my-swipe .van-swipe-item {
     color: #fff;
     font-size: 20px;
     line-height: 150px;
     text-align: center;
     background-color: #39a9ed;
+  }
+  h2{
+    margin: 15px 15px 10px;
+    font-size: 25px;
+    font-weight: normal;
+    line-height: 1.5;
+    
   }
 </style>
 <style lang="scss">
