@@ -48,33 +48,16 @@ export default {
     };
   },
   methods: {
-      // onSubmit: function (values) {
-      //   let that = this;
-      //   loginByUsername(that.tenantId,that.username,md5(that.password)).then(function (result) {
-      //     let status = result.status,data = result.data;
-      //     setToken(data.access_token);
-      //     setRefreshToken(data.refresh_token);
-      //     // sessionStorage.setItem("username",that.username)
-      //     // sessionStorage.setItem("password",that.password)
-      //     // sessionStorage.setItem("tenantId",that.tenantId)
-      //     that.$router.push({ path: "/platform" });
-      //   }, function (err) {
-      //     Toast.fail("请求异常");
-      //     that.isHide = false;
-      //   }).catch(function (error) {
-      //     debugger
-      //     Toast.fail("登录异常");
-      //   });
-      // },
       onSubmit: function (values) {
         let that = this;
-        /*removeToken();
-        removeRefreshToken();*/
         loginByUsername(that.tenantId,that.username,md5(that.password)).then(function (result) {
           let status = result.status,data = result.data;
           setToken(data.access_token);
           setRefreshToken(data.refresh_token);
           that.$router.push({ path:"/platform"});
+          sessionStorage.setItem("username",that.username)
+          sessionStorage.setItem("password",that.password)
+          sessionStorage.setItem("tenantId",that.tenantId)
         }, function (err) {
           Toast.fail("请求异常");
           that.isHide = false;
