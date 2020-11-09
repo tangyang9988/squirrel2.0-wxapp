@@ -8,18 +8,17 @@
   </van-tabs>
   <!-- 首页 -->
   <div v-if="isIndex">
-     <div>
+     <!-- <div>
           <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
             <van-swipe-item>1</van-swipe-item>
             <van-swipe-item>2</van-swipe-item>
             <van-swipe-item>3</van-swipe-item>
             <van-swipe-item>4</van-swipe-item>
         </van-swipe>
-      </div>
+      </div> -->
     <div>
         <h2>公告栏</h2>
         <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
-        <!-- <li v-for="(item,id) of list" :key="id">{{item.title}}</li> -->
         <van-cell v-for="(item,id) of list" :key="id" :title="item.title" />
     </van-list>
       </div>
@@ -28,15 +27,13 @@
     <div v-if="isWarning">
      <h2>异常列表</h2>
      <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
-        <!-- <li v-for="(item,date) of warning" :key="date">{{item.date}} ,{{item.noiseStatus}},{{item.tspStatus}}</li> -->
-        <van-cell v-for="(item,date) of warning" :key="date" :title="item.date+item.noiseStatus" />
+        <van-cell v-for="(item,date) of warning" :key="date" :title="item.date" />
     </van-list>
   </div>
   <!-- 统计报表 -->
  <div v-if="isExcel">
-     <h2>报表列表</h2>
+     <h2>统计报表</h2>
      <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
-        <!-- <li v-for="(item,id) of dustList" :key="id">{{item.name}}</li> -->
         <van-cell v-for="(item,id) of dustList" :key="id" :title="item.name" />
     </van-list>
   </div>
@@ -72,7 +69,6 @@ import {getHighWarning} from '@/api/warning';
         this.getNotice();
         this.getWarningAbnormalData();
         this.getRealTime();
-        console.log("is index:",this.isIndex,"is warning:",this.isWarning,"is excel:",this.isExcel)
   },
       onClick(name, title) {
            
@@ -91,7 +87,6 @@ import {getHighWarning} from '@/api/warning';
         this.isWarning=false;
         this.isExcel=true;
      }  
-     console.log("is index:",this.isIndex,"is warning:",this.isWarning,"is excel:",this.isExcel)
     },
     getNotice(){
         let that = this;
@@ -115,12 +110,10 @@ import {getHighWarning} from '@/api/warning';
     getWarningAbnormalData(){
          let that = this;
         warning().then(function (result) {
-            console.log(result.data.data)
            let listLength=result.data.data.length
             for (let i=0;i<listLength;i++){
                 that.dustList.push(result.data.data[i]);
             }
-             console.log("that.dustList:",that.dustList)
         }, function (err) {
           console.log(err)
           Toast.fail("请求异常");
@@ -132,10 +125,8 @@ import {getHighWarning} from '@/api/warning';
       
     },
   getRealTime(){
-      console.log("get real time ")
         let that = this;
         getHighWarning().then(function (result) {
-            console.log("real time ",result)
             let listLength=result.data.data.length
             for (let i=0;i<listLength;i++){
                 that.warning.push(result.data.data[i]);
