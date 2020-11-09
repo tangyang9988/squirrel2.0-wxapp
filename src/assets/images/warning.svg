@@ -1,0 +1,22 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg width="44" height="44" version="1.1"
+xmlns="http://www.w3.org/2000/svg">
+<circle cx="22" cy="22" r="10" stroke="rgba(245,171,40,1)" stroke-width="3" fill="rgba(245,171,40,.4)">
+
+</circle>
+<circle cx="22" cy="22" r="2.5"  fill="rgba(245,171,40,1)"/>
+<circle cx="22" cy="22" r="11.5"  stroke="rgba(245,171,40,.4)" stroke-width="0" fill="transparent">
+<animate attributeType="CSS" attributeName="stroke-width" from="0" to="9.5" dur="2s" repeatCount="indefinite" />
+<animate attributeType="CSS" attributeName="r" from="11.5" to="16" dur="2s" repeatCount="indefinite" />
+<animate attributeType="CSS" attributeName="opacity" from="1" to="0.2" dur="2s" repeatCount="indefinite" />
+</circle>
+<circle cx="22" cy="22" r="11.5"  stroke="rgba(245,171,40,.4)" stroke-width="0" fill="transparent">
+<animate attributeType="CSS" attributeName="stroke-width" begin="1s" from="0" to="9.5" dur="2s" repeatCount="indefinite" />
+<animate attributeType="CSS" attributeName="r" from="11.5" begin="1s" to="16" dur="2s" repeatCount="indefinite" />
+<animate attributeType="CSS" attributeName="opacity" from="1" begin="1s" to="0.2" dur="2s" repeatCount="indefinite" />
+<!-- <animateTransform attributeType="XML" attributeName="transform" begin="0s" dur="2s" type="scale" from="1" to="1.2" repeatCount="indefinite" /> -->
+</circle>
+</svg>

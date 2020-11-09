@@ -1,0 +1,30 @@
+{
+  "id": "1672584",
+  "name": "webapp",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "423847",
+      "name": "选择分组",
+      "font_class": "choose",
+      "unicode": "e6c9",
+      "unicode_decimal": 59081
+    },
+    {
+      "icon_id": "251930",
+      "name": "yonghu",
+      "font_class": "username",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "1435237",
+      "name": "密码",
+      "font_class": "password",
+      "unicode": "e632",
+      "unicode_decimal": 58930
+    }
+  ]
+}
