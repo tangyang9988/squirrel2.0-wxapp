@@ -4,6 +4,9 @@ import Router from 'vue-router';
 // 懒加载方式，当路由被访问的时候才加载对应组件
 // const Login = resolve => require(['@/views/login'], resolve);
 import Login from '@/views/login'
+import Regulations from '@/views/Regulations'
+import Company from '@/views/Company' 
+import Operations from '@/views/Operations'
 
 Vue.use(Router)
 
@@ -14,6 +17,21 @@ let router = new Router({
       path: '/login',
       name: 'Login',
       component: Login,
+    },
+    {
+      path: '/regulations',
+      name: 'Regulations',
+      component: Regulations,
+    },
+    {
+      path: '/company',
+      name: 'Company',
+      component: Company,
+    },
+    {
+      path: '/operations',
+      name: 'Operations',
+      component: Operations,
     },
     {
       path: '/',

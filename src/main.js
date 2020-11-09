@@ -9,6 +9,8 @@ import { Menu,Submenu,MenuItem,MenuItemGroup,Divider,Loading } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
 import { Toast } from 'vant';
 import moment from 'moment';
+import { Tab, Tabs } from 'vant'
+import { List } from 'vant';
 Vue.prototype.$moment = moment;//赋值使用
 moment.locale('zh-cn');//需要汉化
 Vue.config.productionTip = false
@@ -18,6 +20,9 @@ Vue.use(Submenu);
 Vue.use(MenuItem);
 Vue.use(MenuItemGroup);
 Vue.use(Divider);
+Vue.use(Tab);
+Vue.use(Tabs);
+Vue.use(List);
 Vue.use(Loading);
 window.Toast =Toast
 import '@/assets/styles/main.scss'

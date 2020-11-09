@@ -5,11 +5,12 @@
       finished-text="没有更多了"														 
       offset="300"									
       :error.sync="error" 							 
-      error-text="请求失败，点击重新加载"					 
+      error-text="请求失败，点击重新加载"	
+     		 
       >
       <div v-for='(item, index) in list' :key="index" class="module_list"> 
           <div class="module">
-          <div style="margin:10% 30%" >{{item}}</div>
+          <div style="margin:10% 30%"  @click="onClick(item)"		 >{{item}}</div>
           </div>
       </div>
     </van-list>  
@@ -54,6 +55,12 @@
           Toast.fail("登录异常");
           that.isHide = false;
         });
+      },
+      onClick(item){
+        console.log(item);
+        if (item=="智慧工地"){
+          this.$router.push('/regulations')
+        }
       },
       onConfirm: function (value, index) {
         this.show = false;
