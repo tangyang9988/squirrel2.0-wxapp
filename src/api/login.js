@@ -16,6 +16,7 @@ export const loginByUsername = (tenantId, username, password, key, code) =>{
       tenantId,
       username,
       password,
+      grant_type: "password",
     }
   });
 }

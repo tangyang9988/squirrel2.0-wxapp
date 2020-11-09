@@ -35,8 +35,10 @@
   </div>
 </template>
 <script>
-import { loginByUsername } from "@/api/swap";
+import { loginByUsername } from "@/api/login";
+import {setToken,setRefreshToken,removeToken,removeRefreshToken} from '@/util/auth';
 import { Toast } from "vant";
+import md5 from 'js-md5';
 export default {
   data() {
     return {
@@ -46,12 +48,41 @@ export default {
     };
   },
   methods: {
-    onSubmit() {
-      this.$router.push({ path: "/platform" });
-      sessionStorage.setItem("username",this.username)
-      sessionStorage.setItem("password",this.password)
-      sessionStorage.setItem("tenantId",this.tenantId)
-    },
+      // onSubmit: function (values) {
+      //   let that = this;
+      //   loginByUsername(that.tenantId,that.username,md5(that.password)).then(function (result) {
+      //     let status = result.status,data = result.data;
+      //     setToken(data.access_token);
+      //     setRefreshToken(data.refresh_token);
+      //     // sessionStorage.setItem("username",that.username)
+      //     // sessionStorage.setItem("password",that.password)
+      //     // sessionStorage.setItem("tenantId",that.tenantId)
+      //     that.$router.push({ path: "/platform" });
+      //   }, function (err) {
+      //     Toast.fail("请求异常");
+      //     that.isHide = false;
+      //   }).catch(function (error) {
+      //     debugger
+      //     Toast.fail("登录异常");
+      //   });
+      // },
+      onSubmit: function (values) {
+        let that = this;
+        /*removeToken();
+        removeRefreshToken();*/
+        loginByUsername(that.tenantId,that.username,md5(that.password)).then(function (result) {
+          let status = result.status,data = result.data;
+          setToken(data.access_token);
+          setRefreshToken(data.refresh_token);
+          that.$router.push({ path:"/platform"});
+        }, function (err) {
+          Toast.fail("请求异常");
+          that.isHide = false;
+        }).catch(function (error) {
+          Toast.fail("登录异常");
+          that.isHide = false;
+        });
+      },
   },
   mounted: function () {},
 };
