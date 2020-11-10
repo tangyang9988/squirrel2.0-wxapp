@@ -7,6 +7,7 @@ import Login from '@/views/login'
 import Regulations from '@/views/Regulations'
 import Company from '@/views/Company' 
 import Operations from '@/views/Operations'
+import WaterIndex from '@/views/WaterIndex'
 
 Vue.use(Router)
 
@@ -32,6 +33,11 @@ let router = new Router({
       path: '/operations',
       name: 'Operations',
       component: Operations,
+    },
+    {
+      path: '/water/waterIndex',
+      name: 'WaterIndex',
+      component: WaterIndex,
     },
     {
       path: '/',

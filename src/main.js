@@ -11,6 +11,7 @@ import { Toast } from 'vant';
 import moment from 'moment';
 import { Tab, Tabs } from 'vant'
 import { List } from 'vant';
+import { Col, Row } from 'vant';
 Vue.prototype.$moment = moment;//赋值使用
 moment.locale('zh-cn');//需要汉化
 Vue.config.productionTip = false
@@ -23,6 +24,8 @@ Vue.use(Divider);
 Vue.use(Tab);
 Vue.use(Tabs);
 Vue.use(List);
+Vue.use(Col);
+Vue.use(Row);
 Vue.use(Loading);
 window.Toast =Toast
 import '@/assets/styles/main.scss'
