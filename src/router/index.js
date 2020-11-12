@@ -8,6 +8,8 @@ import Regulations from '@/views/Regulations'
 import Company from '@/views/Company' 
 import Operations from '@/views/Operations'
 import WaterIndex from '@/views/WaterIndex'
+import Pie from '@/views/pie'
+import WaterHistory from '@/views/waterHistory'
 
 Vue.use(Router)
 
@@ -38,6 +40,16 @@ let router = new Router({
       path: '/water/waterIndex',
       name: 'WaterIndex',
       component: WaterIndex,
+    },
+    {
+      path: '/water/waterHistory',
+      name: 'WaterHisory',
+      component: WaterHistory,
+    },
+    {
+      path: '/water/pie',
+      name: 'pie',
+      component: Pie,
     },
     {
       path: '/',

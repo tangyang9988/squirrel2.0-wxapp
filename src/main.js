@@ -12,7 +12,15 @@ import moment from 'moment';
 import { Tab, Tabs } from 'vant'
 import { List } from 'vant';
 import { Col, Row } from 'vant';
+import { Progress } from 'vant';
+import { Search } from 'vant';
+import { DatetimePicker } from 'vant';
+import { Popup } from 'vant';
+
+// import F2 from '@antv/f2';
 Vue.prototype.$moment = moment;//赋值使用
+
+// Vue.prototype.F2 = F2;
 moment.locale('zh-cn');//需要汉化
 Vue.config.productionTip = false
 Vue.use(Vant);
@@ -26,6 +34,10 @@ Vue.use(Tabs);
 Vue.use(List);
 Vue.use(Col);
 Vue.use(Row);
+Vue.use(Progress);
+Vue.use(Search);
+Vue.use(DatetimePicker);
+Vue.use(Popup);
 Vue.use(Loading);
 window.Toast =Toast
 import '@/assets/styles/main.scss'

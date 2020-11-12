@@ -62,6 +62,18 @@
      <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
         <van-cell v-for="(item,id) of dustList" :key="id" :title="item.name" />
     </van-list>
+
+    <!-- f2图表 -->
+   
+		 <div class="box">
+		<div class="chart">
+			<span class="y-title">金额/RMB</span>
+			<canvas id="mountNode">
+			</canvas>
+			<span class="x-title">收益</span>
+		</div>
+	</div>
+
   </div>
 </div>
   
@@ -75,6 +87,7 @@
 import {companyNotice} from '@/api/notice';
 import {warning} from '@/api/warning';
 import {getHighWarning} from '@/api/warning';
+import F2 from "@antv/f2" //引入插件
   export default {
     data() {
       return {
@@ -90,7 +103,8 @@ import {getHighWarning} from '@/api/warning';
         this.getNotice();
         this.getWarningAbnormalData();
         this.getRealTime();
-  },
+
+    },
       onClick(name, title) {
            
     //   Toast(title);
@@ -109,14 +123,111 @@ import {getHighWarning} from '@/api/warning';
         this.isExcel=true;
      }  
     },
-    
+        drawChart(){
+      // 数据源
+				var data = [{
+						year: '2014 年',
+						sales: 145,
+						color:'#5eb6fe'
+					}, {
+						year: '2015 年',
+						sales: 121,
+						color:'#df91e9'
+					}, {
+						year: '2016 年',
+						sales: 100,
+						color:'#5fe9c8'
+					}, {
+						year: '2017 年',
+						sales: 97,
+						color:'#dfb47b'
+					},
+				];
+				
+				 // Step 1: 创建 Chart 对象
+				var chart = new F2.Chart({
+					id: 'mountNode',
+					pixelRatio: window.devicePixelRatio
+				});
+				
+				// Step 2: 载入数据源
+				chart.source(data, {
+					sales: {
+					tickCount: 4
+					}
+				});
+				
+				// 隐藏单元标注
+				chart.legend(false);
+				chart.axis('year', {
+					line: null
+				});
+				
+				// 隐藏点击提示标注
+				chart.tooltip(false);
+				
+				  // 显示 X 轴坐标轴文本为空 
+				chart.axis('year', {
+					label: function label(text) {
+					  return {
+						text:'',
+						fillStyle:'#fff'
+					  };
+					}
+				});
+				
+				// y坐标字体颜色设置
+				chart.axis('sales', {
+					label: function label(text) {
+					  return {
+						fillStyle:'#fff'
+					  };
+					}
+				});
+				
+				// 图内y虚线设置
+				chart.axis('sales', {
+					grid:{
+						lineDash: null,//实线
+						strokeStyle  :'#1c316b',
+						lineWidth: 2
+					},
+					
+				});
+				
+				// 图标提示信息设置
+				data.map(function(obj) {
+					chart.guide().text({
+					  position: [obj.year, obj.sales],
+					  content: obj.sales,//顶部提示
+					  style: {
+						textAlign: 'center',
+						textBaseline: 'bottom',
+						fill:obj.color//顶部字体颜色
+					  },
+					  offsetY: -10
+					});
+				});
+		
+				// 让柱状图的宽度适配不同的屏幕尺寸
+				var barWidth = 36 * (window.innerWidth / 375);
+				// Step 3：创建图形语法，绘制柱状图，由 genre 和 sold 两个属性决定图形位置，genre 映射至 x 轴，sold 映射至 y 轴  渐变色设置
+				chart.interval().position('year*sales').color('year',['l(90) 0:#0984ef 1:#5eb6fe','l(90) 0:#df6dbf 1:#df91e9','l(90) 0:#06a796 1:#5fe9c8','l(90) 0:#df8f49 1:#dfb47b']) // 定义柱状图渐变色
+				.size(barWidth);
+				// Step 4: 渲染图表
+				chart.render();
+			}
+
     
   
     },
   
 
     mounted: function () {
-      
+    
+      this.drawChart();
+
+
     },
     
   };
@@ -176,6 +287,21 @@ import {getHighWarning} from '@/api/warning';
       height: 100%;
       width: 30%;
   }
+  #index{
+	    position: relative;
+	    min-height: 100vh;
+	}
+	#index.abeam {
+	    margin-top:10px;
+	    padding-bottom: 10px;
+	    background: #ffffff;
+	}
+	// 单一柱状图  宽高设置
+	#index.abeam #histogram{
+	    display: block;
+	    width: 100vw;// 我这里是为了移动端适配使用了vw布局，会根据屏幕大小自动缩放
+	    height: 80vw;
+	}
   
 </style>
 <style lang="scss">
