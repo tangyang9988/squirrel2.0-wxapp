@@ -8,7 +8,7 @@ import Regulations from '@/views/Regulations'
 import Company from '@/views/Company' 
 import Operations from '@/views/Operations'
 import WaterIndex from '@/views/WaterIndex'
-
+import history from '@/views/surfaceWater/history'
 Vue.use(Router)
 
 let router = new Router({
@@ -38,6 +38,12 @@ let router = new Router({
       path: '/water/waterIndex',
       name: 'WaterIndex',
       component: WaterIndex,
+    },
+    // 地表水-历史数据
+    {
+      path: '/surfaceWater/history',
+      name: 'history',
+      component: history,
     },
     {
       path: '/',
