@@ -1,15 +1,17 @@
 <template lang="html">
   <div >
-
-  
-   <h2>当月水质等级</h2>
- <div class="charts">
-   
-   <!-- 环图 -->
-  
+   <div class="wholeCard">
+<div class="chartsCard">
+    <div class="chartTitle">
+      <label for="">当月水质等级</label>
+    </div>
+    <div class="charts">
+      <!-- 环图 -->
      <canvas id="myChart" class="cycleChart"></canvas>
      
      <canvas id="barChart" class="barChart"></canvas>
+    </div>
+   
    <!-- 进度条 -->
    <!-- <div class="progresses">  -->
      <!-- <div class="progress"><van-progress :percentage="50" stroke-width="8"/></div>
@@ -24,13 +26,21 @@
     
     
  </div>
+   </div>
+ 
  <div>
     <h2>站点时报</h2>
+    
        <!-- 卡片开始 -->
        <div class="detailCards">
             <div class="detailCard">
-                <label for="">企业单位1-站点1</label>
-                
+                <div class="cardTitle">
+                  <label for="">企业单位1-站点1</label>
+                </div>
+               
+                <div class="cardHr">
+                  <hr>
+                </div>
                  <div class="factorList">
                     <div class="factor">锌：5.28mg/L</div>
                     <div class="factor">氨氮：5.28mg/L</div>
@@ -191,20 +201,31 @@ export default {
   width: 100%;
   height: 100%;
 }
-.charts {
+.wholeCard{
+  width: 90%;
+  height: 240px;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+.chartsCard {
   width: 100%;
-  height: 250px;
-  display: flex;
+  height: 240px;
+  background-color: white;
+ 
+}
+.charts{
+ display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  margin-top: -20px;
 }
 .cycleChart {
-  width: 50%;
+  width: 45% !important;
   height: 250px !important;
 }
 .barChart{
-   width: 50%;
+   width: 45% !important;
    height: 250px !important;
 }
 .progresses {
@@ -232,7 +253,7 @@ export default {
   }
   .detailCard{
     margin-bottom: 5px;
-      width: 80%;
+      width: 90%;
       height: 200px;
       background-color: white;
     border-radius:3px;
@@ -252,5 +273,16 @@ export default {
   .inlineFactor{
     margin-left: 10%;
     margin-top: 5px;
+  }
+  .chartTitle{
+    margin-top: 10px;
+    margin-left: 20px;
+  }
+  .cardHr{
+    width: 90%;
+    padding-left: 5%;
+  }
+  .cardTitle{
+    padding-left: 5%;
   }
 </style>
