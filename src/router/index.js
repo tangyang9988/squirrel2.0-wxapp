@@ -4,7 +4,6 @@ import Router from 'vue-router';
 // 懒加载方式，当路由被访问的时候才加载对应组件
 // const Login = resolve => require(['@/views/login'], resolve);
 import Login from '@/views/login'
-import Company from '@/views/Company'
 import Pie from '@/views/surfaceWater/pie'
 import History from '@/views/surfaceWater/history'
 Vue.use(Router)
@@ -16,11 +15,6 @@ let router = new Router({
       path: '/login',
       name: 'Login',
       component: Login,
-    },
-    {
-      path: '/company',
-      name: 'Company',
-      component: Company,
     },
     // 地表水-历史数据
     {

@@ -15,7 +15,8 @@
 
     <div>
       <div class="cardsHeaderTitle">站点时报</div>
-      <van-search v-model="value" placeholder="请输入站点名称" />
+      <!-- v-model="value" -->
+      <van-search  placeholder="请输入站点名称" />
       <!-- 卡片开始 -->
       <div class="detailCards">
         <div class="detailCard">
@@ -112,10 +113,10 @@
   import PieLabel from "@antv/f2/lib/plugin/pie-label"; //引入插件
   import {
     cycleChart
-  } from '@/api/water';
+  } from '@/api/surfaceWater';
   import {
     portDetail
-  } from '@/api/water';
+  } from '@/api/surfaceWater';
   export default {
     name: "about",
     data() {
@@ -190,7 +191,7 @@
       getCycleChartData() { //水质环图
 
         let that = this;
-        cycleChart().then(function (result) {
+        cycleChart(3,21).then(function (result) {
 
           //环形图
           let numbers = result.data.data.y
@@ -233,7 +234,7 @@
       getPortDetail() { //卡片
 
         let that = this;
-        portDetail().then(function (result) {
+        portDetail(5,21).then(function (result) {
           //拼凑卡片对象
           let portCards = []
           //1.对象的属性

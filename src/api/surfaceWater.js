@@ -31,3 +31,30 @@ export const getHistoryList = (treeId,platform,start,end,current,size) =>{
     }
   });
 }
+//水质环图  id3
+export const cycleChart = (id,platform) =>{
+  return request({
+    url: '/api/squirrel-service/Index/getChartData',
+    method: 'get',
+    headers: {
+      'platform': platform
+    },
+    params: {
+      id
+    }
+  });
+}
+
+//卡片数据 id5
+export const portDetail = (id,platform) =>{
+  return request({
+    url: '/api/squirrel-service/Index/getChartData',
+    method: 'get',
+    headers: {
+      'platform': platform
+    },
+    params: {
+      id
+    }
+  });
+}
