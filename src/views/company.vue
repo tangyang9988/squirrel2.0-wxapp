@@ -29,9 +29,6 @@
     </van-list>
   </div>
 </div>
-  
-
-
 </template>
 
 <script>

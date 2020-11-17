@@ -68,7 +68,7 @@ export default {
     onClick(item) {
       switch (item) {
         case "地表水质量监测系统":
-          this.$router.push("/surfaceWater/history");
+          this.$router.push("/surfaceWater/index");
           break;
         case "智慧工地智能管理系统":
           this.$router.push("/regulations");
