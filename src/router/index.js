@@ -5,9 +5,10 @@ import Router from 'vue-router';
 // const Login = resolve => require(['@/views/login'], resolve);
 import Login from '@/views/login'
 import Regulations from '@/views/Regulations'
-import Company from '@/views/Company' 
+import Company from '@/views/Company'
 import Operations from '@/views/Operations'
 import WaterIndex from '@/views/WaterIndex'
+import Pie from '@/views/pie'
 import history from '@/views/surfaceWater/history'
 Vue.use(Router)
 
@@ -44,6 +45,11 @@ let router = new Router({
       path: '/surfaceWater/history',
       name: 'history',
       component: history,
+    },
+    {
+      path: '/water/pie',
+      name: 'pie',
+      component: Pie,
     },
     {
       path: '/',
