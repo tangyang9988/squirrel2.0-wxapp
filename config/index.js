@@ -31,6 +31,7 @@ module.exports = {
       '/api': {
         changeOrigin: true,
         target: 'http://172.20.0.72',//测试环境
+        // target: 'http://172.16.1.202',//线上环境
         pathRewrite: {
           '^/api': '/'
         }

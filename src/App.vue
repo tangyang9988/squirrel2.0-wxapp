@@ -14,7 +14,8 @@ export default {
   /*@import './font/iconfont.css';*/
   /*@import './styles/style.css';*/
   body, html {
-    background-color: #f5f5f5;
+    /* background-color: #f5f5f5; */
+    background: #FFFFFF;
     font-size: 16px;
     min-height: 100%;
     margin: 0;

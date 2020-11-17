@@ -9,7 +9,7 @@ import Company from '@/views/Company'
 import Operations from '@/views/Operations'
 import WaterIndex from '@/views/WaterIndex'
 import Pie from '@/views/pie'
-import history from '@/views/surfaceWater/history'
+import History from '@/views/surfaceWater/History'
 Vue.use(Router)
 
 let router = new Router({
@@ -44,7 +44,7 @@ let router = new Router({
     {
       path: '/surfaceWater/history',
       name: 'history',
-      component: history,
+      component: History,
     },
     {
       path: '/water/pie',
