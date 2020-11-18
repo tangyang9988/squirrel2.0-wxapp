@@ -58,3 +58,20 @@ export const portDetail = (id,platform) =>{
     }
   });
 }
+
+export const getWarnRecords = (platform,treeId,start,end,current,size) =>{
+  return request({
+    url: '/api/squirrel-service/abnormalinfo/getList',
+    method: 'get',
+    headers: {
+      'platform': platform
+    },
+    params: {
+      current,
+      size,
+      start,
+      end,
+      treeId
+    }
+  });
+}

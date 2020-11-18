@@ -1,5 +1,36 @@
 <template lang="html">
   <div class="pieBody">
+        <van-nav-bar
+      title="Squirrel4.0"
+      left-text="返回"
+      right-text="按钮"
+      left-arrow
+      style="background-color: #f5f5f5"
+    />
+    <div class="header">
+      <van-button
+        type="default"
+        color="#587DF7" plain
+        size="small"
+        style="background: #F2F5FF; opacity: 1; border-radius: 8px;"
+        text-color="red"
+        >首页</van-button>
+      <van-button
+        
+        size="small"
+        style="background: #F2F5FF; opacity: 1; border-radius: 8px;"
+        color="#587DF7">历史数据</van-button>
+      <van-button
+        color="#587DF7" plain
+        size="small"
+        style="background: #F2F5FF; opacity: 1; border-radius: 8px;"
+        >预警管理</van-button>
+      <van-button
+        color="#587DF7" plain
+        size="small"
+        style="background: #F2F5FF; opacity: 1; border-radius: 8px"
+        >站点报表</van-button>
+    </div>
     <div class="wholeCard">
       <div  class="chartsCard">
         <div class="chartTitle">
@@ -290,6 +321,12 @@
 
 </script>
 <style scoped lang="scss">
+  .header{
+    margin:10px 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
   .pieBody {
     width: 100%;
     height: 100%;
