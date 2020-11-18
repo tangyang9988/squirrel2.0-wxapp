@@ -1,15 +1,5 @@
 <template>
   <div class="main">
-    <!-- <van-tabs v-model="active" background="rgba(76, 173, 246, 1)">
-      <van-tab title="首页">
-        <van-search v-model="point" placeholder="请输入搜索关键词" />
-        <van-cell title="选择日期区间" :value="date" @click="show = true" />
-        <van-calendar v-model="show" type="range" @confirm="onConfirm" />
-      </van-tab>
-      <van-tab title="历史数据">历史数据</van-tab>
-      <van-tab title="预警管理">预警管理</van-tab>
-      <van-tab title="站点报表">站点报表</van-tab>
-    </van-tabs> -->
     <van-nav-bar
       title="Squirrel4.0"
       left-text="返回"
@@ -28,7 +18,6 @@
       >
       <van-button
         id="his"
-        color="#587DF7"
         size="small"
         style="background: #F2F5FF; opacity: 1; border-radius: 8px; width: 90px"
         @click="selected($event)"
@@ -45,7 +34,7 @@
       <van-button
         id="point"
         size="small"
-        :color="active == 'point' ? '#587DF7' : ''"
+        color="#587DF7"
         style="background: #F2F5FF; opacity: 1; border-radius: 8px; width: 90px"
         @click="selected($event)"
         >站点报表</van-button
@@ -53,7 +42,7 @@
     </div>
     <van-search v-model="point" placeholder="环保局1/ /站点1" />
     <div class="header_search">
-      <van-button
+      <!-- <van-button
         color="#ADC6FF"
         size="small"
         style="background: #fffff; opacity: 1; border-radius: 8px; width: 90px"
@@ -76,32 +65,23 @@
         size="small"
         style="background: #fffff; opacity: 1; border-radius: 8px"
         >96小时</van-button
-      >
+      > -->
       <div class="calendar">
-        <div style="padding: 7px">
+        <div style="padding: 6px">
           <img
             src="../../assets/images/calendar.png"
             alt=""
             style="height: 15px; width: 15px"
             @click="startShow = true"
           />
-          <span style="" >{{ start }}</span>
+          <span style="">{{ start }}</span>
           <van-calendar v-model="startShow" @confirm="onStartConfirm" />
         </div>
       </div>
-      <span style="margin: 15px 0px">至</span>
-      <div class="calendar" >
-        <div style="padding: 7px">
-          <img
-            src="../../assets/images/calendar.png"
-            alt=""
-            style="height: 15px; width: 15px"
-            @click="endShow = true"
-          />
-          <span style="">{{ end }}</span>
-          <van-calendar v-model="endShow" @confirm="onEndConfirm" />
-        </div>
-      </div>
+      <van-button size="small"  style="width:1px">日</van-button>
+      <van-button size="small" class="button">周</van-button>
+      <van-button size="small" class="button">月</van-button>
+      <van-button size="small" class="button">年</van-button>
     </div>
     <van-list
       v-model="loading"
@@ -135,11 +115,9 @@ export default {
       point: "",
       active: "",
       startShow: false,
-      endShow: false,
       current: 1,
       size: 10,
       start: "",
-      end: "",
       loading: false,
       finished: false,
       tableFactorList: [],
@@ -147,19 +125,13 @@ export default {
   },
   methods: {
     formatDate(date) {
-      return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-    },
-    onConfirm(date) {
-      this.show = false;
-      this.date = this.formatDate(date);
+      return `${date.getFullYear()}年${
+        date.getMonth() + 1
+      }月${date.getDate()}日`;
     },
     onStartConfirm(date) {
       this.startShow = false;
       this.start = this.formatDate(date);
-    },
-    onEndConfirm(date) {
-      this.endShow = false;
-      this.end = this.formatDate(date);
     },
     selected(e) {
       let id = e.currentTarget.id;
@@ -172,7 +144,7 @@ export default {
       } else if (id == "warning") {
         this.$router.push("/surfaceWater/index");
       } else if (id == "point") {
-        this.$router.push("/surfaceWater/report");
+        this.$router.push("/surfaceWater/history");
       }
     },
     // 获取动态表头
@@ -233,8 +205,12 @@ export default {
 .active {
   color: #587DF7;
 }
+.button {
+  background: #ffffff;
+  opacity: 1;
+  border-radius: 8px;
+}
 .calendar {
-  margin: 10px 0px;
   height: 30px;
   width: 45%;
   // background: #A5A5A5;
