@@ -4,8 +4,9 @@ import Router from 'vue-router';
 // 懒加载方式，当路由被访问的时候才加载对应组件
 // const Login = resolve => require(['@/views/login'], resolve);
 import Login from '@/views/login'
-import Pie from '@/views/surfaceWater/pie'
+import WaterIndex from '@/views/surfaceWater/index'
 import History from '@/views/surfaceWater/history'
+import WaterAbnormal from '@/views/surfaceWater/abnormal'
 import Report from '@/views/surfaceWater/siteReport'
 
 Vue.use(Router)
@@ -31,7 +32,7 @@ let router = new Router({
     },
     {
       path: '/surfaceWater/abnormal',
-      name: 'index',
+      name: 'abnormal',
       component: WaterAbnormal,
     },
     {
