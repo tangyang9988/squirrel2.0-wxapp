@@ -45,10 +45,10 @@ export const cycleChart = (id,platform) =>{
   });
 }
 
-//卡片数据 id5
+//实时数据接口
 export const portDetail = (id,platform) =>{
   return request({
-    url: '/api/squirrel-service/Index/getChartData',
+    url: '/api/squirrel-service/Index/getHourReportListByApp',
     method: 'get',
     headers: {
       'platform': platform

@@ -1,9 +1,12 @@
 <template>
   <div class="main">
-     <van-popup position="bottom" v-model:show="isShow" close-on-click-overlay="isClickOverlay" click-overlay="clickOverlay"  @close="poupClose">
+     <van-popup position="bottom" v-model:show="isShow" :lock-scroll="isLockScroll" :close-on-click-overlay="isClickOverlay" click-overlay="clickOverlay"  @close="poupClose">
         <div  class="detailCards">
         <div  class="detailCard">
-         <h2>子组件</h2>
+             <div class="inlineFactor">
+                 <div class="dealCardTitleIconBody"><div class="dealcardTitleIcon"></div></div>
+                 <div class="inlineFactorName dealCardTitle">处理单</div>
+            </div>
             <div class="factorList">
             <div class="singleFactor">
               <div class="factorName">区域：</div>
@@ -95,7 +98,8 @@ export default {
   data() {
     return {
       feedback:"",
-      isClickOverlay:true,
+      isLockScroll:true,
+      isClickOverlay:false,
       loading: false,
       finished: false,
       tableFactorList:[]
@@ -295,5 +299,27 @@ export default {
     line-height: 17px;
     color: #FFFFFF;
     opacity: 1;
+  }
+  .dealCardTitle{
+    font-size: 12px;
+    font-family: PingFang SC;
+    font-weight: bold;
+    line-height: 17px;
+    color: #587DF7;
+  }
+  .dealcardTitleIcon{
+        width: 8px;
+        height: 2px;
+        background: #587DF7;
+        opacity: 1;
+        border-radius: 2px;
+  }
+  .dealCardTitleIconBody{
+      margin-left: 5%;
+    height: 22px;
+    width: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 </style>

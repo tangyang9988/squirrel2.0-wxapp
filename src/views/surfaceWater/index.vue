@@ -44,96 +44,36 @@
       </div>
     </div>
 
-    <div>
-      <div class="cardsHeaderTitle">站点时报</div>
+    <div class="cardsHeaderTitle">站点时报</div>
       <!-- v-model="value" -->
       <van-search  placeholder="请输入站点名称" />
+    <!-- 真实记录 开始 -->
+    <div>
       <!-- 卡片开始 -->
-      <div class="detailCards">
-        <div class="detailCard">
+      <div  class="detailCards">
+        <div v-for = "(value,key) in portRecord" :key="key" class="detailCard">
           <div class="cardTitle">
             <div class="cardTitleIcon"></div>
-            <div class="cardTitleWord">企业单位1-站点1</div>
+            <div class="cardTitleWord">{{value.siteName}}</div>
           </div>
 
-          <!-- <div class="cardHr">
-                  <hr>
-                </div> -->
-          <div class="factorList">
-            <div class="singleFactor">
-              <div class="factorName">水温：</div>
-              <div class="factorValue">27.48℃</div>
-            </div>
-            <div class="singleFactor">
-              <div class="factorName">pH值：</div>
-              <div class="factorValue">7.48</div>
+          <div   class="factorList">
+            <div v-for = "(factorValue,factorKey) in value.factorMap" :factorKey="factorKey" class="singleFactor">
+              <div class="factorName">{{factorKey}}：</div>
+              <div class="factorValue">{{factorValue}}</div>
             </div>
           </div>
-
-          <div class="factorList">
-            <div class="singleFactor">
-              <div class="factorName">电导率：</div>
-              <div class="factorValue">273.2</div>
-            </div>
-            <div class="singleFactor">
-              <div class="factorName">浊度：</div>
-              <div class="factorValue">205.27</div>
-            </div>
-          </div>
-
-
-          <div class="factorList">
-            <div class="singleFactor">
-              <div class="factorName">锌：</div>
-              <div class="factorValue">5.28mg/L</div>
-            </div>
-            <div class="singleFactor">
-              <div class="factorName">氨氮：</div>
-              <div class="factorValue">5.28mg/L</div>
-            </div>
-          </div>
-
-          <div class="factorList">
-            <div class="singleFactor">
-              <div class="factorName">总磷：</div>
-              <div class="factorValue">5.28mg/L/</div>
-            </div>
-            <div class="singleFactor">
-                <div class="factorName">蓝绿藻：</div>
-                <div class="factorValue">-</div>
-            </div>
-          </div>
-            <div class="factorList">
-              <div class="singleFactor">
-                <div class="factorName">五日生化需氧量：</div>
-                <div class="factorValue">5.28mg/L</div>
-                </div>
-                <div class="singleFactor">
-                  <div class="factorName">溶解氧：</div>
-                  <div class="factorValue">5.28mg/L</div>
-                </div>
-              </div>
-              <div class="inlineFactor">
-                <div class="inlineFactorName">化学需氧量：</div>
-                <div class="factorValue ">5.28mg/L</div>
-              </div>
-              <div class="inlineFactor">
-                <div class="inlineFactorName">高锰酸钾指数：</div>
-                <div class="factorValue ">5.28mg/L</div>
-              </div>
-              <div class="inlineFactor">
+          <div class="inlineFactor">
                 <div class="inlineFactorName">水质类别：</div>
-                <div class="factorValue ">III类</div>
-              </div>
-            </div>
-
+                <div class="factorValue inlineFactorValue">{{value.wqiLevel}}</div>
           </div>
-
-
-          <!-- 卡片结束 -->
         </div>
+
       </div>
+
     </div>
+    <!-- 真实记录 结束-->
+    
 </div>
 
 </template>
@@ -155,7 +95,9 @@
         data: [
 
         ],
-        barData: []
+        barData: [],
+        portRecord:[],
+        factors:[]
       };
     },
     methods: {
@@ -269,20 +211,18 @@
           //拼凑卡片对象
           let portCards = []
           //1.对象的属性
-          let allFactors = result.data.data.x
-          let ports = result.data.data.y
-          for (let i = 0; i < ports.length; i++) {//几个卡片
-            for (let j = 0; j < allFactors.length; j++) {//几个因子
-              portCards["factorCodeName"]=allFactors[j].factorCode
-              portCards["factorCodeAlias"]=allFactors[j].alias
-            }
+          let allRecords = result.data.data //记录数组
+          
+          for (let i = 0; i < allRecords.length; i++) {//几个卡片
+            
+            that.portRecord.push(allRecords[i])
+            that.factors.push(allRecords[i].factorMap)
 
-            numberSum += numbers[i]
           }
-          //2.对象的值
+          // //2.对象的值
 
 
-          console.log(portCards)
+          console.log(that.portRecord)
 
 
         }, function (err) {
@@ -384,7 +324,7 @@
 
   .detailCards {
     width: 100%;
-    height: 400px;
+    // height: 400px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -392,9 +332,10 @@
   }
 
   .detailCard {
-    margin-bottom: 5px;
+    margin-bottom: 15px;
+    // height: 110px;
     width: 90%;
-    height: 290px;
+    // height: 290px;
     background-color: white;
     border-radius: 3px;
     
@@ -402,13 +343,15 @@
   }
 
   .factorList {
-    height: 25px;
+    // height: 25px;
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: center;
+    flex-wrap:  wrap ;
+    flex-direction: row;
     width: 100%;
-    margin-bottom: 8px;
-    margin-left: 5px;
+    // margin-bottom: 8px;
+    margin-left: 5%;
   }
 
   .singleFactor {
@@ -444,8 +387,8 @@
     align-items: left;
   }
   .inlineFactorName {
-    margin-left: 10px;
-    margin-top: 5px;
+    margin-left: 5%;
+    // margin-top: 5px;
     font-size: 12px;
     font-family: PingFang SC;
     font-weight: 400;
@@ -455,6 +398,7 @@
   }
   .inlineFactorValue{
     float:left;
+    // margin-top: 5px;
   }
 
   .chartTitle {
@@ -507,6 +451,7 @@
 
   }
   .cardsHeaderTitle{
+    margin-left: 5%;
     font-size: 16px;
     font-family: PingFang SC;
     font-weight: 500;
