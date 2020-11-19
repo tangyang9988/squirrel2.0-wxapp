@@ -9,26 +9,29 @@
     />
     <div class="header">
       <van-button
-        type="default"
-        color="#587DF7" plain
+        id="index"
+        color="#587DF7"
         size="small"
-        style="background: #F2F5FF; opacity: 1; border-radius: 8px;"
-        text-color="red"
+        style="background: #F2F5FF; opacity: 1; border-radius: 8px;width: 90px"
+        @click="selected($event)"
         >首页</van-button>
       <van-button
-        
+        id="his"
         size="small"
-        style="background: #F2F5FF; opacity: 1; border-radius: 8px;"
-        color="#587DF7">历史数据</van-button>
+        style="background: #F2F5FF; opacity: 1; border-radius: 8px;width: 90px"
+        @click="selected($event)"
+        >历史数据</van-button>
       <van-button
-        color="#587DF7" plain
+        id="warning"
         size="small"
-        style="background: #F2F5FF; opacity: 1; border-radius: 8px;"
+        style="background: #F2F5FF; opacity: 1; border-radius: 8px;width: 90px"
+        @click="selected($event)"
         >预警管理</van-button>
       <van-button
-        color="#587DF7" plain
+        id="point"
         size="small"
-        style="background: #F2F5FF; opacity: 1; border-radius: 8px"
+        style="background: #F2F5FF; opacity: 1; border-radius: 8px;width: 90px"
+        @click="selected($event)"
         >站点报表</van-button>
     </div>
     <div class="wholeCard">
@@ -92,15 +95,28 @@
     name: "about",
     data() {
       return {
-        data: [
-
-        ],
+        data: [],
         barData: [],
         portRecord:[],
-        factors:[]
+        factors:[],
+        active:""
       };
     },
     methods: {
+          selected(e) {
+      let id = e.currentTarget.id;
+      // this.active = "#587DF7";
+      this.active = id;
+      if (id == "index") {
+        this.$router.push("/surfaceWater/index");
+      } else if (id == "his") {
+        this.$router.push("/surfaceWater/history");
+      } else if (id == "warning") {
+        this.$router.push("/surfaceWater/index");
+      } else if (id == "point") {
+        this.$router.push("/surfaceWater/report");
+      }
+    },
 
       drawChart() {
         // Step 1: 创建 Chart 对象

@@ -17,7 +17,7 @@ export const getHistoryHeader = (treeIds,platform) =>{
 }
 export const getHistoryList = (treeId,platform,start,end,current,size) =>{
   return request({
-    url: '/api/squirrel-service/historyData/getList',
+    url: '/api/squirrel-service/historyData/getHistoryDataByApp',
     method: 'get',
     headers: {
       platform:platform
@@ -72,6 +72,20 @@ export const getWarnRecords = (platform,treeId,start,end,current,size) =>{
       start,
       end,
       treeId
+    }
+  });
+}
+export const getReportList = (platform,treeId,type,time) =>{
+  return request({
+    url: '/api/squirrel-service/statreport/getReportList',
+    method: 'get',
+    headers: {
+      'platform': platform
+    },
+    params: {
+      treeId,
+      type,
+      time,
     }
   });
 }

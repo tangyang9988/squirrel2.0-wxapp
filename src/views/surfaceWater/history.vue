@@ -103,18 +103,28 @@
         </div>
       </div>
     </div>
-    <van-list
-      v-model="loading"
-      :finished="finished"
-      finished-text="暂无更多数据"
-    >
-      <van-cell
-        v-for="item in tableFactorList"
-        :key="item"
-        :title="item.siteName"
-        :value="item.collTime"
-      />
-    </van-list>
+    <!-- 卡片列表 -->
+    <div v-for="item in tableFactorList" :key="item">
+      <div class="detailCard">
+        <div class="detailCard_header">
+          <img
+            src="../../assets/images/clock.png"
+            alt=""
+            style="height: 15px; width: 15px; padding: 10px"
+            @click="startShow = true"
+          />
+          <div class="header_title">{{ item.collTime }}</div>
+        </div>
+        <div class="content">
+          <div v-for="(value,key) in item.factorMap" :key="key" class="singleFactor">
+            <span class="content_value_name">{{key}}：</span><span class="content_value">{{value}}</span>
+          <!-- <div class="line"></div> -->
+        </div>
+        <span class="content_value_name">水质类别：</span><span class="content_value">{{"II"}}</span>
+        </div>
+
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -170,23 +180,12 @@ export default {
       } else if (id == "his") {
         this.$router.push("/surfaceWater/history");
       } else if (id == "warning") {
-        this.$router.push("/surfaceWater/index");
+        this.$router.push("/surfaceWater/abnormal");
       } else if (id == "point") {
         this.$router.push("/surfaceWater/report");
       }
     },
-    // 获取动态表头
-    getHeader() {
-      getHistoryHeader("1288316940539334658", "21").then(
-        function (result) {
-          let title = result.data.data.x;
-          let data = result.data.data.y;
-        },
-        function (err) {
-          Toast.fail("请求异常");
-        }
-      );
-    },
+
     // 获取列表
     getList() {
       var that = this;
@@ -195,15 +194,12 @@ export default {
         "21",
         "2020-11-17 00:00:00",
         "2020-11-17 23:59:59",
-        that.current,
-        that.size
       ).then(
         function (result) {
-          let list = result.data.data.records;
+          let list = result.data.data;
           for (let i = 0; i < list.length; i++) {
             that.tableFactorList.push(list[i]);
           }
-          that.loading = false;
         },
         function (err) {
           Toast.fail("请求异常");
@@ -212,7 +208,6 @@ export default {
     },
   },
   mounted: function () {
-    this.getHeader();
     this.getList();
   },
 };
@@ -241,4 +236,75 @@ export default {
   border-radius: 8px;
   border: 1px solid #A5A5A5;
 }
+.detailCard {
+  margin: 10px 15px;
+  // height: 670px;
+  background: #FFFFFF;
+  border: 1px solid #EFEFEF;
+  box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.05);
+  opacity: 1;
+  border-radius: 12px;
+}
+.detailCard_header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  height: 39px;
+  background: #F4F4F4;
+  opacity: 1;
+  border-radius: 12px 12px 0px 0px;
+}
+.header_title {
+  width: 151px;
+  height: 17px;
+  font-size: 12px;
+  font-family: PingFang SC;
+  font-weight: 500;
+  line-height: 17px;
+  color: #000000;
+  opacity: 1;
+  padding: 10px;
+}
+.content_value_name {
+  margin: 5px;
+  height: 17px;
+  font-size: 12px;
+  font-family: PingFang SC;
+  font-weight: 400;
+  line-height: 17px;
+  color: #000000;
+  opacity: 1;
+}
+.content_value {
+  margin: 5px;
+  height: 17px;
+  font-size: 12px;
+  font-family: PingFang SC;
+  font-weight: bold;
+  line-height: 17px;
+  color: #000000;
+  opacity: 1;
+}
+.content {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap:  wrap ;
+  flex-direction: row;
+  width: 100%;
+  margin-left:2%;
+}
+.singleFactor {
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  width: 45%;
+}
+.line {
+  margin: 10px;
+  height: 0px;
+  border: 1px solid #DEDEDE;
+  opacity: 1;
+}
+
 </style>
