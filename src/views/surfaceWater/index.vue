@@ -49,7 +49,7 @@
 
     <div class="cardsHeaderTitle">站点时报</div>
       <!-- v-model="value" -->
-      <van-search  placeholder="请输入站点名称" />
+      <!-- <van-search  placeholder="请输入站点名称" /> -->
     <!-- 真实记录 开始 -->
     <div>
       <!-- 卡片开始 -->
