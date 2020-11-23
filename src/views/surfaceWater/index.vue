@@ -112,7 +112,7 @@
       } else if (id == "his") {
         this.$router.push("/surfaceWater/history");
       } else if (id == "warning") {
-        this.$router.push("/surfaceWater/index");
+        this.$router.push("/surfaceWater/abnormal");
       } else if (id == "point") {
         this.$router.push("/surfaceWater/report");
       }

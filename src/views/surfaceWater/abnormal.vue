@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-   
+
     <van-nav-bar
       title="Squirrel4.0"
       left-text="返回"
@@ -74,12 +74,12 @@
           <van-dropdown-item v-model="value2" :options="option2" />
         </van-dropdown-menu>
     </div>  -->
-   
-    
+
+
 
     <div  class="detailCards">
         <div v-for="(item,i) in tableFactorList" class="detailCard">
-         
+
           <div class="factorList">
             <div class="singleFactor">
               <div class="factorName">区域：</div>
@@ -134,32 +134,32 @@
                     <div class="factorName">状态：</div>
                     <div class="factorValue">{{item.status==1?'已处理':'未处理'}}</div>
                 </div>
-               
+
             </div>
             <div class="cardButtons">
                 <van-button class="cardButton"  v-if="item.status==1" type="default"  @click="showForm(item)" >点击查看</van-button>
                 <van-button  class="cardButton" v-else type="default" @click="showForm(item)">点击处理</van-button>
             </div>
-            
+
             </div>
-           
+
           </div>
           <!-- 卡片结束 -->
            <abnormal-form v-if="abnormalFormHShow" @poupClose='listenPoupClose'  :message="chooseRecord" :isShow="abnormalFormHShow"></abnormal-form>
         </div>
-       
-         
-      
+
+
+
       </div>
-      
-      
+
+
   </div>
 </template>
 <script>
 import { getHistoryHeader } from "@/api/surfaceWater";
 import { getWarnRecords } from "@/api/surfaceWater";
 import { searchPoints } from "@/api/surfaceWater";
-import { abnormalInfoSubmit } from "@/api/surfaceWater"; 
+import { abnormalInfoSubmit } from "@/api/surfaceWater";
 import {
   setToken,
   setRefreshToken,
@@ -206,7 +206,7 @@ export default {
     };
   },
   methods: {
-    
+
     formatDate(date) {
       return `${date.getMonth() + 1}/${date.getDate()}`;
     },
@@ -235,7 +235,7 @@ export default {
     }
   },
     // 获取动态表头
-    
+
     // 获取列表 treeId,start,end,current,size
     getList(deptId) {
         if (deptId.length==0){
@@ -274,8 +274,8 @@ export default {
       searchPoints("21",that.point).then(
         function (result) {
             that.searchContent=result.data.data;
-            
-            
+
+
         },
         function (err) {
           Toast.fail("请求异常");
@@ -283,7 +283,7 @@ export default {
       );
     },
     //处理信息提交 abnormalInfoSubmit
-    
+
     //选择站点
     selectPort(e){
         console.log("选择的站点：",e)
@@ -315,7 +315,7 @@ export default {
     const s = year + '-' + (mon < 10 ? ('0' + mon) : mon) + '-' + (day < 10 ? ('0' + day) : day);
     return s;
 }
-    
+
   },
   mounted: function () {
     //   this.getAlarmType();
@@ -356,7 +356,7 @@ export default {
     height: 250px;
     background-color: white;
     border-radius: 3px;
-    
+
     //box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.05);//阴影
     box-shadow:2px 3px 10px  rgba(0, 0, 0, 0.05),   /*左边阴影*/
 
@@ -452,7 +452,7 @@ export default {
     display: flex;
     justify-content: left;
     align-items: left;
-    
+
 
   }
 
@@ -492,24 +492,12 @@ export default {
      height: 30px;
     box-shadow: 0px 3px 12px rgba(250, 139, 22, 0.5);
     //字体
-    
+
     font-size: 12px;
     font-family: PingFang SC;
     font-weight: 500;
     line-height: 17px;
     color: #FFFFFF;
     opacity: 1;
-  }
-  .calendar {
-  margin: 10px 0px;
-  height: 30px;
-  width: 45%;
-  // background: #A5A5A5;
-  border-radius: 8px;
-  border: 1px solid #A5A5A5;
-  }
-  .drops{
-      display: flex;
-      flex-wrap: wrap;
   }
 </style>

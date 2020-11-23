@@ -1,19 +1,13 @@
 <template>
   <div class="main">
     <van-nav-bar title="Squirrel4.0" />
-    <van-list
-      finished-text="没有更多了"
-      offset="300"
-      error-text="请求失败，点击重新加载"
-    >
-      <div v-for="(item, index) in list" :key="index" class="module_list">
-        <div class="module">
-          <div style="margin: 10% 25%" @click="onClick(item.name)">
+    <div v-for="(item, index) in list" :key="index">
+      <div class="module_list">
+          <div @click="onClick(index)" class="module">
             {{ item.name }}
-          </div>
         </div>
       </div>
-    </van-list>
+    </div>
   </div>
 </template>
 
@@ -65,33 +59,33 @@ export default {
           that.isHide = false;
         });
     },
-    onClick(item) {
-      switch (item) {
-        case "地表水质量监测系统":
+    onClick(index) {
+      switch (index) {
+        case 0:
           this.$router.push("/surfaceWater/index");
           break;
-        case "智慧工地智能管理系统":
+        case 1:
           this.$router.push("/regulations");
           break;
-        case "地表水体环境污染源监测系统":
+        case 2:
           this.$router.push("/regulations");
           break;
-        case "空气智能监管系统":
+        case 3:
           this.$router.push("/regulations");
           break;
-        case "餐饮油烟监控管理系统":
+        case 4:
           this.$router.push("/regulations");
           break;
-        case "VOC环境智能监管系统":
+        case 5:
           this.$router.push("/regulations");
           break;
-        case "基础管理系统":
+        case 6:
           this.$router.push("/regulations");
           break;
-        case "后台管理系统":
+        case 7:
           this.$router.push("/regulations");
           break;
-        case "远程智控":
+        case 8:
           this.$router.push("/regulations");
           break;
       }
@@ -202,9 +196,6 @@ export default {
   }
 
   .bottom_explain {
-    /* position: fixed;*/
-    /*width: 230px;*/
-    /* position: fixed;*/
     color: #fff;
     font-size: 12px;
     text-align: center;
@@ -214,14 +205,14 @@ export default {
 .containerHide {
   display: none;
 }
-
 .module_list {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap:nowrap;
+  justify-content: flex-start;
 }
 .module {
-  height: 100px;
-  width: 100%;
+  height: 50px;
+  width: 20%;
   margin: 10px;
   background: rgb(241, 240, 240);
 }
