@@ -35,7 +35,46 @@
         @click="selected($event)"
         >站点报表</van-button>
     </div>
-    <van-search v-model="point" placeholder="环保局1/ /站点1" />
+    <van-search v-model="point" placeholder="环保局1/ /站点1"  @search="onSearch"/>
+    <!-- 搜索框展示搜索内容  searchContent-->
+    <div  v-if="isShowSearchContent">
+        <van-cell   size="large"  v-for="retlist in searchContent" :key="retlist.deptId" :title="retlist.deptName" :value="retlist.siteName"  @click="selectPort(retlist)" />
+    </div>
+
+    <!-- 时间 -->
+     <!-- <div class="calendar">
+        <div style="padding: 7px">
+          <img
+            src="../../assets/images/calendar.png"
+            alt=""
+            style="height: 15px; width: 15px"
+            @click="startShow = true"
+          />
+          <span style="" >{{ start }}</span>
+          <van-calendar v-model="startShow" @confirm="onStartConfirm" />
+        </div>
+      </div>
+      <span style="margin: 15px 0px">至</span>
+      <div class="calendar" >
+        <div style="padding: 7px">
+          <img
+            src="../../assets/images/calendar.png"
+            alt=""
+            style="height: 15px; width: 15px"
+            @click="endShow = true"
+          />
+          <span style="">{{ end }}</span>
+          <van-calendar v-model="endShow" @confirm="onEndConfirm" />
+        </div>
+      </div>
+    <!-- 预警类型 ,是否完成-->
+    <!-- <div class="drops">
+         <van-dropdown-menu>
+          <van-dropdown-item v-model="value1" :options="alertTypeList" />
+          <van-dropdown-item v-model="value2" :options="option2" />
+        </van-dropdown-menu>
+    </div>  -->
+   
     
 
     <div  class="detailCards">
@@ -98,7 +137,7 @@
                
             </div>
             <div class="cardButtons">
-                <van-button class="cardButton"  v-if="item.status==1" type="default">点击查看</van-button>
+                <van-button class="cardButton"  v-if="item.status==1" type="default"  @click="showForm(item)" >点击查看</van-button>
                 <van-button  class="cardButton" v-else type="default" @click="showForm(item)">点击处理</van-button>
             </div>
             
@@ -119,6 +158,8 @@
 <script>
 import { getHistoryHeader } from "@/api/surfaceWater";
 import { getWarnRecords } from "@/api/surfaceWater";
+import { searchPoints } from "@/api/surfaceWater";
+import { abnormalInfoSubmit } from "@/api/surfaceWater"; 
 import {
   setToken,
   setRefreshToken,
@@ -144,7 +185,24 @@ export default {
       finished: false,
       tableFactorList:[],
       abnormalFormHShow:false,
-      chooseRecord:{}
+      chooseRecord:{},
+      value1: -1,
+      value2: -1,
+      alertTypeList: [
+        { text: '全部', value: -1 },
+      ],
+      option2: [
+        { text: '全部', value: -1 },
+        { text: '未处理', value: 0 },
+        { text: '已处理', value: 1 },
+      ],
+      startShow: false,
+      endShow: false,
+       start: "",
+      end: "",
+      searchContent:[],
+      isShowSearchContent:false,
+      tmpPointId:""
     };
   },
   methods: {
@@ -179,11 +237,16 @@ export default {
     // 获取动态表头
     
     // 获取列表 treeId,start,end,current,size
-    getList() {
-        
+    getList(deptId) {
+        if (deptId.length==0){
+            deptId="1288316940539334658"
+        }
       var that = this;
-      getWarnRecords("21","1288316940539334658", "2020-11-12","2020-11-18",that.current,that.size).then(
+      var beforeSevenDayDate=this.getBeforeDate(7)
+      var todyaDate=this.getBeforeDate(0)
+      getWarnRecords("21",deptId, beforeSevenDayDate,todyaDate,that.current,that.size).then(
         function (result) {
+            that.tableFactorList=[];
           let list = result.data.data.records;
             for (let i=0;i<list.length;i++){
                 that.tableFactorList.push(list[i]);
@@ -200,12 +263,63 @@ export default {
     listenPoupClose(data){
         console.log("从子组件获取的信息：",data)
         this.abnormalFormHShow=false;
+        //刷新列表
+        this.getList(this.tmpPointId);
 
+    },
+    //预警类型 getAlertTypeType
+    onSearch(){
+         var that = this;
+         that.isShowSearchContent=true;
+      searchPoints("21",that.point).then(
+        function (result) {
+            that.searchContent=result.data.data;
+            
+            
+        },
+        function (err) {
+          Toast.fail("请求异常");
+        }
+      );
+    },
+    //处理信息提交 abnormalInfoSubmit
+    
+    //选择站点
+    selectPort(e){
+        console.log("选择的站点：",e)
+        this.isShowSearchContent=false;
+        // this.tableFactorList=[];
+        this.getList(e.siteId);
+        this.tmpPointId=e.siteId;
+    },
+    //获取前几天
+    // 返回前number天的日期格式为2020-02-02，参数number为前几天
+  getBeforeDate(number) {
+    const num = number;
+    const date = new Date();
+    let year = date.getFullYear();
+    let mon = date.getMonth() + 1;
+    let day = date.getDate();
+    if (day <= num) {
+        if (mon > 1) {
+            mon = mon - 1;
+        } else {
+            year = year - 1;
+            mon = 12;
+        }
     }
+    date.setDate(date.getDate() - num);
+    year = date.getFullYear();
+    mon = date.getMonth() + 1;
+    day = date.getDate();
+    const s = year + '-' + (mon < 10 ? ('0' + mon) : mon) + '-' + (day < 10 ? ('0' + day) : day);
+    return s;
+}
+    
   },
   mounted: function () {
-
-    this.getList();
+    //   this.getAlarmType();
+    this.getList("");
   },
 };
 </script>
@@ -385,5 +499,17 @@ export default {
     line-height: 17px;
     color: #FFFFFF;
     opacity: 1;
+  }
+  .calendar {
+  margin: 10px 0px;
+  height: 30px;
+  width: 45%;
+  // background: #A5A5A5;
+  border-radius: 8px;
+  border: 1px solid #A5A5A5;
+  }
+  .drops{
+      display: flex;
+      flex-wrap: wrap;
   }
 </style>

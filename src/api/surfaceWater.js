@@ -89,3 +89,48 @@ export const getReportList = (platform,treeId,type,time) =>{
     }
   });
 }
+//预警类型
+export const getAlertTypeType = (platform,alertType) =>{
+  return request({
+    url: '/api/blade-system/dict/dictionary',
+    method: 'get',
+    headers: {
+      'platform': platform
+    },
+    params: {
+      code:alertType
+    }
+  });
+}
+ 
+//预警模糊搜索 /squirrel-service/historyData/getEntPointGroupInfoList
+export const searchPoints = (platform,parm) =>{
+  return request({
+    url: '/api/squirrel-service/historyData/getEntPointGroupInfoList',
+    method: 'get',
+    headers: {
+      'platform': platform
+    },
+    params: {
+      param:parm
+    }
+  });
+}
+
+//预警处理提交
+export const abnormalInfoSubmit = (platform,conclusion,ids) =>{
+  
+  return request({
+    url: '/api/squirrel-service/abnormalinfo/submit',
+    method: 'post',
+    headers: {
+      'platform': platform,
+      'Content-Type':"application/json"
+    },
+    data:{
+      conclusion: conclusion,
+      ids: ids
+    },
+    
+  });
+}

@@ -62,15 +62,17 @@
                 </div>
             </div>
             <van-field
+              v-if="isShowCommit"
               v-model="feedback"
               rows="1"
               autosize
               label="留言"
               type="textarea"
               placeholder="请输入留言"
-            />   
+            />
+            <label v-else >{{feedback}}</label>   
             <div class="cardButtons">
-                <van-button class="cardButton"   type="default" @click="commit">提交</van-button>
+                <van-button v-if="isShowCommit" class="cardButton"   type="default" @click="commit">提交</van-button>
                 <van-button  class="cardButton"  type="default" @click="cancel">取消</van-button>
             </div>
             
@@ -85,6 +87,7 @@
 <script>
 import { getHistoryHeader } from "@/api/surfaceWater";
 import { getWarnRecords } from "@/api/surfaceWater";
+import { abnormalInfoSubmit } from "@/api/surfaceWater"; 
 import {
   setToken,
   setRefreshToken,
@@ -102,7 +105,8 @@ export default {
       isClickOverlay:false,
       loading: false,
       finished: false,
-      tableFactorList:[]
+      tableFactorList:[],
+      isShowCommit:false
     };
   },
   methods: {
@@ -120,6 +124,16 @@ export default {
         console.log("点击提交")
         this.isShow=false;
         this.$emit('poup-close',false)
+         abnormalInfoSubmit("21",this.feedback,this.message.id).then(
+        function (result) {
+            console.log(result.data)
+            
+            
+        },
+        function (err) {
+          Toast.fail("请求异常");
+        }
+      );
     },
     cancel(){
          console.log("点击取消")
@@ -130,6 +144,11 @@ export default {
   
   mounted: function () {
       console.log("子组件：",this.message,"子组件是否打开",this.isShow)
+      if (this.message.status==0){
+        this.isShowCommit=true;
+      }else{
+        this.feedback=this.message.conclusion;
+      }
     
   },
 };

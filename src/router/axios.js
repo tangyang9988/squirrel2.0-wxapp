@@ -26,7 +26,10 @@ axios.interceptors.request.use(function (config) {
   }
 
   if (config.method === 'post' && meta.isSerialize === true) {
+    
+    config.headers["Content-Type"] = "application/json";
     config.data = serialize(config.data);
+    console.log(config.headers)
   }
   return config;
 }, function (error) {

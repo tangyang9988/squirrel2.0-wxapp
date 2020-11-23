@@ -16,6 +16,7 @@ import { Progress } from 'vant';
 import { Search } from 'vant';
 import { DatetimePicker } from 'vant';
 import { Popup } from 'vant';
+import { DropdownMenu, DropdownItem } from 'vant';
 
 // import F2 from '@antv/f2';
 Vue.prototype.$moment = moment;//赋值使用
@@ -39,6 +40,8 @@ Vue.use(Search);
 Vue.use(DatetimePicker);
 Vue.use(Popup);
 Vue.use(Loading);
+Vue.use(DropdownMenu);
+Vue.use(DropdownItem);
 window.Toast =Toast
 import '@/assets/styles/main.scss'
 /* eslint-disable no-new */
