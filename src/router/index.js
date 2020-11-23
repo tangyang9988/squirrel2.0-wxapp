@@ -8,6 +8,7 @@ import WaterIndex from '@/views/surfaceWater/index'
 import History from '@/views/surfaceWater/history'
 import WaterAbnormal from '@/views/surfaceWater/abnormal'
 import Report from '@/views/surfaceWater/siteReport'
+import intelligenceConstructionIndex from '@/views/intelligenceConstruction/index'
 
 Vue.use(Router)
 
@@ -39,6 +40,11 @@ let router = new Router({
       path: '/surfaceWater/report',
       name: 'report',
       component: Report,
+    },
+    {
+      path: '/intelligenceConstruction/index',
+      name: 'constructionIndex',
+      component: intelligenceConstructionIndex,
     },
     {
       path: '/',
