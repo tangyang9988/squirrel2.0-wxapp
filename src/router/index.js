@@ -9,7 +9,9 @@ import History from '@/views/surfaceWater/history'
 import WaterAbnormal from '@/views/surfaceWater/abnormal'
 import Report from '@/views/surfaceWater/siteReport'
 import intelligenceConstructionIndex from '@/views/intelligenceConstruction/index'
-
+import intelligenceConstructionHistory from '@/views/intelligenceConstruction/history'
+import intelligenceConstructionAbnormal from '@/views/intelligenceConstruction/abnormal'
+import intelligenceConstructionReport from '@/views/intelligenceConstruction/siteReport'
 Vue.use(Router)
 
 let router = new Router({
@@ -45,6 +47,21 @@ let router = new Router({
       path: '/intelligenceConstruction/index',
       name: 'constructionIndex',
       component: intelligenceConstructionIndex,
+    },
+    {
+      path: '/intelligenceConstruction/history',
+      name: 'constructionHistory',
+      component: intelligenceConstructionHistory,
+    },
+    {
+      path: '/intelligenceConstruction/abnormal',
+      name: 'constructionAbnormal',
+      component: intelligenceConstructionAbnormal,
+    },
+    {
+      path: '/intelligenceConstruction/report',
+      name: 'constructionReport',
+      component: intelligenceConstructionReport,
     },
     {
       path: '/',

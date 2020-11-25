@@ -35,47 +35,11 @@
         @click="selected($event)"
         >站点报表</van-button>
     </div>
-    <van-search v-model="point" placeholder="环保局1/ /站点1"  @input="onSearch"/>
+    <van-search v-model="point" placeholder="环保局1/ /站点1"  @search="onSearch"/>
     <!-- 搜索框展示搜索内容  searchContent-->
     <div  v-if="isShowSearchContent">
         <van-cell   size="large"  v-for="retlist in searchContent" :key="retlist.deptId" :title="retlist.deptName" :value="retlist.siteName"  @click="selectPort(retlist)" />
     </div>
-
-    <!-- 时间 -->
-     <!-- <div class="calendar">
-        <div style="padding: 7px">
-          <img
-            src="../../assets/images/calendar.png"
-            alt=""
-            style="height: 15px; width: 15px"
-            @click="startShow = true"
-          />
-          <span style="" >{{ start }}</span>
-          <van-calendar v-model="startShow" @confirm="onStartConfirm" />
-        </div>
-      </div>
-      <span style="margin: 15px 0px">至</span>
-      <div class="calendar" >
-        <div style="padding: 7px">
-          <img
-            src="../../assets/images/calendar.png"
-            alt=""
-            style="height: 15px; width: 15px"
-            @click="endShow = true"
-          />
-          <span style="">{{ end }}</span>
-          <van-calendar v-model="endShow" @confirm="onEndConfirm" />
-        </div>
-      </div>
-    <!-- 预警类型 ,是否完成-->
-    <!-- <div class="drops">
-         <van-dropdown-menu>
-          <van-dropdown-item v-model="value1" :options="alertTypeList" />
-          <van-dropdown-item v-model="value2" :options="option2" />
-        </van-dropdown-menu>
-    </div>  -->
-
-
 
     <div  class="detailCards">
         <div v-for="(item,i) in tableFactorList" class="detailCard">
@@ -224,15 +188,15 @@ export default {
     let id = e.currentTarget.id;
     // this.active = "#587DF7";
     this.active = id;
-    if (id == "index") {
-      this.$router.push("/surfaceWater/index");
-    } else if (id == "his") {
-      this.$router.push("/surfaceWater/history");
-    } else if (id == "warning") {
-      this.$router.push("/surfaceWater/abnormal");
-    } else if (id == "point") {
-      this.$router.push("/surfaceWater/report");
-    }
+     if (id == "index") {
+        this.$router.push("/intelligenceConstruction/index");
+      } else if (id == "his") {
+        this.$router.push("/intelligenceConstruction/history");
+      } else if (id == "warning") {
+        this.$router.push("/intelligenceConstruction/abnormal");
+      } else if (id == "point") {
+        this.$router.push("/intelligenceConstruction/report");
+      }
   },
     // 获取动态表头
 
@@ -244,7 +208,7 @@ export default {
       var that = this;
       var beforeSevenDayDate=this.getBeforeDate(7)
       var todyaDate=this.getBeforeDate(0)
-      getWarnRecords("21",deptId, beforeSevenDayDate,todyaDate,that.current,that.size).then(
+      getWarnRecords("39",deptId, beforeSevenDayDate,todyaDate,that.current,that.size).then(
         function (result) {
             that.tableFactorList=[];
           let list = result.data.data.records;
