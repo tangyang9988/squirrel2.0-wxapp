@@ -2,12 +2,9 @@
   <div>
     <van-nav-bar
       title="Squirrel4.0"
-      left-text="返回"
-      left-arrow
       style="background-color: #f5f5f5"
     />
-    <div class="body">
-      <div style="" >
+      <div class="body">
         <van-form @submit="onSubmit">
           <van-field
             v-model="tenantId"
@@ -37,7 +34,6 @@
             </van-button>
           </div>
         </van-form>
-      </div>
       </div>
   </div>
 </template>
@@ -90,10 +86,10 @@ export default {
 </script>
 <style scoped lang="scss">
 .body{
-  // background: url(../../assets/images/login.png) no-repeat;
-  //  background-size:60% 80%;
-  //  -moz-background-size:60% 80%;
-  //  -webkit-background-size:60% 80%;
-  //  -o-background-size:60% 80%;
+  width:100%;
+  height:500px;
+  // background-image: url(../../assets/images/login.png);
+  background-size:auto;
+  margin:10% 10px;
 }
 </style>

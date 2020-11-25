@@ -1,11 +1,16 @@
 <template>
   <div class="main">
-    <van-nav-bar title="Squirrel4.0" />
-    <div v-for="(item, index) in list" :key="index">
-      <div class="module_list">
-          <div @click="onClick(index)" class="module">
-            {{ item.name }}
-        </div>
+    <van-nav-bar
+      title="Squirrel4.0"
+      left-text="返回"
+      left-arrow
+      style="background-color: #f5f5f5"
+      @click-left="onClickLeft"
+    />
+    <div class="module_list">
+      <div v-for="(item, index) in list" :key="index">
+        <div @click="onClick(index)" :class="'module' + index"></div>
+        <div class="module_title">{{ item.name }}</div>
       </div>
     </div>
   </div>
@@ -65,7 +70,7 @@ export default {
           this.$router.push("/surfaceWater/index");
           break;
         case 1:
-          this.$router.push("/regulations");
+          this.$router.push("/intelligenceConstruction/index");
           break;
         case 2:
           this.$router.push("/regulations");
@@ -139,7 +144,11 @@ export default {
         })
       );
     },
+    onClickLeft: function () {
+      this.$router.push("/");
+    },
   },
+
   mounted: function () {
     let tenantId = sessionStorage.getItem("tenantId");
     let username = sessionStorage.getItem("username");
@@ -207,14 +216,74 @@ export default {
 }
 .module_list {
   display: flex;
-  flex-wrap:nowrap;
-  justify-content: flex-start;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
-.module {
-  height: 50px;
-  width: 20%;
-  margin: 10px;
-  background: rgb(241, 240, 240);
+.module0 {
+  height: 98px;
+  width: 98px;
+  margin: 20px 10px;
+  background: url(../assets/images/menu/1.png);
+}
+.module1 {
+  height: 98px;
+  width: 98px;
+  margin: 20px 10px;
+  background: url(../assets/images/menu/2.png);
+}
+.module2 {
+  height: 98px;
+  width: 98px;
+  margin: 20px 10px;
+  background: url(../assets/images/menu/3.png);
+}
+.module3 {
+  height: 98px;
+  width: 98px;
+  margin: 20px 10px;
+  background: url(../assets/images/menu/4.png);
+}
+.module4 {
+  height: 98px;
+  width: 98px;
+  margin: 20px 10px;
+  background: url(../assets/images/menu/5.png);
+}
+.module5 {
+  height: 98px;
+  width: 98px;
+  margin: 20px 10px;
+  background: url(../assets/images/menu/6.png);
+}
+.module6 {
+  height: 98px;
+  width: 98px;
+  margin: 20px 10px;
+  background: url(../assets/images/menu/7.png);
+}
+.module7 {
+  height: 98px;
+  width: 98px;
+  margin: 20px 10px;
+  background: url(../assets/images/menu/8.png);
+}
+.module8 {
+  height: 98px;
+  width: 98px;
+  margin: 20px 10px;
+  background: url(../assets/images/menu/9.png);
+}
+.module_title {
+  margin: 0px 10px;
+  width: 84px;
+  height: 34px;
+  font-size: 12px;
+  font-family: PingFang SC;
+  font-weight: 500;
+  line-height: 17px;
+  color: #000000;
+  opacity: 1;
+  text-align: center;
 }
 </style>
 <style lang="scss">

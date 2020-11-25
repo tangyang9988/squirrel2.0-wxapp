@@ -12,14 +12,14 @@
         id="index"
         :color="active == 'index' ? '#587DF7' : ''"
         size="small"
-        style="background: #F2F5FF; opacity: 1; border-radius: 8px; width: 90px"
+        style="background: #f2f5ff; opacity: 1; border-radius: 8px; width: 90px"
         @click="buttonSelect($event)"
         >首页</van-button
       >
       <van-button
         id="his"
         size="small"
-        style="background: #F2F5FF; opacity: 1; border-radius: 8px; width: 90px"
+        style="background: #f2f5ff; opacity: 1; border-radius: 8px; width: 90px"
         @click="buttonSelect($event)"
         >历史数据</van-button
       >
@@ -27,7 +27,7 @@
         id="warning"
         size="small"
         :color="active == 'warning' ? '#587DF7' : ''"
-        style="background: #F2F5FF; opacity: 1; border-radius: 8px; width: 90px"
+        style="background: #f2f5ff; opacity: 1; border-radius: 8px; width: 90px"
         @click="buttonSelect($event)"
         >预警管理</van-button
       >
@@ -35,12 +35,27 @@
         id="point"
         size="small"
         color="#587DF7"
-        style="background: #F2F5FF; opacity: 1; border-radius: 8px; width: 90px"
+        style="background: #f2f5ff; opacity: 1; border-radius: 8px; width: 90px"
         @click="buttonSelect($event)"
         >站点报表</van-button
       >
     </div>
-    <van-search v-model="point" placeholder="环保局1/ /站点1" />
+    <van-search
+      v-model="point"
+      placeholder="环保局1/ /站点1"
+      @input="onSearch"
+    />
+    <!-- 搜索框展示搜索内容  searchContent-->
+    <div v-if="isShowSearchContent">
+      <van-cell
+        size="large"
+        v-for="retlist in searchContent"
+        :key="retlist.deptId"
+        :title="retlist.deptName"
+        :value="retlist.siteName"
+        @click="selectPort(retlist)"
+      />
+    </div>
     <div class="header_search">
       <div class="calendar">
         <div style="padding: 6px">
@@ -57,14 +72,6 @@
       <van-button
         size="small"
         class="button"
-        id="day"
-        :color="active == 'day' ? '#ADC6FF' : ''"
-        @click="selected($event)"
-        >日</van-button
-      >
-      <van-button
-        size="small"
-        class="button"
         id="week"
         :color="active == 'week' ? '#ADC6FF' : ''"
         @click="selected($event)"
@@ -77,14 +84,6 @@
         :color="active == 'month' ? '#ADC6FF' : ''"
         @click="selected($event)"
         >月</van-button
-      >
-      <van-button
-        size="small"
-        class="button"
-        id="year"
-        :color="active == 'year' ? '#ADC6FF' : ''"
-        @click="selected($event)"
-        >年</van-button
       >
     </div>
     <!-- 卡片列表 -->
@@ -101,33 +100,33 @@
         </div>
         <div style="margin:0px;20px">
           <div v-for="factor in item.factorList" :key="factor">
-          <div class="content_factorName">
-            {{ factor.factorName }}{{ factor.unit }}
+            <div class="content_factorName">
+              {{ factor.factorName }}{{ factor.unit }}
+            </div>
+            <div>
+              <span class="content_value_name">最大值：</span
+              ><span class="content_value">{{ factor.maxVal }}</span
+              ><span class="content_value_name">最小值：</span
+              ><span class="content_value">{{ factor.minVal }}</span
+              ><span class="content_value_name">平均值：</span
+              ><span class="content_value">{{ factor.minVal }}</span>
+            </div>
+            <div>
+              <span class="content_value_name">达标率：</span
+              ><span class="content_value">{{ factor.standardRate }}</span
+              ><span class="content_value_name">在线率：</span
+              ><span class="content_value">{{ factor.onlineRate }}</span>
+            </div>
+            <div class="line"></div>
           </div>
-          <div>
-            <span class="content_value_name">最大值：</span
-            ><span class="content_value">{{ factor.maxVal }}</span
-            ><span class="content_value_name">最小值：</span
-            ><span class="content_value">{{ factor.minVal }}</span
-            ><span class="content_value_name">平均值：</span
-            ><span class="content_value">{{ factor.minVal }}</span>
-          </div>
-          <div>
-            <span class="content_value_name">达标率：</span
-            ><span class="content_value">{{ factor.standardRate }}</span
-            ><span class="content_value_name">在线率：</span
-            ><span class="content_value">{{ factor.onlineRate }}</span>
-          </div>
-          <div class="line"></div>
         </div>
-        </div>
-
       </div>
     </div>
   </div>
 </template>
 <script>
 import { getReportList } from "@/api/surfaceWater";
+import { searchPoints } from "@/api/surfaceWater";
 import {
   setToken,
   setRefreshToken,
@@ -147,6 +146,8 @@ export default {
       loading: false,
       finished: false,
       reportList: [],
+      isShowSearchContent: false,
+      searchContent: [],
     };
   },
   methods: {
@@ -177,10 +178,31 @@ export default {
       let id = e.currentTarget.id;
       this.active = id;
     },
-    // 获取列表
-    getList() {
+    // 头部检索
+    onSearch() {
       var that = this;
-      getReportList("21", "1288316940539334658", "2", "2020-11-19").then(
+      that.isShowSearchContent = true;
+      searchPoints("21", that.point).then(
+        function (result) {
+          that.searchContent = result.data.data;
+        },
+        function (err) {
+          Toast.fail("请求异常");
+        }
+      );
+    },
+    //选择站点
+    selectPort(e) {
+      this.isShowSearchContent = false;
+      this.getList(e.siteId);
+    },
+    // 获取列表
+    getList(deptId) {
+      if (deptId.length == 0) {
+        deptId = "1288316940539334658";
+      }
+      var that = this;
+      getReportList("21", deptId, "2", "2020-11-19").then(
         function (result) {
           let list = result.data.data;
           for (let i = 0; i < list.length; i++) {
@@ -213,7 +235,7 @@ export default {
   justify-content: space-between;
 }
 .active {
-  color: #587DF7;
+  color: #587df7;
 }
 .button {
   background: #ffffff;
@@ -225,7 +247,7 @@ export default {
   width: 45%;
   // background: #A5A5A5;
   border-radius: 8px;
-  border: 1px solid #A5A5A5;
+  border: 1px solid #a5a5a5;
 }
 .van-button--small {
   min-width: 45px;
@@ -234,8 +256,8 @@ export default {
   // width: 95%;
   margin: 10px 15px;
   height: 670px;
-  background: #FFFFFF;
-  border: 1px solid #EFEFEF;
+  background: #ffffff;
+  border: 1px solid #efefef;
   box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.05);
   opacity: 1;
   border-radius: 12px;
@@ -245,7 +267,7 @@ export default {
   flex-wrap: wrap;
   justify-content: left;
   height: 39px;
-  background: #F4F4F4;
+  background: #f4f4f4;
   opacity: 1;
   border-radius: 12px 12px 0px 0px;
 }
@@ -295,7 +317,7 @@ export default {
 .line {
   margin: 10px;
   height: 0px;
-  border: 1px solid #DEDEDE;
+  border: 1px solid #dedede;
   opacity: 1;
 }
 </style>
