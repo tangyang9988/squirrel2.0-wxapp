@@ -41,15 +41,15 @@
             </div>  
             <div class="inlineFactor">
               <div class="inlineFactorName">预警阈值：</div>
-              <div class="factorValue ">{{message.standardVal}}</div>
+              <div class="factorValue inlineFactorValue">{{message.standardVal}}</div>
             </div>
             <div class="inlineFactor">
               <div class="inlineFactorName">开始时间：</div>
-              <div class="factorValue ">{{message.startTime}}</div>
+              <div class="factorValue inlineFactorValue">{{message.startTime}}</div>
             </div>
             <div class="inlineFactor">
               <div class="inlineFactorName">结束时间：</div>
-              <div class="factorValue ">{{message.endTime}}</div>
+              <div class="factorValue inlineFactorValue">{{message.endTime}}</div>
             </div>
             <div class="factorList">
                 <div class="singleFactor">
@@ -70,10 +70,14 @@
               type="textarea"
               placeholder="请输入留言"
             />
-            <label v-else >{{feedback}}</label>   
+            <!-- <label v-else >{{feedback}}</label> -->
+            <div v-else  class="inlineFactor">
+              <div class="inlineFactorName">处理意见：</div>
+              <div class="factorValue inlineFactorValue">{{feedback}}</div>
+            </div>   
             <div class="cardButtons">
                 <van-button v-if="isShowCommit" class="cardButton"   type="default" @click="commit">提交</van-button>
-                <van-button  class="cardButton"  type="default" @click="cancel">取消</van-button>
+                <van-button  class="cardButton"  type="default" @click="cancel">返回</van-button>
             </div>
             
         </div>
@@ -170,9 +174,10 @@ export default {
   }
 
   .detailCard {
+    margin-top: 10px;
     margin-bottom: 15px;
     width: 90%;
-    height: 250px;
+    height: 300px;
     background-color: white;
     border-radius: 3px;
     
@@ -217,6 +222,7 @@ export default {
   }
 
   .factorValue {
+    
     font-size: 12px;
     font-family: PingFang SC;
     font-weight: bold;
@@ -241,6 +247,7 @@ export default {
   }
   .inlineFactorValue{
     float:left;
+    margin-top: 5px;
   }
 
   .chartTitle {
@@ -305,7 +312,7 @@ export default {
     flex-direction:  row-reverse;
   }
   .cardButton{
-    margin-right: 5%;
+    // margin-right: 5%;
     background-color: #FA8B16;
     border-radius: 8px;
      height: 30px;

@@ -35,7 +35,7 @@
         @click="selected($event)"
         >站点报表</van-button>
     </div>
-    <van-search v-model="point" placeholder="环保局1/ /站点1"  @search="onSearch"/>
+    <van-search v-model="point" placeholder="环保局1/ /站点1"  @input="onSearch"/>
     <!-- 搜索框展示搜索内容  searchContent-->
     <div  v-if="isShowSearchContent">
         <van-cell   size="large"  v-for="retlist in searchContent" :key="retlist.deptId" :title="retlist.deptName" :value="retlist.siteName"  @click="selectPort(retlist)" />
@@ -101,8 +101,8 @@
 
             </div>
             <div class="cardButtons">
-                <van-button class="cardButton"  v-if="item.status==1" type="default"  @click="showForm(item)" >点击查看</van-button>
-                <van-button  class="cardButton" v-else type="default" @click="showForm(item)">点击处理</van-button>
+                <van-button class="cardButton lookButton"  v-if="item.status==1" type="default"  @click="showForm(item)" >点击查看</van-button>
+                <van-button  class="cardButton submitButton" v-else type="default" @click="showForm(item)">点击处理</van-button>
             </div>
 
             </div>
@@ -451,17 +451,23 @@ export default {
   }
   .cardButton{
     margin-right: 5%;
-    background-color: #FA8B16;
     border-radius: 8px;
      height: 30px;
-    box-shadow: 0px 3px 12px rgba(250, 139, 22, 0.5);
+    
     //字体
-
     font-size: 12px;
     font-family: PingFang SC;
     font-weight: 500;
     line-height: 17px;
     color: #FFFFFF;
     opacity: 1;
+  }
+  .submitButton{
+    background: #587DF7;
+    box-shadow: 0px 3px 12px rgba(88, 125, 247, 0.5);
+  }
+  .lookButton{
+    background-color: #FA8B16;
+    box-shadow: 0px 3px 12px rgba(250, 139, 22, 0.5);
   }
 </style>

@@ -12,6 +12,7 @@
       <van-button
         id="index"
         size="small"
+        color="#587DF7"
         style="background: #F2F5FF; opacity: 1; border-radius: 8px; width: 90px"
         @click="selected($event)"
         >首页</van-button>
@@ -23,7 +24,6 @@
         >历史数据</van-button>
       <van-button
         id="warning"
-        color="#587DF7"
         size="small"
         style="background: #F2F5FF; opacity: 1; border-radius: 8px; width: 90px"
         @click="selected($event)"
