@@ -152,13 +152,13 @@
       // this.active = "#587DF7";
       this.active = id;
       if (id == "index") {
-        this.$router.push("/surfaceWater/index");
+        this.$router.push("/airQuality/index");
       } else if (id == "his") {
-        this.$router.push("/surfaceWater/history");
+        this.$router.push("/airQuality/history");
       } else if (id == "warning") {
-        this.$router.push("/surfaceWater/abnormal");
+        this.$router.push("/airQuality/abnormal");
       } else if (id == "point") {
-        this.$router.push("/surfaceWater/report");
+        this.$router.push("/airQuality/report");
       }
     },
 

@@ -12,3 +12,15 @@ export const getWeather = (platform) =>{
     }
   });
 }
+
+export const presentData = (platform) =>{
+  return request({
+    url: '/api/squirrel-service/latestData/getListByApp',
+    method: 'get',
+    headers: {
+      platform:platform
+    },
+    params: {
+    }
+  });
+}

@@ -36,6 +36,27 @@
         >站点报表</van-button>
     </div>
    
+   <!-- 卡片 -->
+   <div  class="detailCards">
+        <div v-for = "(value,key) in presentRecord" :key="key" class="detailCard">
+          <div class="cardTitle">
+            <div class="cardTitleIcon"></div>
+            <div class="cardTitleWord">{{value.siteName}}</div>
+          </div>
+
+          <div   class="factorList">
+            <div v-for = "(factorValue,factorKey) in value.factorMap" :factorKey="factorKey" class="singleFactor">
+              <div class="factorName">{{factorKey}}：</div>
+              <div class="factorValue">{{factorValue}}</div>
+            </div>
+          </div>
+          <div class="inlineFactor">
+                <div class="inlineFactorName">水质类别：</div>
+                <div class="factorValue inlineFactorValue">{{value.wqiLevel}}</div>
+          </div>
+        </div>
+
+      </div>
 
   </div>
 
@@ -43,12 +64,14 @@
 
 <script>
 import { getWeather } from "@/api/intelligenceConstruction";
+import { presentData } from "@/api/intelligenceConstruction";
   export default {
     name: "about",
     data() {
       return {
-        active:""
-        
+        active:"",
+        presentRecord:[],
+        factors:[]
       };
     },
     methods: {
@@ -66,13 +89,39 @@ import { getWeather } from "@/api/intelligenceConstruction";
         this.$router.push("/intelligenceConstruction/report");
       }
     },
+    getPresentData(site) { //卡片
+
+        let that = this;
+        presentData('39',site).then(function (result) {
+           //拼凑卡片对象
+          let portCards = []
+          //1.对象的属性
+          let allRecords = result.data.data //记录数组
+          
+          for (let i = 0; i < allRecords.length; i++) {//几个卡片
+            
+            that.presentRecord.push(allRecords[i])
+            that.factors.push(allRecords[i].factorMap)
+
+          }
+
+        }, function (err) {
+          console.log(err)
+          Toast.fail("请求异常");
+          that.isHide = false;
+        }).catch(function (error) {
+          console.log(error)
+          Toast.fail("登录异常");
+          that.isHide = false;
+        });
+      }
     },
 
       
       
       
     mounted() {
-     
+     this.getPresentData();
     },
     onLoad() {
      
@@ -87,5 +136,83 @@ import { getWeather } from "@/api/intelligenceConstruction";
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+  }
+  .detailCards {
+    width: 100%;
+    // height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .detailCard {
+    margin-bottom: 15px;
+    // height: 110px;
+    width: 90%;
+    // height: 290px;
+    background-color: white;
+    border-radius: 3px;
+    
+    box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.05);//阴影
+  }
+
+  .factorList {
+    // height: 25px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap:  wrap ;
+    flex-direction: row;
+    width: 100%;
+    // margin-bottom: 8px;
+    margin-left: 5%;
+  }
+
+  .singleFactor {
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    width: 45%;
+  }
+
+  .factorName {
+    height: 100%;
+    width: 55%;
+
+    font-size: 12px;
+    font-family: PingFang SC;
+    font-weight: 400;
+    line-height: 17px;
+    color: #000000;
+    opacity: 1;
+  }
+
+  .factorValue {
+    font-size: 12px;
+    font-family: PingFang SC;
+    font-weight: bold;
+    line-height: 17px;
+    color: #000000;
+    opacity: 1;
+  }
+  .inlineFactor{
+     display: flex;
+    justify-content: left;
+    align-items: left;
+  }
+  .inlineFactorName {
+    margin-left: 5%;
+    // margin-top: 5px;
+    font-size: 12px;
+    font-family: PingFang SC;
+    font-weight: 400;
+    line-height: 17px;
+    color: #000000;
+    opacity: 1;
+  }
+  .inlineFactorValue{
+    float:left;
+    // margin-top: 5px;
   }
 </style>
