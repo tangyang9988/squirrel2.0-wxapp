@@ -1,19 +1,8 @@
 <template>
   <div class="main">
-    <!-- <van-tabs v-model="active" background="rgba(76, 173, 246, 1)">
-      <van-tab title="首页">
-        <van-search v-model="point" placeholder="请输入搜索关键词" />
-        <van-cell title="选择日期区间" :value="date" @click="show = true" />
-        <van-calendar v-model="show" type="range" @confirm="onConfirm" />
-      </van-tab>
-      <van-tab title="历史数据">历史数据</van-tab>
-      <van-tab title="预警管理">预警管理</van-tab>
-      <van-tab title="站点报表">站点报表</van-tab>
-    </van-tabs> -->
     <van-nav-bar
       title="Squirrel4.0"
       left-text="返回"
-      right-text="按钮"
       left-arrow
       style="background-color: #f5f5f5"
     />
@@ -51,33 +40,54 @@
         >站点报表</van-button
       >
     </div>
-    <van-search v-model="point" placeholder="环保局1/ /站点1" />
+      <van-search
+      v-model="point"
+      placeholder="环保局1/ /站点1"
+      @input="onSearch"/>
+    <!-- 搜索框展示搜索内容  searchContent-->
+    <div v-if="isShowSearchContent">
+      <van-cell
+        size="large"
+        v-for="retlist in searchContent"
+        :key="retlist.deptId"
+        :title="retlist.deptName"
+        :value="retlist.siteName"
+        @click="selectPort(retlist)"
+      />
+    </div>
     <div class="header_search">
       <van-button
-        color="#ADC6FF"
+        id="auto"
+        color=""
         size="small"
-        style="background: #fffff; opacity: 1; border-radius: 8px; width: 90px"
+        style="opacity: 1; border-radius: 8px; width: 90px"
+        @click="selectTime($event)"
         >自定义</van-button
       >
       <van-button
-        plain
+        id="24"
+        :color="active == '24' ? '#587DF7' : ''"
         size="small"
         style="background: #fffff; opacity: 1; border-radius: 8px"
-        >24小时</van-button
-      >
+        @click="selectTime($event)"
+        >24小时</van-button>
       <van-button
-        plain
+        id="48"
+        color=""
         size="small"
         style="background: #fffff; opacity: 1; border-radius: 8px"
+        @click="selectTime($event)"
         >48小时</van-button
       >
       <van-button
-        plain
+        id="96"
+        :color="active == '96' ? '#587DF7' : ''"
         size="small"
         style="background: #fffff; opacity: 1; border-radius: 8px"
+        @click="selectTime($event)"
         >96小时</van-button
       >
-      <div class="calendar">
+      <div class="calendar" >
         <div style="padding: 7px">
           <img
             src="../../assets/images/calendar.png"
@@ -130,6 +140,7 @@
 <script>
 import { getHistoryHeader } from "@/api/surfaceWater";
 import { getHistoryList } from "@/api/surfaceWater";
+import { searchPoints } from "@/api/surfaceWater";
 import {
   setToken,
   setRefreshToken,
@@ -141,8 +152,10 @@ import md5 from "js-md5";
 export default {
   data() {
     return {
+      deptId :"1288316940539334658",
       id: "",
       point: "",
+      // maxDate: new Date(""),
       active: "",
       startShow: false,
       endShow: false,
@@ -153,6 +166,9 @@ export default {
       loading: false,
       finished: false,
       tableFactorList: [],
+      isShowSearchContent: false,
+      searchContent: [],
+
     };
   },
   methods: {
@@ -173,8 +189,6 @@ export default {
     },
     selected(e) {
       let id = e.currentTarget.id;
-      // this.active = "#587DF7";
-      this.active = id;
       if (id == "index") {
         this.$router.push("/surfaceWater/index");
       } else if (id == "his") {
@@ -185,12 +199,34 @@ export default {
         this.$router.push("/surfaceWater/report");
       }
     },
+    selectTime(e) {
+      let id = e.currentTarget.id;
+      this.active= id
+    },
+    // 头部检索
+    onSearch() {
+      var that = this;
+      that.isShowSearchContent = true;
+      searchPoints("21", that.point).then(
+        function (result) {
+          that.searchContent = result.data.data;
+        },
+        function (err) {
+          Toast.fail("请求异常");
+        }
+      );
+    },
+    //选择站点
+    selectPort(e) {
+      this.isShowSearchContent = false;
+      this.getList(e.siteId);
+    },
 
     // 获取列表
-    getList() {
+    getList(deptId) {
       var that = this;
       getHistoryList(
-        "1288316940539334658",
+        deptId,
         "21",
         "2020-11-17 00:00:00",
         "2020-11-17 23:59:59",
@@ -208,7 +244,7 @@ export default {
     },
   },
   mounted: function () {
-    this.getList();
+    this.getList(this.deptId);
   },
 };
 </script>
@@ -224,9 +260,6 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-}
-.active {
-  color: #587DF7;
 }
 .calendar {
   margin: 10px 0px;
