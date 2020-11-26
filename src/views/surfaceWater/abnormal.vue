@@ -168,7 +168,7 @@ import {
 } from "@/util/auth";
 import { Toast } from "vant";
 import md5 from "js-md5";
-import abnormalForm from "@/components/abnormalForm" //引入子组件
+import abnormalForm from "@/components/abnormalForm"; //引入子组件
 export default {
   components: { abnormalForm },
   data() {
@@ -177,36 +177,33 @@ export default {
       active: "",
       date: "",
       show: false,
-      current:1,
-      size:10,
-      start:"",
-      end:"",
+      current: 1,
+      size: 10,
+      start: "",
+      end: "",
       loading: false,
       finished: false,
-      tableFactorList:[],
-      abnormalFormHShow:false,
-      chooseRecord:{},
+      tableFactorList: [],
+      abnormalFormHShow: false,
+      chooseRecord: {},
       value1: -1,
       value2: -1,
-      alertTypeList: [
-        { text: '全部', value: -1 },
-      ],
+      alertTypeList: [{ text: "全部", value: -1 }],
       option2: [
-        { text: '全部', value: -1 },
-        { text: '未处理', value: 0 },
-        { text: '已处理', value: 1 },
+        { text: "全部", value: -1 },
+        { text: "未处理", value: 0 },
+        { text: "已处理", value: 1 },
       ],
       startShow: false,
       endShow: false,
-       start: "",
+      start: "",
       end: "",
-      searchContent:[],
-      isShowSearchContent:false,
-      tmpPointId:""
+      searchContent: [],
+      isShowSearchContent: false,
+      tmpPointId: "",
     };
   },
   methods: {
-
     formatDate(date) {
       return `${date.getMonth() + 1}/${date.getDate()}`;
     },
@@ -215,67 +212,71 @@ export default {
       this.show = false;
       this.date = `${this.formatDate(start)} - ${this.formatDate(end)}`;
     },
-    showForm(e){
-        this.abnormalFormHShow=true;
-        this.chooseRecord=e;
-        console.log("click:",this.chooseRecord);
+    showForm(e) {
+      this.abnormalFormHShow = true;
+      this.chooseRecord = e;
+      console.log("click:", this.chooseRecord);
     },
-      selected(e) {
-    let id = e.currentTarget.id;
-    // this.active = "#587DF7";
-    this.active = id;
-    if (id == "index") {
-      this.$router.push("/surfaceWater/index");
-    } else if (id == "his") {
-      this.$router.push("/surfaceWater/history");
-    } else if (id == "warning") {
-      this.$router.push("/surfaceWater/abnormal");
-    } else if (id == "point") {
-      this.$router.push("/surfaceWater/report");
-    }
-  },
+    selected(e) {
+      let id = e.currentTarget.id;
+      // this.active = "#587DF7";
+      this.active = id;
+      if (id == "index") {
+        this.$router.push("/surfaceWater/index");
+      } else if (id == "his") {
+        this.$router.push("/surfaceWater/history");
+      } else if (id == "warning") {
+        this.$router.push("/surfaceWater/abnormal");
+      } else if (id == "point") {
+        this.$router.push("/surfaceWater/report");
+      }
+    },
     // 获取动态表头
 
     // 获取列表 treeId,start,end,current,size
     getList(deptId) {
-        if (deptId.length==0){
-            deptId="1288316940539334658"
-        }
+      if (deptId.length == 0) {
+        deptId = "1288316940539334658";
+      }
       var that = this;
-      var beforeSevenDayDate=this.getBeforeDate(7)
-      var todyaDate=this.getBeforeDate(0)
-      getWarnRecords("21",deptId, beforeSevenDayDate,todyaDate,that.current,that.size).then(
+      var beforeSevenDayDate = this.getBeforeDate(7);
+      var todyaDate = this.getBeforeDate(0);
+      getWarnRecords(
+        "21",
+        deptId,
+        beforeSevenDayDate,
+        todyaDate,
+        that.current,
+        that.size
+      ).then(
         function (result) {
-            that.tableFactorList=[];
+          that.tableFactorList = [];
           let list = result.data.data.records;
-            for (let i=0;i<list.length;i++){
-                that.tableFactorList.push(list[i]);
-            }
-            that.loading = false;
-            // that.finished = true;
-            console.log(that.tableFactorList)
+          for (let i = 0; i < list.length; i++) {
+            that.tableFactorList.push(list[i]);
+          }
+          that.loading = false;
+          // that.finished = true;
+          console.log(that.tableFactorList);
         },
         function (err) {
           Toast.fail("请求异常");
         }
       );
     },
-    listenPoupClose(data){
-        console.log("从子组件获取的信息：",data)
-        this.abnormalFormHShow=false;
-        //刷新列表
-        this.getList(this.tmpPointId);
-
+    listenPoupClose(data) {
+      console.log("从子组件获取的信息：", data);
+      this.abnormalFormHShow = false;
+      //刷新列表
+      this.getList(this.tmpPointId);
     },
     //预警类型 getAlertTypeType
-    onSearch(){
-         var that = this;
-         that.isShowSearchContent=true;
-      searchPoints("21",that.point).then(
+    onSearch() {
+      var that = this;
+      that.isShowSearchContent = true;
+      searchPoints("21", that.point).then(
         function (result) {
-            that.searchContent=result.data.data;
-
-
+          that.searchContent = result.data.data;
         },
         function (err) {
           Toast.fail("请求异常");
@@ -285,37 +286,41 @@ export default {
     //处理信息提交 abnormalInfoSubmit
 
     //选择站点
-    selectPort(e){
-        console.log("选择的站点：",e)
-        this.isShowSearchContent=false;
-        // this.tableFactorList=[];
-        this.getList(e.siteId);
-        this.tmpPointId=e.siteId;
+    selectPort(e) {
+      console.log("选择的站点：", e);
+      this.isShowSearchContent = false;
+      // this.tableFactorList=[];
+      this.getList(e.siteId);
+      this.tmpPointId = e.siteId;
     },
     //获取前几天
     // 返回前number天的日期格式为2020-02-02，参数number为前几天
-  getBeforeDate(number) {
-    const num = number;
-    const date = new Date();
-    let year = date.getFullYear();
-    let mon = date.getMonth() + 1;
-    let day = date.getDate();
-    if (day <= num) {
+    getBeforeDate(number) {
+      const num = number;
+      const date = new Date();
+      let year = date.getFullYear();
+      let mon = date.getMonth() + 1;
+      let day = date.getDate();
+      if (day <= num) {
         if (mon > 1) {
-            mon = mon - 1;
+          mon = mon - 1;
         } else {
-            year = year - 1;
-            mon = 12;
+          year = year - 1;
+          mon = 12;
         }
-    }
-    date.setDate(date.getDate() - num);
-    year = date.getFullYear();
-    mon = date.getMonth() + 1;
-    day = date.getDate();
-    const s = year + '-' + (mon < 10 ? ('0' + mon) : mon) + '-' + (day < 10 ? ('0' + day) : day);
-    return s;
-}
-
+      }
+      date.setDate(date.getDate() - num);
+      year = date.getFullYear();
+      mon = date.getMonth() + 1;
+      day = date.getDate();
+      const s =
+        year +
+        "-" +
+        (mon < 10 ? "0" + mon : mon) +
+        "-" +
+        (day < 10 ? "0" + day : day);
+      return s;
+    },
   },
   mounted: function () {
     //   this.getAlarmType();
@@ -324,180 +329,173 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-.header{
-  margin:10px 15px;
+.header {
+  margin: 10px 15px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
-.header_search{
-  margin:10px 15px;
+.header_search {
+  margin: 10px 15px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 .active {
-   background: #fd7522;
-   border: 1px solid #fd7522;
-   color: #fff;
- }
+  background: #fd7522;
+  border: 1px solid #fd7522;
+  color: #fff;
+}
 
 .detailCards {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
-  .detailCard {
-    margin-bottom: 15px;
-    width: 90%;
-    height: 250px;
-    background-color: white;
-    border-radius: 3px;
+.detailCard {
+  margin-bottom: 15px;
+  width: 90%;
+  height: 250px;
+  background-color: white;
+  border-radius: 3px;
 
-    //box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.05);//阴影
-    box-shadow:2px 3px 10px  rgba(0, 0, 0, 0.05),   /*左边阴影*/
+  //box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.05);//阴影
+  box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.05),
+    /*左边阴影*/ 2px 3px 10px rgba(0, 0, 0, 0.05),
+    /*上边阴影*/ 2px 3px 10px rgba(0, 0, 0, 0.05),
+    /*右边阴影*/ 2px 3px 10px rgba(0, 0, 0, 0.05);
+}
 
-            2px 3px 10px  rgba(0, 0, 0, 0.05),  /*上边阴影*/
+.factorList {
+  height: 25px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 8px;
+  margin-left: 5px;
+}
 
-            2px 3px 10px  rgba(0, 0, 0, 0.05),  /*右边阴影*/
+.singleFactor {
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  width: 45%;
+}
 
-            2px 3px 10px  rgba(0, 0, 0, 0.05);
+.factorName {
+  height: 100%;
+  width: 55%;
 
-  }
+  font-size: 12px;
+  font-family: PingFang SC;
+  font-weight: 400;
+  line-height: 17px;
+  color: #000000;
+  opacity: 1;
+}
 
-  .factorList {
-    height: 25px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-    margin-bottom: 8px;
-    margin-left: 5px;
-  }
+.factorValue {
+  font-size: 12px;
+  font-family: PingFang SC;
+  font-weight: bold;
+  line-height: 17px;
+  color: #000000;
+  opacity: 1;
+}
+.inlineFactor {
+  display: flex;
+  justify-content: left;
+  align-items: left;
+}
+.inlineFactorName {
+  margin-left: 10px;
+  margin-top: 5px;
+  font-size: 12px;
+  font-family: PingFang SC;
+  font-weight: 400;
+  line-height: 17px;
+  color: #000000;
+  opacity: 1;
+}
+.inlineFactorValue {
+  float: left;
+}
 
-  .singleFactor {
-    display: flex;
-    justify-content: left;
-    align-items: left;
-    width: 45%;
-  }
+.chartTitle {
+  margin-top: 10px;
+  margin-left: 20px;
+}
 
-  .factorName {
-    height: 100%;
-    width: 55%;
+.cardHr {
+  width: 90%;
+  padding-left: 5%;
+}
 
-    font-size: 12px;
-    font-family: PingFang SC;
-    font-weight: 400;
-    line-height: 17px;
-    color: #000000;
-    opacity: 1;
-  }
+.cardTitle {
+  padding-left: 5%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+  background: #f4f4f4;
+  opacity: 1;
+  border-radius: 12px 12px 0px 0px;
 
-  .factorValue {
-    font-size: 12px;
-    font-family: PingFang SC;
-    font-weight: bold;
-    line-height: 17px;
-    color: #000000;
-    opacity: 1;
-  }
-  .inlineFactor{
-     display: flex;
-    justify-content: left;
-    align-items: left;
-  }
-  .inlineFactorName {
-    margin-left: 10px;
-    margin-top: 5px;
-    font-size: 12px;
-    font-family: PingFang SC;
-    font-weight: 400;
-    line-height: 17px;
-    color: #000000;
-    opacity: 1;
-  }
-  .inlineFactorValue{
-    float:left;
-  }
+  font-size: 12px;
+  font-family: PingFang SC;
+  font-weight: 500;
+  line-height: 17px;
+  color: #000000;
 
-  .chartTitle {
-    margin-top: 10px;
-    margin-left: 20px;
-  }
+  display: flex;
+  justify-content: left;
+  align-items: left;
+}
 
-  .cardHr {
-    width: 90%;
-    padding-left: 5%;
-  }
+.cardTitleIcon {
+  width: 18px;
+  height: 18px;
+  background: #50e2c1;
+  border-radius: 50%;
+  opacity: 1;
+}
 
-  .cardTitle {
-    padding-left: 5%;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    margin-bottom: 5px;
-    background: #F4F4F4;
-    opacity: 1;
-    border-radius: 12px 12px 0px 0px;
+.cardTitleWord {
+  margin-left: 5px;
+}
 
-    font-size: 12px;
-    font-family: PingFang SC;
-    font-weight: 500;
-    line-height: 17px;
-    color: #000000;
+.newCard {
+  width: 90%;
+  height: 200px;
+}
+.cardsHeaderTitle {
+  font-size: 16px;
+  font-family: PingFang SC;
+  font-weight: 500;
+  line-height: 22px;
+  color: #000000;
+  opacity: 1;
+}
+.cardButtons {
+  display: flex;
+  flex-direction: row-reverse;
+}
+.cardButton {
+  margin-right: 5%;
+  background-color: #fa8b16;
+  border-radius: 8px;
+  height: 30px;
+  box-shadow: 0px 3px 12px rgba(250, 139, 22, 0.5);
+  //字体
 
-    display: flex;
-    justify-content: left;
-    align-items: left;
-
-
-  }
-
-  .cardTitleIcon {
-    width: 18px;
-    height: 18px;
-    background: #50E2C1;
-    border-radius: 50%;
-    opacity: 1;
-  }
-
-  .cardTitleWord {
-    margin-left: 5px;
-  }
-
-  .newCard {
-    width: 90%;
-    height: 200px;
-
-  }
-  .cardsHeaderTitle{
-    font-size: 16px;
-    font-family: PingFang SC;
-    font-weight: 500;
-    line-height: 22px;
-    color: #000000;
-    opacity: 1;
-  }
-  .cardButtons{
-    display: flex;
-    flex-direction:  row-reverse;
-  }
-  .cardButton{
-    margin-right: 5%;
-    background-color: #FA8B16;
-    border-radius: 8px;
-     height: 30px;
-    box-shadow: 0px 3px 12px rgba(250, 139, 22, 0.5);
-    //字体
-
-    font-size: 12px;
-    font-family: PingFang SC;
-    font-weight: 500;
-    line-height: 17px;
-    color: #FFFFFF;
-    opacity: 1;
-  }
+  font-size: 12px;
+  font-family: PingFang SC;
+  font-weight: 500;
+  line-height: 17px;
+  color: #ffffff;
+  opacity: 1;
+}
 </style>

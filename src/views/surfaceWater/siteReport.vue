@@ -14,8 +14,7 @@
         size="small"
         style="background: #f2f5ff; opacity: 1; border-radius: 8px; width: 90px"
         @click="buttonSelect($event)"
-        >首页</van-button
-      >
+        >首页</van-button>
       <van-button
         id="his"
         size="small"
@@ -208,7 +207,6 @@ export default {
           for (let i = 0; i < list.length; i++) {
             that.reportList.push(list[i]);
           }
-          console.log(that.reportList);
         },
         function (err) {
           Toast.fail("请求异常");

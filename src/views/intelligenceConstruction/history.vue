@@ -121,6 +121,7 @@
 <script>
 import { getHistoryHeader } from "@/api/surfaceWater";
 import { getHistoryList } from "@/api/surfaceWater";
+import { searchPoints } from "@/api/surfaceWater";
 import {
   setToken,
   setRefreshToken,
