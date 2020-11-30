@@ -3,7 +3,6 @@
         <van-nav-bar
       title="Squirrel4.0"
       left-text="返回"
-      right-text="按钮"
       left-arrow
       style="background-color: #f5f5f5"
     />
@@ -103,9 +102,8 @@
       };
     },
     methods: {
-          selected(e) {
+      selected(e) {
       let id = e.currentTarget.id;
-      // this.active = "#587DF7";
       this.active = id;
       if (id == "index") {
         this.$router.push("/surfaceWater/index");
