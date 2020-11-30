@@ -3,9 +3,9 @@
     <van-nav-bar
       title="Squirrel4.0"
       left-text="返回"
-      right-text="按钮"
       left-arrow
       style="background-color: #f5f5f5"
+      @click-left="onClickLeft"
     />
     <div class="header">
       <van-button
@@ -41,7 +41,7 @@
     </div>
     <van-search
       v-model="point"
-      placeholder="环保局1/ /站点1"
+      placeholder="环保局1 /站点1"
       @input="onSearch"
     />
     <!-- 搜索框展示搜索内容  searchContent-->
@@ -56,18 +56,26 @@
       />
     </div>
     <div class="header_search">
-      <div class="calendar">
+      <div class="calendar" >
         <div style="padding: 6px">
           <img
             src="../../assets/images/calendar.png"
             alt=""
-            style="height: 15px; width: 15px"
-            @click="startShow = true"
+            style="height: 14px; width: 14px"
           />
-          <span style="">{{ start }}</span>
-          <van-calendar v-model="startShow" @confirm="onStartConfirm" />
+          <span class="timeStyle" @click="startShow = true" v-if="isAuto">{{ start }}</span>
+          <span class="timeStyle"  v-else >{{ start }}</span>
+          <van-calendar v-model="startShow" @confirm="onStartConfirm" :min-date="minDate" :max-date="maxDate" />
         </div>
       </div>
+      <van-button
+        id="auto"
+        size="small"
+        class="button"
+        :color="active == 'auto' ? '#ADC6FF' : ''"
+        @click="selected($event)"
+        >自定义</van-button
+      >
       <van-button
         size="small"
         class="button"
@@ -138,10 +146,15 @@ export default {
   data() {
     return {
       id: "",
+      deptId :"1288316940539334658",
       point: "",
       active: "",
+      isAuto:false,
+      type:2,
       startShow: false,
-      start: "",
+      minDate: new Date(2010, 0, 1),
+      maxDate: new Date(),
+      start: new Date(),
       loading: false,
       finished: false,
       reportList: [],
@@ -151,17 +164,21 @@ export default {
   },
   methods: {
     formatDate(date) {
-      return `${date.getFullYear()}年${
+      return `${date.getFullYear()}-${
         date.getMonth() + 1
-      }月${date.getDate()}日`;
+      }-${date.getDate()}`;
+    },
+    formatMonth(date) {
+      return `${date.getFullYear()}-${
+        date.getMonth() + 1}`;
     },
     onStartConfirm(date) {
       this.startShow = false;
       this.start = this.formatDate(date);
+      this.getList(this.deptId,this.start)
     },
     buttonSelect(e) {
       let id = e.currentTarget.id;
-      // this.active = "#587DF7";
       this.active = id;
       if (id == "index") {
         this.$router.push("/surfaceWater/index");
@@ -173,10 +190,27 @@ export default {
         this.$router.push("/surfaceWater/report");
       }
     },
+    onClickLeft: function () {
+      this.$router.push("/");
+    },
     selected(e) {
       let id = e.currentTarget.id;
       this.active = id;
+      if (id == "auto") {
+        this.isAuto =true;
+      } else if (id == "week") {
+        this.isAuto =false;
+        this.type= 3
+        this.start=this.formatDate(new Date())
+        this.getList(this.deptId,this.start);
+      } else if (id == "month") {
+        this.isAuto =false;
+        this.type= 4
+        this.start=this.formatMonth(new Date())
+        this.getList(this.deptId,this.start);
+      }
     },
+
     // 头部检索
     onSearch() {
       var that = this;
@@ -196,12 +230,10 @@ export default {
       this.getList(e.siteId);
     },
     // 获取列表
-    getList(deptId) {
-      if (deptId.length == 0) {
-        deptId = "1288316940539334658";
-      }
+    getList(deptId,time) {
+      this.reportList=[];
       var that = this;
-      getReportList("21", deptId, "2", "2020-11-19").then(
+      getReportList("21", deptId, this.type, this.start).then(
         function (result) {
           let list = result.data.data;
           for (let i = 0; i < list.length; i++) {
@@ -215,7 +247,8 @@ export default {
     },
   },
   mounted: function () {
-    this.getList();
+    this.start = this.formatDate(this.start)
+    this.getList(this.deptId,this.start);
   },
 };
 </script>
@@ -231,9 +264,6 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-}
-.active {
-  color: #587df7;
 }
 .button {
   background: #ffffff;
@@ -315,7 +345,15 @@ export default {
 .line {
   margin: 10px;
   height: 0px;
-  border: 1px solid #dedede;
+  border: 1px dashed #DEDEDE;
   opacity: 1;
 }
+.timeStyle{
+  font-size: 10px;
+}
+.disabledTime{
+  font-size: 10px;
+  background: grey;
+}
+
 </style>
