@@ -96,7 +96,7 @@
             @click="startShow = true"
           />
           <span style="" >{{ start }}</span>
-          <van-calendar v-model="startShow" @confirm="onStartConfirm" />
+          <van-calendar v-model="startShow" :min-date="minDate" :max-date="maxDate" @confirm="onStartConfirm" />
         </div>
       </div>
       <span style="margin: 15px 0px">至</span>
@@ -168,6 +168,8 @@ export default {
       tableFactorList: [],
       isShowSearchContent: false,
       searchContent: [],
+       minDate: new Date(2010, 0, 1),
+      maxDate: new Date(2030, 0, 31),
 
     };
   },
