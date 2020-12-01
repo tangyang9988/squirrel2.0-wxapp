@@ -189,18 +189,18 @@ export default {
   methods: {
     formatStartDate(date) {
       return `${date.getFullYear()}-${
-        date.getMonth() + 1
-      }-${date.getDate()} 00:00:00`;
+        this.timeAdd(date.getMonth()) + 1
+      }-${this.timeAdd(date.getDate())} 00:00:00`;
     },
     formatEndDate(date) {
       return `${date.getFullYear()}-${
-        date.getMonth() + 1
-      }-${date.getDate()} 23:59:59`;
+        this.timeAdd(date.getMonth()) + 1
+      }-${this.timeAdd(date.getDate())} 23:59:59`;
     },
     formatDate(date) {
       return `${date.getFullYear()}-${
-        date.getMonth() + 1
-      }-${date.getDate()} ${this.timeAdd(date.getHours())}:${this.timeAdd(
+        this.timeAdd(date.getMonth()) + 1
+      }-${this.timeAdd(date.getDate())} ${this.timeAdd(date.getHours())}:${this.timeAdd(
         date.getMinutes()
       )}:${this.timeAdd(date.getSeconds())}`;
     },
