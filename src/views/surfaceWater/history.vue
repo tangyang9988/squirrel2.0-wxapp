@@ -46,7 +46,7 @@
     <div v-if="isShowSearchContent">
       <van-cell
         size="large"
-        v-for="retlist in searchContent"
+        v-for="retlist in searchContent" 
         :key="retlist.deptId"
         :title="retlist.deptName"
         :value="retlist.siteName"
