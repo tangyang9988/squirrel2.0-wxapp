@@ -9,6 +9,7 @@ import History from '@/views/surfaceWater/history'
 import WaterAbnormal from '@/views/surfaceWater/abnormal'
 import Report from '@/views/surfaceWater/siteReport'
 import intelligenceConstructionIndex from '@/views/intelligenceConstruction/index'
+import pollutionSurfaceWaterIndex from '@/views/pollutionSurfaceWater/index'
 import AirQualityIndex from '@/views/airQuality/index'
 Vue.use(Router)
 
@@ -50,6 +51,12 @@ let router = new Router({
       path: '/airQuality/index',
       name: 'airQualityIndex',
       component: AirQualityIndex,
+    },
+    // 地表水体环境污染
+    {
+      path: '/pollutionSurfaceWater/index',
+      name: 'index',
+      component: pollutionSurfaceWaterIndex,
     },
     {
       path: '/',
