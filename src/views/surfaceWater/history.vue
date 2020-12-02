@@ -46,8 +46,8 @@
     <div v-if="isShowSearchContent">
       <van-cell
         size="large"
-        v-for="retlist in searchContent" 
-        :key="retlist.deptId"
+        v-for="(retlist,listIndex) in searchContent" 
+        :key="listIndex"
         :title="retlist.deptName"
         :value="retlist.siteName"
         @click="selectPort(retlist)"
@@ -94,8 +94,16 @@
             style="height: 15px; width: 15px"
             @click="startShow = true"
           />
-          <span style="" >{{ start }}</span>
-          <van-calendar v-model="startShow" :min-date="minDate" :max-date="maxDate" @confirm="onStartConfirm" />
+          <span @click="startShow = true" class="timeStyle" v-if="isAuto">{{
+            start
+          }}</span>
+          <span class="timeStyle" v-else>{{ start }}</span>
+          <van-calendar
+            v-model="startShow"
+            @confirm="onStartConfirm"
+            :min-date="minDate"
+            :max-date="maxDate"
+          />
         </div>
       </div>
       <span style="margin: 16px 0px; font-size: 14px">至</span>
@@ -120,7 +128,7 @@
       </div>
     </div>
     <!-- 卡片列表 -->
-    <div v-for="item in tableFactorList" :key="item">
+    <div v-for="(item,itemIndex) in tableFactorList" :key="itemIndex">
       <div class="detailCard">
         <div class="detailCard_header">
           <img
@@ -181,9 +189,7 @@ export default {
       tableFactorList: [],
       isShowSearchContent: false,
       searchContent: [],
-       minDate: new Date(2010, 0, 1),
-      maxDate: new Date(2030, 0, 31),
-
+      platFormId:""
     };
   },
   methods: {
@@ -261,7 +267,37 @@ export default {
     selectHeader(e) {
       let id = e.currentTarget.id;
       if (id == "index") {
-        this.$router.push("/surfaceWater/index");
+        console.log("跳转首页：",this.platFormId)
+        //根据不同平台id跳转不同首页
+        switch (this.platFormId) {
+        case "21"://地表水
+          this.$router.push("/surfaceWater/index");
+          break;
+        case "39"://智慧工地
+          this.$router.push("/intelligenceConstruction/index");
+          break;
+        case "32"://地表水体
+          this.$router.push("/regulations");
+          break;
+        case "98"://重点环境空气检测
+          this.$router.push("/regulations");
+          break;
+        case "22"://空气质量检测
+          this.$router.push("/regulations");
+          break;
+        case "99"://餐饮油烟
+          this.$router.push("/regulations");
+          break;
+        case "31"://大气环境
+          this.$router.push("/regulations");
+          break;
+        case "02"://基础管理系统
+          this.$router.push("/regulations");
+          break;
+        case "03"://远程智控
+          this.$router.push("/regulations");
+          break;
+      }
       } else if (id == "his") {
         this.$router.push("/surfaceWater/history");
       } else if (id == "warning") {
@@ -288,12 +324,11 @@ export default {
       this.isShowSearchContent = false;
       this.getList(e.siteId);
     },
-
     // 获取列表
     getList(deptId) {
       this.tableFactorList = [];
       var that = this;
-      getHistoryList(deptId, "21", this.start, this.end).then(
+      getHistoryList(deptId, that.platFormId, that.start, that.end).then(
         function (result) {
           let list = result.data.data;
           for (let i = 0; i < list.length; i++) {
@@ -305,12 +340,24 @@ export default {
         }
       );
     },
+    getRouteParams(){
+      
+      this.platFormId=localStorage.getItem('platFormId');
+      console.log("从本地存储获取到平台id:",this.platFormId) 
+    }
+    
   },
+
   mounted: function () {
+    this.getRouteParams();
     this.start = this.formatStartDate(this.start);
     this.end = this.formatEndDate(this.end);
     this.getList(this.deptId);
+    
   },
+  beforeMount(){
+
+  }
 };
 </script>
 <style scoped lang="scss">

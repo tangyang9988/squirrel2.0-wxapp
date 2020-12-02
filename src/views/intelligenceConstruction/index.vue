@@ -71,7 +71,8 @@ import { presentData } from "@/api/intelligenceConstruction";
       return {
         active:"",
         presentRecord:[],
-        factors:[]
+        factors:[],
+        platForm:""
       };
     },
     methods: {
@@ -80,19 +81,19 @@ import { presentData } from "@/api/intelligenceConstruction";
       // this.active = "#587DF7";
       this.active = id;
       if (id == "index") {
-        this.$router.push("/intelligenceConstruction/index");
+        this.$router.push("/intelligenceConstruction/index")
       } else if (id == "his") {
-        this.$router.push("/intelligenceConstruction/history");
+        this.$router.push("/surfaceWater/history");
       } else if (id == "warning") {
-        this.$router.push("/intelligenceConstruction/abnormal");
+        this.$router.push("/surfaceWater/abnormal");
       } else if (id == "point") {
-        this.$router.push("/intelligenceConstruction/report");
+        this.$router.push("/surfaceWater/report");
       }
     },
     getPresentData(site) { //卡片
 
         let that = this;
-        presentData('39',site).then(function (result) {
+        presentData(that.platForm,site).then(function (result) {
            //拼凑卡片对象
           let portCards = []
           //1.对象的属性
@@ -114,6 +115,10 @@ import { presentData } from "@/api/intelligenceConstruction";
           Toast.fail("登录异常");
           that.isHide = false;
         });
+      },
+       getPlatFormId(){
+        this.platForm = localStorage.getItem('platFormId');
+        console.log("从本地存储获取到平台id:",this.platForm);
       }
     },
 
@@ -122,6 +127,7 @@ import { presentData } from "@/api/intelligenceConstruction";
       
     mounted() {
      this.getPresentData();
+     this.getPlatFormId();
     },
     onLoad() {
      

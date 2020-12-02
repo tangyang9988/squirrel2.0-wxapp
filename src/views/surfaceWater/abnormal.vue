@@ -38,47 +38,10 @@
     <van-search v-model="point" placeholder="环保局1/ /站点1"  @input="onSearch"/>
     <!-- 搜索框展示搜索内容  searchContent-->
     <div  v-if="isShowSearchContent">
-        <van-cell   size="large"  v-for="retlist in searchContent" :key="retlist.deptId" :title="retlist.deptName" :value="retlist.siteName"  @click="selectPort(retlist)" />
+        <van-cell   size="large"  v-for="(retlist,index) in searchContent" :key="index" :title="retlist.deptName" :value="retlist.siteName"  @click="selectPort(retlist)" />
     </div>
-
-    <!-- 时间 -->
-     <!-- <div class="calendar">
-        <div style="padding: 7px">
-          <img
-            src="../../assets/images/calendar.png"
-            alt=""
-            style="height: 15px; width: 15px"
-            @click="startShow = true"
-          />
-          <span style="" >{{ start }}</span>
-          <van-calendar v-model="startShow" @confirm="onStartConfirm" />
-        </div>
-      </div>
-      <span style="margin: 15px 0px">至</span>
-      <div class="calendar" >
-        <div style="padding: 7px">
-          <img
-            src="../../assets/images/calendar.png"
-            alt=""
-            style="height: 15px; width: 15px"
-            @click="endShow = true"
-          />
-          <span style="">{{ end }}</span>
-          <van-calendar v-model="endShow" @confirm="onEndConfirm" />
-        </div>
-      </div>
-    <!-- 预警类型 ,是否完成-->
-    <!-- <div class="drops">
-         <van-dropdown-menu>
-          <van-dropdown-item v-model="value1" :options="alertTypeList" />
-          <van-dropdown-item v-model="value2" :options="option2" />
-        </van-dropdown-menu>
-    </div>  -->
-
-
-
     <div  class="detailCards">
-        <div v-for="(item,i) in tableFactorList" class="detailCard">
+        <div v-for="(item,iIndex) in tableFactorList" :key="iIndex"  class="detailCard">
 
           <div class="factorList">
             <div class="singleFactor">
@@ -201,6 +164,7 @@ export default {
       searchContent: [],
       isShowSearchContent: false,
       tmpPointId: "",
+      platFormId:""
     };
   },
   methods: {
@@ -222,7 +186,37 @@ export default {
       // this.active = "#587DF7";
       this.active = id;
       if (id == "index") {
-        this.$router.push("/surfaceWater/index");
+         //根据不同平台id跳转不同首页
+         console.log("预警页跳转首页平台id:",this.platFormId)
+        switch (this.platFormId) {
+        case "21"://地表水
+          this.$router.push("/surfaceWater/index");
+          break;
+        case "39"://智慧工地
+          this.$router.push("/intelligenceConstruction/index");
+          break;
+        case "32"://地表水体
+          this.$router.push("/regulations");
+          break;
+        case "98"://重点环境空气检测
+          this.$router.push("/regulations");
+          break;
+        case "22"://空气质量检测
+          this.$router.push("/regulations");
+          break;
+        case "99"://餐饮油烟
+          this.$router.push("/regulations");
+          break;
+        case "31"://大气环境
+          this.$router.push("/regulations");
+          break;
+        case "02"://基础管理系统
+          this.$router.push("/regulations");
+          break;
+        case "03"://远程智控
+          this.$router.push("/regulations");
+          break;
+      }
       } else if (id == "his") {
         this.$router.push("/surfaceWater/history");
       } else if (id == "warning") {
@@ -242,7 +236,7 @@ export default {
       var beforeSevenDayDate = this.getBeforeDate(7);
       var todyaDate = this.getBeforeDate(0);
       getWarnRecords(
-        "21",
+        that.platFormId,
         deptId,
         beforeSevenDayDate,
         todyaDate,
@@ -293,6 +287,10 @@ export default {
       this.getList(e.siteId);
       this.tmpPointId = e.siteId;
     },
+     getPlatFormId(){
+        this.platFormId = localStorage.getItem('platFormId');
+        console.log("从本地存储获取到平台id:",this.platFormId);
+      },
     //获取前几天
     // 返回前number天的日期格式为2020-02-02，参数number为前几天
     getBeforeDate(number) {
@@ -324,6 +322,7 @@ export default {
   },
   mounted: function () {
     //   this.getAlarmType();
+    this.getPlatFormId();
     this.getList("");
   },
 };

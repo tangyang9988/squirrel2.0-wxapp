@@ -98,7 +98,8 @@
         barData: [],
         portRecord:[],
         factors:[],
-        active:""
+        active:"",
+        platForm:""
       };
     },
     methods: {
@@ -178,7 +179,7 @@
       getCycleChartData() { //水质环图
 
         let that = this;
-        cycleChart(3,21).then(function (result) {
+        cycleChart(3,that.platForm).then(function (result) {
 
           //环形图
           let numbers = result.data.data.y
@@ -221,7 +222,7 @@
       getPortDetail() { //卡片
 
         let that = this;
-        portDetail(5,21).then(function (result) {
+        portDetail(5,that.platForm).then(function (result) {
           //拼凑卡片对象
           let portCards = []
           //1.对象的属性
@@ -252,11 +253,16 @@
       //保留指定位数的小数
       fomatFloat(src, pos) {
         return Math.round(src * Math.pow(10, pos)) / Math.pow(10, pos);
+      },
+      getPlatFormId(){
+        this.platForm = localStorage.getItem('platFormId');
+        console.log("从本地存储获取到平台id:",this.platForm);
       }
     },
     mounted() {
       var v = this;
       this.$nextTick(() => {
+        v.getPlatFormId();
         v.getCycleChartData();
         v.getPortDetail();
         //v.drawChart();

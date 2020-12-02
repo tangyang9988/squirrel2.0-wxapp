@@ -9,7 +9,7 @@
     />
     <div class="module_list">
       <div v-for="(item, index) in list" :key="index">
-        <div @click="onClick(index)" :class="'module' + index"></div>
+        <div @click="onClick(item)" :class="'module' + index"></div>
         <div class="module_title">{{ item.name }}</div>
       </div>
     </div>
@@ -64,33 +64,35 @@ export default {
           that.isHide = false;
         });
     },
-    onClick(index) {
-      switch (index) {
-        case 0:
+    onClick(item) {
+      
+      localStorage.setItem('platFormId', item.code);
+      switch (item.code) {
+        case "21"://地表水
           this.$router.push("/surfaceWater/index");
           break;
-        case 1:
+        case "39"://智慧工地
           this.$router.push("/intelligenceConstruction/index");
           break;
-        case 2:
+        case "32"://地表水体
           this.$router.push("/regulations");
           break;
-        case 3:
+        case "98"://重点环境空气检测
           this.$router.push("/regulations");
           break;
-        case 4:
+        case "22"://空气质量检测
           this.$router.push("/regulations");
           break;
-        case 5:
+        case "99"://餐饮油烟
           this.$router.push("/regulations");
           break;
-        case 6:
+        case "31"://大气环境
           this.$router.push("/regulations");
           break;
-        case 7:
+        case "02"://基础管理系统
           this.$router.push("/regulations");
           break;
-        case 8:
+        case "03"://远程智控
           this.$router.push("/regulations");
           break;
       }

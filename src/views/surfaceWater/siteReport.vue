@@ -48,8 +48,8 @@
     <div v-if="isShowSearchContent">
       <van-cell
         size="large"
-        v-for="retlist in searchContent"
-        :key="retlist.deptId"
+        v-for="(retlist,reIndex) in searchContent"
+        :key="reIndex"
         :title="retlist.deptName"
         :value="retlist.siteName"
         @click="selectPort(retlist)"
@@ -94,7 +94,7 @@
       >
     </div>
     <!-- 卡片列表 -->
-    <div v-for="item in reportList" :key="item">
+    <div v-for="(item,itIndex) in reportList" :key="itIndex">
       <div class="detailCard">
         <div class="detailCard_header">
           <img
@@ -106,7 +106,7 @@
           <div class="header_title">{{ item.statTime }}</div>
         </div>
         <div style="margin:0px;20px">
-          <div v-for="factor in item.factorList" :key="factor">
+          <div v-for="(factor,factorIndex) in item.factorList" :key="factorIndex">
             <div class="content_factorName">
               {{ factor.factorName }}{{ factor.unit }}
             </div>
@@ -160,6 +160,7 @@ export default {
       reportList: [],
       isShowSearchContent: false,
       searchContent: [],
+      platFormId:""
     };
   },
   methods: {
@@ -181,7 +182,36 @@ export default {
       let id = e.currentTarget.id;
       this.active = id;
       if (id == "index") {
-        this.$router.push("/surfaceWater/index");
+         //根据不同平台id跳转不同首页
+        switch (this.platFormId) {
+        case "21"://地表水
+          this.$router.push("/surfaceWater/index");
+          break;
+        case "39"://智慧工地
+          this.$router.push("/intelligenceConstruction/index");
+          break;
+        case "32"://地表水体
+          this.$router.push("/regulations");
+          break;
+        case "98"://重点环境空气检测
+          this.$router.push("/regulations");
+          break;
+        case "22"://空气质量检测
+          this.$router.push("/regulations");
+          break;
+        case "99"://餐饮油烟
+          this.$router.push("/regulations");
+          break;
+        case "31"://大气环境
+          this.$router.push("/regulations");
+          break;
+        case "02"://基础管理系统
+          this.$router.push("/regulations");
+          break;
+        case "03"://远程智控
+          this.$router.push("/regulations");
+          break;
+      }
       } else if (id == "his") {
         this.$router.push("/surfaceWater/history");
       } else if (id == "warning") {
@@ -210,6 +240,10 @@ export default {
         this.getList(this.deptId,this.start);
       }
     },
+    getPlatFormId(){
+        this.platFormId = localStorage.getItem('platFormId');
+        console.log("从本地存储获取到平台id:",this.platFormId);
+      },
 
     // 头部检索
     onSearch() {
@@ -247,6 +281,7 @@ export default {
     },
   },
   mounted: function () {
+    this.getPlatFormId();
     this.start = this.formatDate(this.start)
     this.getList(this.deptId,this.start);
   },
