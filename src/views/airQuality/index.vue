@@ -154,11 +154,11 @@
       if (id == "index") {
         this.$router.push("/airQuality/index");
       } else if (id == "his") {
-        this.$router.push("/airQuality/history");
+        this.$router.push("/surfaceWater/history");
       } else if (id == "warning") {
-        this.$router.push("/airQuality/abnormal");
+        this.$router.push("/surfaceWater/abnormal");
       } else if (id == "point") {
-        this.$router.push("/airQuality/report");
+        this.$router.push("/surfaceWater/report");
       }
     },
 

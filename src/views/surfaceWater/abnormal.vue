@@ -196,13 +196,13 @@ export default {
           this.$router.push("/intelligenceConstruction/index");
           break;
         case "32"://地表水体
-          this.$router.push("/regulations");
+          this.$router.push("/pollutionSurfaceWater/index");
           break;
         case "98"://重点环境空气检测
           this.$router.push("/regulations");
           break;
         case "22"://空气质量检测
-          this.$router.push("/regulations");
+          this.$router.push("/airQuality/index");
           break;
         case "99"://餐饮油烟
           this.$router.push("/regulations");

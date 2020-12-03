@@ -65,7 +65,6 @@ export default {
         });
     },
     onClick(item) {
-
       localStorage.setItem('platFormId', item.code);
       switch (item.code) {
         case "21"://地表水
@@ -81,13 +80,13 @@ export default {
           this.$router.push("/regulations");
           break;
         case "22"://空气质量检测
-          this.$router.push("/regulations");
+          this.$router.push("/airQuality/index");
           break;
         case "99"://餐饮油烟
           this.$router.push("/regulations");
           break;
         case "31"://大气环境
-          this.$router.push("/regulations");
+          this.$router.push("/airPollution/index");
           break;
         case "02"://基础管理系统
           this.$router.push("/regulations");
@@ -160,7 +159,7 @@ export default {
       .then(
         function (result) {
           var length = result.data.data.length;
-          for (let i = 0; i < length; i++) {
+          for (let i = 0; i < length-3; i++) {
             that.list.push(result.data.data[i]);
           }
         },
@@ -220,6 +219,13 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+
+}
+.module_list:after {
+	content:' ';
+	width:60%; //这个宽度和子元素宽度一致
+	height:0;
+	display:block;
 }
 .module0 {
   height: 98px;

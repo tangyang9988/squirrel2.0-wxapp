@@ -137,6 +137,7 @@ export default {
     },
     //柱状图
     drawHistogramChart(data) {
+      var platform =localStorage.getItem("platFormId")
       // Step 1: 创建 Chart 对象
       const chart = new F2.Chart({
         id: "histogram",
@@ -152,7 +153,7 @@ export default {
     getPortDetail() {
       //卡片
       let that = this;
-      portDetail(5, 21)
+      portDetail(5, platform)
         .then(
           function (result) {
             //拼凑卡片对象
@@ -180,8 +181,8 @@ export default {
     getChartData() {
       var that = this;
       that.histogramData = [];
-      var platform = sessionStorage.getItem("platform");
-      getData(21)
+      var platform =localStorage.getItem("platFormId")
+      getData(platform)
         .then(function (result) {
           var histogram = result.data.data;
           for (let i = 0; i < histogram.length; i++) {
@@ -191,9 +192,9 @@ export default {
         }).catch(function (error) {});
     },
     getAbnormal() {
+      var platform =localStorage.getItem("platFormId")
       var that = this;
-      var platform = sessionStorage.getItem("platform");
-      getAbnormalCount(21)
+      getAbnormalCount(platform)
         .then(function (result) {
           that.countCurrent = result.data.data.countCurrent;
           that.countMonth = result.data.data.countMonth;
