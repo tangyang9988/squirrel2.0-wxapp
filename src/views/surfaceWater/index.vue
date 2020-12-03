@@ -33,22 +33,33 @@
         @click="selected($event)"
         >站点报表</van-button>
     </div>
+    <div class="abnormal" >
+      <div class="abnormalLine"></div>
+      <span id="testQuality" class="abnormalTitle">当月水质等级</span>
+    </div>
     <div class="wholeCard">
       <div  class="chartsCard">
-        <div class="chartTitle">
-          <label for="">当月水质等级</label>
-        </div>
         <div class="charts">
-          <!-- 环图 -->
+          
           <canvas id="myChart" class="cycleChart"></canvas>
           <canvas id="barChart" class="barChart"></canvas>
         </div>
       </div>
     </div>
-
-    <div class="cardsHeaderTitle">站点时报</div>
-      <!-- v-model="value" -->
-      <!-- <van-search  placeholder="请输入站点名称" /> -->
+    <!-- 可点击的环形图 -->
+    <div class="wholeCard">
+      <div  class="chartsCard">
+        <div class="charts">
+          <!-- 环图 直线图-->
+          <canvas id="container" ></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="abnormal">
+      <div class="abnormalLine"></div>
+      <span class="abnormalTitle">站点时报</span>
+    </div>
+   
     <!-- 真实记录 开始 -->
     <div>
       <!-- 卡片开始 -->
@@ -99,7 +110,8 @@
         portRecord:[],
         factors:[],
         active:"",
-        platForm:""
+        platForm:"",
+        data2 : [],
       };
     },
     methods: {
@@ -149,6 +161,61 @@
 
         chart.render();
       },
+      newDrawChart() {
+        let that=this;
+        const chart = new F2.Chart({
+        id: 'container',
+        pixelRatio: window.devicePixelRatio,
+        plugins: PieLabel
+        });
+        chart.source(that.data2);
+        chart.coord('polar', {
+          transposed: true,
+          radius: 0.9,
+          innerRadius: 0.5
+        });
+        chart.axis(false);
+        chart.legend(false);
+        chart.tooltip(false);
+        chart.guide()
+          .html({
+            position: [ '50%', '50%' ],
+            html: '<div style="text-align: center;width:150px;height: 50px;">\n      <p style="font-size: 12px;color: #999;margin: 0" ref="surfaceWaterDataType" id="surfaceWaterDataType"></p>\n      <p style="font-size: 18px;color: #343434;margin: 0;font-weight: bold;" ref="surfaceWaterData" id="surfaceWaterData"></p>\n      </div>'
+          });
+        chart.interval()
+          .position('const*money')
+          .adjust('stack')
+          .color('type', [ '#1890FF', '#13C2C2', '#2FC25B', '#FACC14' ]);
+        chart.pieLabel({
+          sidePadding: 30,
+          activeShape: true,
+          label1: function label1(data) {
+            return {
+              text:  data.money*100+"%",
+              fill: '#343434',
+              fontWeight: 'bold'
+            };
+          },
+          label2: function label2(data) {
+            return {
+              text: data.type,
+              fill: '#999'
+            };
+          },
+          onClick: function onClick(ev) {
+            const data = ev.data;
+            console.log(data)
+            if (data) {
+              let selectedInfo=document.getElementById("surfaceWaterDataType")
+              let selectedDataInfo=document.getElementById("surfaceWaterData") 
+              
+               selectedInfo.innerText =data.type
+               selectedDataInfo.innerText=data.money
+            }
+          }
+        });
+        chart.render();
+      },
       //条状图
       drawBarChart() {
         const chart = new F2Bar.Chart({
@@ -196,7 +263,7 @@
             let singlePercentage = {
               name: numberName[i],
               proportion: singleNumber,
-              a: "1"
+              const: 'const',
             }
             that.data.push(singlePercentage)
             let singleBarChart = {
@@ -204,10 +271,19 @@
               sales: singleNumber
             }
             that.barData.push(singleBarChart)
-          }
 
-          that.drawChart()
-          that.drawBarChart()
+            //可点击环图
+            let newObject={
+              const: 'const',
+              type: numberName[i],
+              money: singleNumber
+            }
+             that.data2.push(newObject)
+          }
+         
+          // that.drawChart();
+          // that.drawBarChart();
+           that.newDrawChart();
 
         }, function (err) {
           console.log(err)
@@ -262,10 +338,11 @@
     mounted() {
       var v = this;
       this.$nextTick(() => {
+        
         v.getPlatFormId();
         v.getCycleChartData();
         v.getPortDetail();
-        //v.drawChart();
+        //v.newDrawChart();
         //v.drawBarChart();
 
 
@@ -298,12 +375,18 @@
     height: 240px;
     padding-left: 5%;
     padding-right: 5%;
+
+   
   }
 
   .chartsCard {
     width: 100%;
     height: 240px;
     background-color: white;
+     //卡片阴影
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+    opacity: 1;
+    border-radius: 12px;
 
   }
 
@@ -312,7 +395,6 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    margin-top: -20px;
   }
 
   .cycleChart {
@@ -479,5 +561,28 @@
     color: #000000;
     opacity: 1;
   }
-
+.abnormal {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px 25px;
+}
+.abnormalLine {
+  font-family: PingFang SC;
+  width: 4px;
+  height: 14px;
+  background: #587df7;
+  opacity: 1;
+  border-radius: 2px;
+  margin-top: 4px;
+}
+.abnormalTitle {
+  height: 22px;
+  font-size: 16px;
+  font-family: PingFang SC;
+  font-weight: 500;
+  line-height: 22px;
+  color: #000000;
+  opacity: 1;
+  margin-left: 4px;
+}
 </style>

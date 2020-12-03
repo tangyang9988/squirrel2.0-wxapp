@@ -73,6 +73,7 @@
       <div v-for = "(value,key) in aqiArr" :key="key" class="AQIcard">
         <div class="AQIcardDate">{{value.time}}</div>
         <div class="AQIcardAQI">{{value.aqi}}</div>
+        <div class="AQICardBottom"></div>
       </div>
     </div>
 
@@ -395,7 +396,7 @@
         
         // v.getCycleChartData();
         v.getPortDetail();
-        v.getAQI();
+        // v.getAQI();
         v.getAllAQIData();
         v.getSites();
         //v.drawChart();
@@ -682,6 +683,10 @@
     opacity: 1;
     text-align: center;
 
+  }
+  .AQICardBottom{
+    background-color: red;
+    height: 25%;
   }
   .mainDirtyFactorTitle{
     
