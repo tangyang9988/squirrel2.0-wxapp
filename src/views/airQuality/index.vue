@@ -184,12 +184,12 @@
           .interval()
           .position("a*proportion")
           .color("name", [
-            "#1890FF",
-            "#13C2C2",
-            "#2FC25B",
-            "#FACC14",
-            "#F04864",
-            "#8543E0",
+            "#00E300",
+            "#FFFF00",
+            "#FF7D00",
+            "#FF0000",
+            "#99004B",
+            "#7D0022",
           ])
           .adjust("stack");
 
@@ -684,8 +684,8 @@
     text-align: center;
 
   }
-  .AQICardBottom{
-    background-color: red;
+  .AQICardBottom1{
+    background-color: #00E300;
     height: 25%;
   }
   .mainDirtyFactorTitle{

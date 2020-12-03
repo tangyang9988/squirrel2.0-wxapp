@@ -37,15 +37,7 @@
       <div class="abnormalLine"></div>
       <span id="testQuality" class="abnormalTitle">当月水质等级</span>
     </div>
-    <div class="wholeCard">
-      <div  class="chartsCard">
-        <div class="charts">
-          
-          <canvas id="myChart" class="cycleChart"></canvas>
-          <canvas id="barChart" class="barChart"></canvas>
-        </div>
-      </div>
-    </div>
+    
     <!-- 可点击的环形图 -->
     <div class="wholeCard">
       <div  class="chartsCard">
@@ -381,7 +373,7 @@
 
   .chartsCard {
     width: 100%;
-    height: 240px;
+    height: 200px;
     background-color: white;
      //卡片阴影
     box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
