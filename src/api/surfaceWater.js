@@ -31,7 +31,7 @@ export const getHistoryList = (treeId,platform,start,end,current,size) =>{
     }
   });
 }
-//水质环图  id3
+//水质环图
 export const cycleChart = (id,platform) =>{
   return request({
     url: '/api/squirrel-service/Index/getChartData',
@@ -39,9 +39,6 @@ export const cycleChart = (id,platform) =>{
     headers: {
       'platform': platform
     },
-    params: {
-      id
-    }
   });
 }
 
@@ -101,7 +98,7 @@ export const getAlertTypeType = (platform,alertType) =>{
     }
   });
 }
- 
+
 //预警模糊搜索 /squirrel-service/historyData/getEntPointGroupInfoList
 export const searchPoints = (platform,parm) =>{
   return request({
@@ -118,7 +115,7 @@ export const searchPoints = (platform,parm) =>{
 
 //预警处理提交
 export const abnormalInfoSubmit = (platform,conclusion,ids) =>{
-  
+
   return request({
     url: '/api/squirrel-service/abnormalinfo/submit',
     method: 'post',
@@ -130,6 +127,6 @@ export const abnormalInfoSubmit = (platform,conclusion,ids) =>{
       conclusion: conclusion,
       ids: ids
     },
-    
+
   });
 }

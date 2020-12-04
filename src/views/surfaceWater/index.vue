@@ -37,7 +37,6 @@
       <div class="abnormalLine"></div>
       <span id="testQuality" class="abnormalTitle">当月水质等级</span>
     </div>
-    
     <!-- 可点击的环形图 -->
     <div class="wholeCard">
       <div  class="chartsCard">
@@ -51,7 +50,7 @@
       <div class="abnormalLine"></div>
       <span class="abnormalTitle">站点时报</span>
     </div>
-   
+
     <!-- 真实记录 开始 -->
     <div>
       <!-- 卡片开始 -->
@@ -78,7 +77,7 @@
 
     </div>
     <!-- 真实记录 结束-->
-    
+
 </div>
 
 </template>
@@ -203,8 +202,8 @@
             console.log(data)
             if (data) {
               let selectedInfo=document.getElementById("surfaceWaterDataType")
-              let selectedDataInfo=document.getElementById("surfaceWaterData") 
-              
+              let selectedDataInfo=document.getElementById("surfaceWaterData")
+
                selectedInfo.innerText =data.type
                selectedDataInfo.innerText=data.money
             }
@@ -276,7 +275,7 @@
             }
              that.data2.push(newObject)
           }
-         
+
           // that.drawChart();
           // that.drawBarChart();
            that.newDrawChart();
@@ -299,9 +298,9 @@
           let portCards = []
           //1.对象的属性
           let allRecords = result.data.data //记录数组
-          
+
           for (let i = 0; i < allRecords.length; i++) {//几个卡片
-            
+
             that.portRecord.push(allRecords[i])
             that.factors.push(allRecords[i].factorMap)
 
@@ -334,7 +333,7 @@
     mounted() {
       var v = this;
       this.$nextTick(() => {
-        
+
         v.getPlatFormId();
         v.getCycleChartData();
         v.getPortDetail();
@@ -371,8 +370,6 @@
     height: 240px;
     padding-left: 5%;
     padding-right: 5%;
-
-   
   }
 
   .chartsCard {
@@ -436,7 +433,7 @@
     // height: 290px;
     background-color: white;
     border-radius: 3px;
-    
+
     box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.05);//阴影
   }
 

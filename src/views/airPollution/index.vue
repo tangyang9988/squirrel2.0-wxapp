@@ -51,10 +51,10 @@
         <div class="currentTitle">本月异常</div>
       </div>
       <div class="moudle">
-        <div class="lastUnsolve"><span class="abnormalNumber">{{countBefore24hUnDeal}}</span></div> 
+        <div class="lastUnsolve"><span class="abnormalNumber">{{countBefore24hUnDeal}}</span></div>
         <div class="currentTitle">前24h未处理 异常</div>
       </div>
-      
+
     </div>
     <div class="abnormal">
       <div class="abnormalLine"></div>
@@ -63,7 +63,7 @@
     <div class="histogram">
       <canvas id="histogram" style="width: 100%;height:100%"></canvas>
     </div>
-   
+
     <div class="abnormal">
       <div class="abnormalLine"></div>
       <span class="abnormalTitle">站点时报</span>
@@ -71,12 +71,12 @@
     <div>
       <!-- 卡片开始 -->
       <div  class="detailCards">
-        <div v-for = "(value,key) in portRecord" :key="key" class="detailCard">
+        <div v-for = "(value,key) in presentRecord" :key="key" class="detailCard">
           <div class="cardTitle">
             <div class="cardTitleIcon"></div>
             <div class="cardTitleWord">{{value.siteName}}</div>
           </div>
-          <div   class="factorList">
+          <div class="factorList">
             <div v-for = "(factorValue,factorKey) in value.factorMap" :factorKey="factorKey" class="singleFactor">
               <div class="factorName">{{factorKey}}：</div>
               <div class="factorValue">{{factorValue}}</div>
@@ -92,7 +92,7 @@
 
     </div>
     <!-- 真实记录 结束-->
-    
+
 </div>
 
 </template>
@@ -102,16 +102,16 @@ import F2Bar from "@antv/f2";
 import F2 from "@antv/f2/lib/index"; //引入插件
 import PieLabel from "@antv/f2/lib/plugin/pie-label"; //引入插件
 import { cycleChart } from "@/api/surfaceWater";
-import { portDetail } from "@/api/surfaceWater";
 import { getData } from "@/api/pollutionsurfaceWater";
 import { getAbnormalCount } from "@/api/pollutionsurfaceWater";
+import { presentData } from "@/api/intelligenceConstruction";
 
 export default {
   name: "about",
   data() {
     return {
       data: [],
-      portRecord: [],
+      presentRecord: [],
       factors: [],
       active: "",
       histogramData: [],
@@ -150,34 +150,28 @@ export default {
       // Step 4: 渲染图表
       chart.render();
     },
-    getPortDetail() {
-      //卡片
-      let that = this;
-      portDetail(5, platform)
-        .then(
-          function (result) {
-            //拼凑卡片对象
-            let portCards = [];
-            //1.对象的属性
-            let allRecords = result.data.data; //记录数组
-            for (let i = 0; i < allRecords.length; i++) {
-              //几个卡片
-              that.portRecord.push(allRecords[i]);
-              that.factors.push(allRecords[i].factorMap);
-            }
-          },
-          function (err) {
-            console.log(err);
-            Toast.fail("请求异常");
-            that.isHide = false;
+    getPresentData() { //卡片
+        let that = this;
+        var platform =localStorage.getItem("platFormId")
+        presentData(platform).then(function (result) {
+           //拼凑卡片对象
+          let portCards = []
+          //1.对象的属性
+          let allRecords = result.data.data //记录数组
+          for (let i = 0; i < allRecords.length; i++) {//几个卡片
+            that.presentRecord.push(allRecords[i])
+            that.factors.push(allRecords[i].factorMap)
           }
-        )
-        .catch(function (error) {
-          console.log(error);
+        }, function (err) {
+          console.log(err)
+          Toast.fail("请求异常");
+          that.isHide = false;
+        }).catch(function (error) {
+          console.log(error)
           Toast.fail("登录异常");
           that.isHide = false;
         });
-    },
+      },
     getChartData() {
       var that = this;
       that.histogramData = [];
@@ -206,7 +200,7 @@ export default {
   mounted() {
     this.getAbnormal();
     this.getChartData();
-    this.getPortDetail();
+    this.getPresentData();
   },
 };
 </script>
@@ -383,8 +377,7 @@ export default {
 
 .factorName {
   height: 100%;
-  width: 55%;
-
+  width: 45%;
   font-size: 12px;
   font-family: PingFang SC;
   font-weight: 400;
@@ -392,7 +385,12 @@ export default {
   color: #000000;
   opacity: 1;
 }
-
+.factorLine{
+  margin: 10px;
+  height: 0px;
+  border: 1px dashed #DEDEDE;
+  opacity: 1;
+}
 .factorValue {
   font-size: 12px;
   font-family: PingFang SC;

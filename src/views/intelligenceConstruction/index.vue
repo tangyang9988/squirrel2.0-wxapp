@@ -35,7 +35,7 @@
         @click="selected($event)"
         >站点报表</van-button>
     </div>
-   
+
    <!-- 卡片 -->
    <div  class="detailCards">
         <div v-for = "(value,key) in presentRecord" :key="key" class="detailCard">
@@ -91,16 +91,15 @@ import { presentData } from "@/api/intelligenceConstruction";
       }
     },
     getPresentData(site) { //卡片
-
         let that = this;
         presentData(that.platForm,site).then(function (result) {
            //拼凑卡片对象
           let portCards = []
           //1.对象的属性
           let allRecords = result.data.data //记录数组
-          
+
           for (let i = 0; i < allRecords.length; i++) {//几个卡片
-            
+
             that.presentRecord.push(allRecords[i])
             that.factors.push(allRecords[i].factorMap)
 
@@ -122,15 +121,15 @@ import { presentData } from "@/api/intelligenceConstruction";
       }
     },
 
-      
-      
-      
+
+
+
     mounted() {
      this.getPresentData();
      this.getPlatFormId();
     },
     onLoad() {
-     
+
     },
     created() {},
   };
@@ -159,7 +158,7 @@ import { presentData } from "@/api/intelligenceConstruction";
     // height: 290px;
     background-color: white;
     border-radius: 3px;
-    
+
     box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.05);//阴影
   }
 
