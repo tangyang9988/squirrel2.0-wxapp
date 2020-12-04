@@ -34,17 +34,20 @@
         @click="selected($event)"
         >站点报表</van-button>
     </div>
-    <div class="wholeCard chartCardRadis">
-      <div  class="chartsCard">
-        <div class="chartTitle2 ">
-          <div class="chartMainTitle">
-            <label for="">空气质量等级分布</label>
+    <div class="chartTitle2 ">
+          <div class="chartMainTitle abnormal">
+             <div class="abnormalLine"></div>
+             <span id="testQuality" class="abnormalTitle">空气质量等级分布</span>
+            <!-- <label for="">最新30日AQI</label> -->
           </div>
           
-          <van-dropdown-menu>
+          <van-dropdown-menu class="dropDownMenu">
             <van-dropdown-item v-model="site1Value" :options="siteData" @change="changeSite(site1Value,1)" />
           </van-dropdown-menu>
-        </div>
+    </div>
+    <div class="wholeCard chartCardRadis">
+      <div  class="chartsCard">
+        
         <div class="charts">
           <!-- 环图 -->
           <canvas id="myChart" class="cycleChart"></canvas>
@@ -53,6 +56,7 @@
         <div class="chartTitle">
             <!-- <label for="">首要污染物</label> -->
             <div class="mainDirtyFactorTitle">首要污染物</div>
+             
           </div>
           <div class="mainFactorS">
             <div class="mainFactorValue" v-for = "(value,key) in mainFactor" :key="key" >{{value.factorName}}: {{value.num}}天</div>
@@ -61,14 +65,16 @@
     </div>
     <!-- 最新30日AQI -->
     <div class="chartTitle2 ">
-          <div class="chartMainTitle">
-            <label for="">最新30日AQI</label>
+          <div class="chartMainTitle abnormal">
+             <div class="abnormalLine"></div>
+             <span id="testQuality" class="abnormalTitle">最新30日AQI</span>
+            <!-- <label for="">最新30日AQI</label> -->
           </div>
           
-          <van-dropdown-menu>
+          <van-dropdown-menu class="dropDownMenu">
             <van-dropdown-item v-model="site1Value" :options="siteData" @change="changeSite(site1Value,2)" />
           </van-dropdown-menu>
-        </div>
+    </div>
     <div class="AQIcards">
       <div v-for = "(value,key) in aqiArr" :key="key" class="AQIcard">
         <div class="AQIcardDate">{{value.time}}</div>
@@ -77,7 +83,12 @@
       </div>
     </div>
 
-    <div class="cardsHeaderTitle">站点时报</div>
+    <!-- <div class="cardsHeaderTitle">站点时报</div> -->
+     <div class="chartMainTitle abnormal">
+             <div class="abnormalLine"></div>
+             <span id="testQuality" class="abnormalTitle">站点时报</span>
+            <!-- <label for="">最新30日AQI</label> -->
+          </div>
       <!-- v-model="value" -->
       <!-- <van-search  placeholder="请输入站点名称" /> -->
     <!-- 真实记录 开始 -->
@@ -432,7 +443,7 @@
 
   .wholeCard {
     width: 90%;
-    height: 320px;
+    // height: 320px;
     margin-left: 5%;
     margin-right: 5%;
   }
@@ -570,12 +581,18 @@
   .chartTitle {
     margin-top: 10px;
     margin-left: 20px;
+    margin-bottom: 5px;
   }
 
   .chartTitle2{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
+    width: 90%;
+    // height: 320px;
+    // margin-left: 5%;
+    margin-right: 5%;
+    // margin-bottom: 5px;
   }
   .chartMainTitle{
     margin-top: 10px;
@@ -647,7 +664,7 @@
   .AQIcards{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: left;
     width: 90%;
     margin-left: 5%;
     padding-left: 5px;
@@ -740,4 +757,31 @@
     color: #A7A7A7;
     opacity: 1;
   }
+  .abnormal {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px 25px;
+}
+  .abnormalLine {
+  font-family: PingFang SC;
+  width: 4px;
+  height: 14px;
+  background: #587df7;
+  opacity: 1;
+  border-radius: 2px;
+  margin-top: 4px;
+}
+.abnormalTitle {
+  height: 22px;
+  font-size: 16px;
+  font-family: PingFang SC;
+  font-weight: 500;
+  line-height: 22px;
+  color: #000000;
+  opacity: 1;
+  margin-left: 4px;
+}
+.dropDownMenu{
+  margin-right: 15px;
+}
 </style>
