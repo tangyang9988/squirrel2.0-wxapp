@@ -12,7 +12,7 @@ import intelligenceConstructionIndex from '@/views/intelligenceConstruction/inde
 import pollutionSurfaceWaterIndex from '@/views/pollutionSurfaceWater/index'
 import AirQualityIndex from '@/views/airQuality/index'
 import airPollutionIndex from '@/views/airPollution/index'
-
+import lampblackIndex from '@/views/lampblack/index'
 Vue.use(Router)
 
 let router = new Router({
@@ -65,6 +65,12 @@ let router = new Router({
       path: '/airPollution/index',
       name: 'index',
       component: airPollutionIndex,
+    },
+    // 餐饮油烟
+    {
+      path: '/lampblack/index',
+      name: 'index',
+      component: lampblackIndex,
     },
     {
       path: '/',

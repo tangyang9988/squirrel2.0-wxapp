@@ -208,7 +208,7 @@ export default {
           this.$router.push("/regulations");
           break;
         case "31"://大气环境
-          this.$router.push("/regulations");
+          this.$router.push("/airPollution/index");
           break;
         case "02"://基础管理系统
           this.$router.push("/regulations");

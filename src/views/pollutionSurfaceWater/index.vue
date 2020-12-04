@@ -51,10 +51,10 @@
         <div class="currentTitle">本月异常</div>
       </div>
       <div class="moudle">
-        <div class="lastUnsolve"><span class="abnormalNumber">{{countBefore24hUnDeal}}</span></div> 
+        <div class="lastUnsolve"><span class="abnormalNumber">{{countBefore24hUnDeal}}</span></div>
         <div class="currentTitle">前24h未处理 异常</div>
       </div>
-      
+
     </div>
     <div class="abnormal">
       <div class="abnormalLine"></div>
@@ -63,7 +63,7 @@
     <div class="histogram">
       <canvas id="histogram" style="width: 100%;height:100%"></canvas>
     </div>
-   
+
     <div class="abnormal">
       <div class="abnormalLine"></div>
       <span class="abnormalTitle">站点时报</span>
@@ -92,7 +92,7 @@
 
     </div>
     <!-- 真实记录 结束-->
-    
+
 </div>
 
 </template>
@@ -382,8 +382,7 @@ export default {
 
 .factorName {
   height: 100%;
-  width: 55%;
-
+  width: 52%;
   font-size: 12px;
   font-family: PingFang SC;
   font-weight: 400;
