@@ -46,7 +46,7 @@ export const cycleChart = (id,platform) =>{
 }
 
 //实时数据接口
-export const portDetail = (id,platform) =>{
+export const portDetail = (platform) =>{
   return request({
     url: '/api/squirrel-service/Index/getHourReportListByApp',
     method: 'get',
@@ -54,7 +54,6 @@ export const portDetail = (id,platform) =>{
       'platform': platform
     },
     params: {
-      id
     }
   });
 }
