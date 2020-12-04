@@ -408,13 +408,9 @@
       var v = this;
       this.$nextTick(() => {
         
-        // v.getCycleChartData();
         v.getPortDetail();
-        // v.getAQI();
         v.getAllAQIData();
         v.getSites();
-        //v.drawChart();
-        //v.drawBarChart();
 
 
       });
