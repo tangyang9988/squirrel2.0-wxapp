@@ -178,6 +178,10 @@
           .position('const*money')
           .adjust('stack')
           .color('type', [ '#1890FF', '#13C2C2', '#2FC25B', '#FACC14' ]);
+          // chart.legend({
+          //   position: 'bottom',
+          //   align: 'center'
+          // });
         chart.pieLabel({
           sidePadding: 30,
           activeShape: true,
@@ -290,7 +294,7 @@
       getPortDetail() { //卡片
 
         let that = this;
-        portDetail(5,that.platForm).then(function (result) {
+        portDetail(that.platForm).then(function (result) {
           //拼凑卡片对象
           let portCards = []
           //1.对象的属性
@@ -373,7 +377,7 @@
 
   .chartsCard {
     width: 100%;
-    height: 200px;
+    height: 240px;
     background-color: white;
      //卡片阴影
     box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
