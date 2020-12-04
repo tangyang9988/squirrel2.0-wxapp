@@ -39,6 +39,9 @@ export const cycleChart = (id,platform) =>{
     headers: {
       'platform': platform
     },
+    params: {
+      id
+    }
   });
 }
 
