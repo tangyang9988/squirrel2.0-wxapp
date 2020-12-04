@@ -162,6 +162,34 @@ import { presentData } from "@/api/intelligenceConstruction";
     box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.05);//阴影
   }
 
+  .cardTitle {
+    padding-left: 5%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    background: #F4F4F4;
+    opacity: 1;
+    border-radius: 12px 12px 0px 0px;
+
+    font-size: 12px;
+    font-family: PingFang SC;
+    font-weight: 500;
+    line-height: 17px;
+    color: #000000;
+
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    ;
+
+  }
+  .cardTitleIcon {
+    width: 18px;
+    height: 18px;
+    background: #50E2C1;
+    border-radius: 50%;
+    opacity: 1;
+  }
   .factorList {
     // height: 25px;
     display: flex;
@@ -179,11 +207,12 @@ import { presentData } from "@/api/intelligenceConstruction";
     justify-content: left;
     align-items: left;
     width: 45%;
+    border-bottom: #DEDEDE 1px dashed;
   }
 
   .factorName {
     height: 100%;
-    width: 55%;
+    // width: 55%;
 
     font-size: 12px;
     font-family: PingFang SC;

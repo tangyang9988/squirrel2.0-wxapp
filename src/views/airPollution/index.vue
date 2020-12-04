@@ -377,7 +377,7 @@ export default {
 
 .factorName {
   height: 100%;
-  width: 45%;
+  // width: 45%;
   font-size: 12px;
   font-family: PingFang SC;
   font-weight: 400;

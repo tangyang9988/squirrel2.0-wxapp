@@ -367,14 +367,14 @@
 
   .wholeCard {
     width: 90%;
-    height: 240px;
+    // height: 240px;
     padding-left: 5%;
     padding-right: 5%;
   }
 
   .chartsCard {
     width: 100%;
-    height: 240px;
+    // height: 240px;
     background-color: white;
      //卡片阴影
     box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
@@ -454,11 +454,12 @@
     justify-content: left;
     align-items: left;
     width: 45%;
+    border-bottom: #DEDEDE 1px dashed;
   }
 
   .factorName {
     height: 100%;
-    width: 55%;
+    // width: 55%;
 
     font-size: 12px;
     font-family: PingFang SC;
