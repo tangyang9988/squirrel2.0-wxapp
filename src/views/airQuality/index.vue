@@ -278,7 +278,6 @@
             }
             that.data.push(seriousPercentage);
             that.mainFactor=resData.facotrs;
-            console.log("main factor:",that.mainFactor)
 
           that.drawChart();
 
@@ -308,11 +307,6 @@
 
           }
           // //2.对象的值
-
-
-          console.log(that.portRecord)
-
-
         }, function (err) {
           console.log(err)
           Toast.fail("请求异常");
@@ -329,7 +323,6 @@
         latestAQI('22',site).then(function (result) {
           
           that.aqiArr=result.data.data
-          console.log("aqi arr:",that.aqiArr)
 
         }, function (err) {
           console.log(err)
@@ -347,7 +340,6 @@
         let that = this;
         getAllSiteData('22').then(function (result) {
           that.allAqiData=result.data.data
-          console.log("all aqi arr:",that.allAqiData)
 
         }, function (err) {
           console.log(err)
@@ -372,10 +364,8 @@
           }
           //默认使用第一个站点
           that.site1Value=that.siteData[0].value
-          console.log("传入站点id:",that.siteData[0].value)
           that.getCycleChartData(that.siteData[0].value)
           that.getAQI(that.siteData[0].value)
-          console.log("site arr:",that.siteData)
 
         }, function (err) {
           console.log(err)
@@ -389,9 +379,7 @@
       },
       //更换站点
       changeSite(e,type){
-        console.log("更换的站点：",e);
         this.sum++;
-        console.log("更换站点的次数：",this.sum)
           if (type==1){
             this.getCycleChartData(e)
           }else if (type==2){
@@ -416,8 +404,6 @@
       });
     },
     onLoad() {
-      console.log("onload")
-      // this.getCycleChartData();
 
     },
     created() {},

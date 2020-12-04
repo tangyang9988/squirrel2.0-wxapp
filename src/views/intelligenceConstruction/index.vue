@@ -117,7 +117,6 @@ import { presentData } from "@/api/intelligenceConstruction";
       },
        getPlatFormId(){
         this.platForm = localStorage.getItem('platFormId');
-        console.log("从本地存储获取到平台id:",this.platForm);
       }
     },
 

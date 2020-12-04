@@ -199,13 +199,12 @@
           },
           onClick: function onClick(ev) {
             const data = ev.data;
-            console.log(data)
             if (data) {
               let selectedInfo=document.getElementById("surfaceWaterDataType")
               let selectedDataInfo=document.getElementById("surfaceWaterData")
 
                selectedInfo.innerText =data.type
-               selectedDataInfo.innerText=data.money
+               selectedDataInfo.innerText=data.money*100+"%"
             }
           }
         });
@@ -276,8 +275,6 @@
              that.data2.push(newObject)
           }
 
-          // that.drawChart();
-          // that.drawBarChart();
            that.newDrawChart();
 
         }, function (err) {
@@ -306,11 +303,6 @@
 
           }
           // //2.对象的值
-
-
-          console.log(that.portRecord)
-
-
         }, function (err) {
           console.log(err)
           Toast.fail("请求异常");
@@ -327,7 +319,6 @@
       },
       getPlatFormId(){
         this.platForm = localStorage.getItem('platFormId');
-        console.log("从本地存储获取到平台id:",this.platForm);
       }
     },
     mounted() {
@@ -344,7 +335,6 @@
       });
     },
     onLoad() {
-      console.log("onload")
       this.getCycleChartData();
 
     },

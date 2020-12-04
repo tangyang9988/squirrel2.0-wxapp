@@ -267,7 +267,6 @@ export default {
     selectHeader(e) {
       let id = e.currentTarget.id;
       if (id == "index") {
-        console.log("跳转首页：",this.platFormId)
         //根据不同平台id跳转不同首页
         switch (this.platFormId) {
         case "21"://地表水
@@ -343,7 +342,6 @@ export default {
     getRouteParams(){
 
       this.platFormId=localStorage.getItem('platFormId');
-      console.log("从本地存储获取到平台id:",this.platFormId)
     }
 
   },

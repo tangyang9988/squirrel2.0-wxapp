@@ -242,7 +242,6 @@ export default {
     },
     getPlatFormId(){
         this.platFormId = localStorage.getItem('platFormId');
-        console.log("从本地存储获取到平台id:",this.platFormId);
       },
 
     // 头部检索

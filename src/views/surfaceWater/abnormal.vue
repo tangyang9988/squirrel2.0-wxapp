@@ -179,7 +179,6 @@ export default {
     showForm(e) {
       this.abnormalFormHShow = true;
       this.chooseRecord = e;
-      console.log("click:", this.chooseRecord);
     },
     selected(e) {
       let id = e.currentTarget.id;
@@ -187,7 +186,6 @@ export default {
       this.active = id;
       if (id == "index") {
          //根据不同平台id跳转不同首页
-         console.log("预警页跳转首页平台id:",this.platFormId)
         switch (this.platFormId) {
         case "21"://地表水
           this.$router.push("/surfaceWater/index");
@@ -251,7 +249,6 @@ export default {
           }
           that.loading = false;
           // that.finished = true;
-          console.log(that.tableFactorList);
         },
         function (err) {
           Toast.fail("请求异常");
@@ -259,7 +256,6 @@ export default {
       );
     },
     listenPoupClose(data) {
-      console.log("从子组件获取的信息：", data);
       this.abnormalFormHShow = false;
       //刷新列表
       this.getList(this.tmpPointId);
@@ -281,16 +277,14 @@ export default {
 
     //选择站点
     selectPort(e) {
-      console.log("选择的站点：", e);
       this.isShowSearchContent = false;
       // this.tableFactorList=[];
       this.getList(e.siteId);
       this.tmpPointId = e.siteId;
     },
-     getPlatFormId(){
+    getPlatFormId(){
         this.platFormId = localStorage.getItem('platFormId');
-        console.log("从本地存储获取到平台id:",this.platFormId);
-      },
+    },
     //获取前几天
     // 返回前number天的日期格式为2020-02-02，参数number为前几天
     getBeforeDate(number) {
