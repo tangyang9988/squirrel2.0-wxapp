@@ -62,7 +62,8 @@
           </div>
 
           <div   class="factorList">
-            <div v-for = "(factorValue,factorKey) in value.factorMap" :factorKey="factorKey" class="singleFactor">
+            <!-- :class="lastFactorClass(value.factorMap)" -->
+            <div v-for = "(factorValue,factorKey) in value.factorMap" :factorKey="factorKey" class="singleFactor" >
               <div class="factorName">{{factorKey}}：</div>
               <div class="factorValue">{{factorValue}}</div>
             </div>
@@ -103,6 +104,10 @@
         active:"",
         platForm:"",
         data2 : [],
+        mapCount:0,
+        changeCounts:0,
+        factorCounts:0,
+        changeFactorIndex:[]
       };
     },
     methods: {
@@ -185,8 +190,9 @@
           sidePadding: 30,
           activeShape: true,
           label1: function label1(data) {
+           let detailData= that.fomatFloat(data.money*100, 2);//防止数据出现错误（num*100后数据不正常）
             return {
-              text:  data.money*100+"%",
+              text:  detailData+"%",
               fill: '#343434',
               fontWeight: 'bold'
             };
@@ -274,7 +280,6 @@
             }
              that.data2.push(newObject)
           }
-
            that.newDrawChart();
 
         }, function (err) {
@@ -301,7 +306,16 @@
             that.portRecord.push(allRecords[i])
             that.factors.push(allRecords[i].factorMap)
 
+            //标记待更换长度的因子
+            let tmpLength= Object.keys(allRecords[i].factorMap).length
+            that.factorCounts+=tmpLength;
+            if (tmpLength%2){
+              that.changeFactorIndex.push(that.factorCounts-1)
+            }
+
           }
+         
+
           // //2.对象的值
         }, function (err) {
           console.log(err)
@@ -319,8 +333,19 @@
       },
       getPlatFormId(){
         this.platForm = localStorage.getItem('platFormId');
-      }
+      },
+      //卡片单数因子补充长度
+      lastFactorClass(){
+         let allFactorDom=document.getElementsByClassName("singleFactor");
+          
+          for (let i=0;i<this.changeFactorIndex.length;i++){
+            allFactorDom[this.changeFactorIndex[i]].style.width="90%"
+            
+          }
+       
+      },
     },
+    
     mounted() {
       var v = this;
       this.$nextTick(() => {
@@ -333,6 +358,9 @@
 
 
       });
+    },
+    updated(){
+      this.lastFactorClass()
     },
     onLoad() {
       this.getCycleChartData();
@@ -568,5 +596,8 @@
   color: #000000;
   opacity: 1;
   margin-left: 4px;
+}
+.width90{
+  width: 90%;
 }
 </style>
