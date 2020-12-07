@@ -662,6 +662,7 @@
     border: 1px solid #B1B1B1;
     opacity: 1;
     border-radius: 8px;
+    margin: 5px 5px;
   }
   .AQIcardDate{
     // width: 21px;
@@ -688,7 +689,7 @@
   }
   .AQICardBottom1{
     background-color: #00E300;
-    height: 22%;
+    height: 28%;
     
     border: 1px solid #B1B1B1;
     opacity: 1;
@@ -696,35 +697,35 @@
   }
   .AQICardBottom2{
     background-color: #FFFF00;
-    height: 22%;
+    height: 28%;
     border: 1px solid #B1B1B1;
     opacity: 1;
     border-radius: 0px 0px 8px 8px;
   }
   .AQICardBottom3{
     background-color: #FF7D00;
-    height: 22%;
+    height: 28%;
     border: 1px solid #B1B1B1;
     opacity: 1;
     border-radius: 0px 0px 8px 8px;
   }
   .AQICardBottom4{
     background-color: #FF0000;
-    height: 22%;
+    height: 28%;
     border: 1px solid #B1B1B1;
     opacity: 1;
     border-radius: 0px 0px 8px 8px;
   }
   .AQICardBottom5{
     background-color: #99004B;
-    height: 22%;
+    height: 28%;
     border: 1px solid #B1B1B1;
     opacity: 1;
     border-radius: 0px 0px 8px 8px;
   }
   .AQICardBottom6{
     background-color: #7D0022;
-    height: 22%;
+    height: 28%;
     border: 1px solid #B1B1B1;
     opacity: 1;
     border-radius: 0px 0px 8px 8px;
