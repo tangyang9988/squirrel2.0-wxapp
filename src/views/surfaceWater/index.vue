@@ -210,7 +210,7 @@
               let selectedDataInfo=document.getElementById("surfaceWaterData")
 
                selectedInfo.innerText =data.type
-               selectedDataInfo.innerText=data.money*100+"%"
+               selectedDataInfo.innerText= that.fomatFloat(data.money*100, 2)+"%";
             }
           }
         });
