@@ -50,10 +50,7 @@
               <div class="factorValue">{{factorValue}}</div>
             </div>
           </div>
-          <div class="inlineFactor">
-                <div class="inlineFactorName">水质类别：</div>
-                <div class="factorValue inlineFactorValue">{{value.wqiLevel}}</div>
-          </div>
+        
         </div>
 
       </div>
