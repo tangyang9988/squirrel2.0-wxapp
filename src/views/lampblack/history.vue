@@ -46,7 +46,7 @@
     <div v-if="isShowSearchContent">
       <van-cell
         size="large"
-        v-for="(retlist,listIndex) in searchContent"
+        v-for="(retlist, listIndex) in searchContent"
         :key="listIndex"
         :title="retlist.deptName"
         :value="retlist.siteName"
@@ -92,7 +92,6 @@
             src="../../assets/images/calendar.png"
             alt=""
             style="height: 15px; width: 15px"
-            @click="startShow = true"
           />
           <span @click="startShow = true" class="timeStyle" v-if="isAuto">{{
             start
@@ -128,7 +127,7 @@
       </div>
     </div>
     <!-- 卡片列表 -->
-    <div v-for="(item,itemIndex) in tableFactorList" :key="itemIndex">
+    <div v-for="(item, itemIndex) in tableFactorList" :key="itemIndex">
       <div class="detailCard">
         <div class="detailCard_header">
           <img
@@ -149,16 +148,15 @@
             ><span class="content_value">{{ value }}</span>
             <!-- <div class="line"></div> -->
           </div>
-          <span class="content_value_name">水质类别：</span
-          ><span class="content_value">{{ "II" }}</span>
+          <!-- <span class="content_value_name">水质类别：</span
+          ><span class="content_value">{{ "II" }}</span> -->
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { getHistoryHeader } from "@/api/surfaceWater";
-import { getHistoryList } from "@/api/surfaceWater";
+import { getHistoryList } from "@/api/lampblack";
 import { searchPoints } from "@/api/surfaceWater";
 import {
   setToken,
@@ -171,7 +169,7 @@ import md5 from "js-md5";
 export default {
   data() {
     return {
-      deptId: "1288316940539334658",
+      deptId: "1334373237055856641",
       id: "",
       point: "",
       active: "",
@@ -189,7 +187,7 @@ export default {
       tableFactorList: [],
       isShowSearchContent: false,
       searchContent: [],
-      platFormId:""
+      platFormId: "",
     };
   },
   methods: {
@@ -206,20 +204,22 @@ export default {
     formatDate(date) {
       return `${date.getFullYear()}-${
         this.timeAdd(date.getMonth()) + 1
-      }-${this.timeAdd(date.getDate())} ${this.timeAdd(date.getHours())}:${this.timeAdd(
-        date.getMinutes()
-      )}:${this.timeAdd(date.getSeconds())}`;
+      }-${this.timeAdd(date.getDate())} ${this.timeAdd(
+        date.getHours()
+      )}:${this.timeAdd(date.getMinutes())}:${this.timeAdd(date.getSeconds())}`;
     },
     getNextDate(date, day) {
       var dd = new Date(date);
       dd.setDate(dd.getDate() + day);
       var y = dd.getFullYear();
-      var m =dd.getMonth() + 1 < 10 ? "0" + (dd.getMonth() + 1) : dd.getMonth() + 1;
+      var m =
+        dd.getMonth() + 1 < 10 ? "0" + (dd.getMonth() + 1) : dd.getMonth() + 1;
       var d = dd.getDate() < 10 ? "0" + dd.getDate() : dd.getDate();
       var h = dd.getHours() < 10 ? "0" + dd.getHours() : dd.getHours();
-      var minute = dd.getMinutes() < 10 ? "0" + dd.getMinutes() : dd.getMinutes();
+      var minute =
+        dd.getMinutes() < 10 ? "0" + dd.getMinutes() : dd.getMinutes();
       var ss = dd.getSeconds() < 10 ? "0" + dd.getSeconds() : dd.getSeconds();
-      return y + "-" + m + "-" + d+" "+h+':'+minute+':'+ss;
+      return y + "-" + m + "-" + d + " " + h + ":" + minute + ":" + ss;
     },
     onStartConfirm(date) {
       this.startShow = false;
@@ -249,17 +249,17 @@ export default {
         this.isAuto = true;
       } else if (id == "24") {
         this.isAuto = false;
-        this.start = this.getNextDate(this.formatDate(curDate),-1);
+        this.start = this.getNextDate(this.formatDate(curDate), -1);
         this.end = this.formatDate(curDate);
         this.getList(this.deptId);
       } else if (id == "48") {
         this.isAuto = false;
-        this.start = this.getNextDate(this.formatDate(curDate),-2);
+        this.start = this.getNextDate(this.formatDate(curDate), -2);
         this.end = this.formatDate(curDate);
         this.getList(this.deptId);
       } else if (id == "96") {
         this.isAuto = false;
-        this.start = this.getNextDate(this.formatDate(curDate),-4);
+        this.start = this.getNextDate(this.formatDate(curDate), -4);
         this.end = this.formatDate(curDate);
         this.getList(this.deptId);
       }
@@ -269,34 +269,34 @@ export default {
       if (id == "index") {
         //根据不同平台id跳转不同首页
         switch (this.platFormId) {
-        case "21"://地表水
-          this.$router.push("/surfaceWater/index");
-          break;
-        case "39"://智慧工地
-          this.$router.push("/intelligenceConstruction/index");
-          break;
-        case "32"://地表水体
-          this.$router.push("/pollutionSurfaceWater/index");
-          break;
-        case "98"://重点环境空气检测
-          this.$router.push("/regulations");
-          break;
-        case "22"://空气质量检测
-          this.$router.push("/airQuality/index");
-          break;
-        case "99"://餐饮油烟
-          this.$router.push("/airPollution/index");
-          break;
-        case "31"://大气环境
-          this.$router.push("/airPollution/index");
-          break;
-        case "02"://基础管理系统
-          this.$router.push("/regulations");
-          break;
-        case "03"://远程智控
-          this.$router.push("/regulations");
-          break;
-      }
+          case "21": //地表水
+            this.$router.push("/surfaceWater/index");
+            break;
+          case "39": //智慧工地
+            this.$router.push("/intelligenceConstruction/index");
+            break;
+          case "32": //地表水体
+            this.$router.push("/pollutionSurfaceWater/index");
+            break;
+          case "98": //重点环境空气检测
+            this.$router.push("/regulations");
+            break;
+          case "22": //空气质量检测
+            this.$router.push("/airQuality/index");
+            break;
+          case "99": //餐饮油烟
+            this.$router.push("/airPollution/index");
+            break;
+          case "31": //大气环境
+            this.$router.push("/airPollution/index");
+            break;
+          case "02": //基础管理系统
+            this.$router.push("/regulations");
+            break;
+          case "03": //远程智控
+            this.$router.push("/regulations");
+            break;
+        }
       } else if (id == "his") {
         this.$router.push("/surfaceWater/history");
       } else if (id == "warning") {
@@ -340,11 +340,9 @@ export default {
         }
       );
     },
-    getRouteParams(){
-
-      this.platFormId=localStorage.getItem('platFormId');
-    }
-
+    getRouteParams() {
+      this.platFormId = localStorage.getItem("platFormId");
+    },
   },
 
   mounted: function () {
@@ -352,11 +350,7 @@ export default {
     this.start = this.formatStartDate(this.start);
     this.end = this.formatEndDate(this.end);
     this.getList(this.deptId);
-
   },
-  beforeMount(){
-
-  }
 };
 </script>
 <style scoped lang="scss">
@@ -448,7 +442,7 @@ export default {
   justify-content: left;
   align-items: left;
   width: 45%;
-  border-bottom: #DEDEDE 1px dashed;
+  border-bottom: #dedede 1px dashed;
 }
 .line {
   margin: 10px;

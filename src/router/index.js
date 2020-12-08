@@ -13,6 +13,7 @@ import pollutionSurfaceWaterIndex from '@/views/pollutionSurfaceWater/index'
 import AirQualityIndex from '@/views/airQuality/index'
 import airPollutionIndex from '@/views/airPollution/index'
 import lampblackIndex from '@/views/lampblack/index'
+import lampblackHistory from '@/views/lampblack/history'
 Vue.use(Router)
 
 let router = new Router({
@@ -72,6 +73,12 @@ let router = new Router({
       name: 'index',
       component: lampblackIndex,
     },
+    {
+      path: '/lampblack/history',
+      name: 'index',
+      component: lampblackHistory,
+    },
+    
     {
       path: '/',
       name: 'index',

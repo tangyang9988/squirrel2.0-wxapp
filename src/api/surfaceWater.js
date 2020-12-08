@@ -116,7 +116,6 @@ export const searchPoints = (platform,parm) =>{
 
 //预警处理提交
 export const abnormalInfoSubmit = (platform,conclusion,ids) =>{
-
   return request({
     url: '/api/squirrel-service/abnormalinfo/submit',
     method: 'post',

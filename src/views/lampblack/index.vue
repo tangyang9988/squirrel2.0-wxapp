@@ -51,19 +51,19 @@
         <div class="currentTitle">本月异常</div>
       </div>
       <div class="moudle">
-        <div class="lastUnsolve"><span class="abnormalNumber">{{countBefore24hUnDeal}}</span></div> 
+        <div class="lastUnsolve"><span class="abnormalNumber">{{countBefore24hUnDeal}}</span></div>
         <div class="currentTitle">前24h未处理 异常</div>
       </div>
-      
+
     </div>
     <div class="abnormal">
       <div class="abnormalLine"></div>
       <span class="abnormalTitle">治理评级</span>
     </div>
     <div class="histogram">
-      <canvas id="histogram" style="width: 100%;height:100%"></canvas>
+      <canvas id="cycle" style="width: 100%;height:100%"></canvas>
     </div>
-   
+
     <div class="abnormal">
       <div class="abnormalLine"></div>
       <span class="abnormalTitle">站点时报</span>
@@ -92,7 +92,7 @@
 
     </div>
     <!-- 真实记录 结束-->
-    
+
 </div>
 
 </template>
@@ -101,10 +101,9 @@
 import F2Bar from "@antv/f2";
 import F2 from "@antv/f2/lib/index"; //引入插件
 import PieLabel from "@antv/f2/lib/plugin/pie-label"; //引入插件
-import { cycleChart } from "@/api/lampblack";
-import { portDetail } from "@/api/surfaceWater";
-import { getData } from "@/api/pollutionsurfaceWater";
 import { getAbnormalCount } from "@/api/pollutionsurfaceWater";
+import { cycleChart } from "@/api/lampblack";
+import { portDetail } from "@/api/lampblack";
 
 export default {
   name: "about",
@@ -114,7 +113,7 @@ export default {
       portRecord: [],
       factors: [],
       active: "",
-      histogramData: [],
+      cycleData: [],
       countBefore24h: "",
       countBefore24hUnDeal: "",
       countCurrent: "",
@@ -128,7 +127,7 @@ export default {
       if (id == "index") {
         this.$router.push("/pollutionSurfaceWater/index");
       } else if (id == "his") {
-        this.$router.push("/surfaceWater/history");
+        this.$router.push("/lampblack/history");
       } else if (id == "warning") {
         this.$router.push("/surfaceWater/abnormal");
       } else if (id == "point") {
@@ -137,40 +136,134 @@ export default {
     },
     //环图
     getCycleChartData() {
-      var platform =localStorage.getItem("platFormId")
-      let that = this;
-      cycleChart(3, platform)
-        .then(
-          function (result) {
-            //环形图
-            let numbers = result.data.data.y;
-            let numberName = result.data.data.x;
-            let numberSum = 0;
-            let percentage = [];
-            let barChartArr = [];
-            for (let i = 0; i < numbers.length; i++) {
-              numberSum += numbers[i];
-            }
-            for (let i = 0; i < numbers.length; i++) {
-              let singleNumber = numbers[i] / numberSum;
-              singleNumber = that.fomatFloat(singleNumber, 2);
-              let singlePercentage = {
-                name: numberName[i],
-                proportion: singleNumber,
-                a: "1",
-              };
-              that.data.push(singlePercentage);
-              let singleBarChart = {
-                year: numbers[i],
-                sales: singleNumber,
-              };
-              that.barData.push(singleBarChart);
-            }
-            that.drawChart();
+      // var that =this
+      // var platform = localStorage.getItem("platFormId");
+      // cycleChart(platform)
+      //   .then(function (result) {
+      //     var cycleData = result.data.data;
+      //       that.cycleData.push({
+      //         name:'优秀',
+      //         percent:cycleData.level1
+      //       });
+      //       that.cycleData.push({
+      //         name:'规范',
+      //         percent:cycleData.level2
+      //       });
+      //       that.cycleData.push({
+      //         name:'合格',
+      //         percent:cycleData.level3
+      //       });
+      //        that.cycleData.push({
+      //         name:'整改',
+      //         percent:cycleData.level4
+      //       });
+      //       this.getCycleChart(that.cycleData)
+      //   })
+      //   .catch(function (error) {});
+      const data = [{
+        name: '优秀',
+        percent: 20,
+        a: '1'
+      }, {
+        name: '规范',
+        percent: 80,
+        a: '1'
+      }, {
+        name: '合格',
+        percent: 30,
+        a: '1'
+      },{
+        name: '整改',
+        percent: 40,
+        a: '1'
+      }];
+
+      const map = {};
+      data.forEach(function(obj) {
+        map[obj.name] = obj.percent + '%';
+      });
+
+      const chart = new F2.Chart({
+        id: 'cycle',
+        pixelRatio: window.devicePixelRatio,
+        padding: [ 20, 'auto' ]
+      });
+      chart.source(data, {
+        percent: {
+          formatter: function formatter(val) {
+            return val + '%';
           }
-        ).catch(function (error) {
-          Toast.fail("登录异常");
+        }
+      });
+      chart.tooltip(false);
+      chart.legend({
+        position: 'right',
+        itemFormatter: function itemFormatter(val) {
+          return val + '    ' + map[val];
+        }
+      });
+      chart.coord('polar', {
+        transposed: true,
+        innerRadius: 0.7,
+        radius: 0.85
+      });
+      chart.axis(false);
+      chart.interval()
+        .position('a*percent')
+        .color('name', [ '#FE5D4D', '#3BA4FF', '#737DDE' ])
+        .adjust('stack');
+      chart.guide().html({
+        position: [ '50%', '45%' ],
+        html: `<div style="width: 250px;height: 40px;text-align: center;">
+            <div style="font-size: 16px">企业总数</div>
+            <div style="font-size: 24px">7</div>
+          </div>`
+      });
+      chart.render();
+    },
+    getCycleChart(data) {
+        const map = {};
+        data.forEach(function(obj) {
+          map[obj.name] = obj.percent;
         });
+        const chart = new F2.Chart({
+          id: 'cycle',
+          pixelRatio: window.devicePixelRatio,
+          padding: [ 30, 'auto' ]
+        });
+        chart.source(data, {
+          percent: {
+            formatter: function formatter(val) {
+              return val + '%';
+            }
+          }
+        });
+        chart.tooltip(false);
+        chart.legend({
+          position: 'right',
+          itemFormatter: function itemFormatter(val) {
+            return val + '    ' + map[val];
+          }
+        });
+        chart.coord('polar', {
+          transposed: true,
+          innerRadius: 0.8,
+          radius: 0.85
+        });
+        chart.axis(false);
+        chart.interval()
+          .position('a*percent')
+          .color('name', [ '#FE5D4D', '#3BA4FF', '#737DDE' ])
+          .adjust('stack');
+
+        chart.guide().html({
+          position: [ '50%', '45%' ],
+          html: `<div style="width: 250px;height: 40px;text-align: center;">
+              <div style="font-size: 16px">企业总数</div>
+              <div style="font-size: 24px">7</div>
+            </div>`
+        });
+        chart.render();
     },
     getPortDetail() {
       var platform = localStorage.getItem("platFormId");
@@ -181,7 +274,7 @@ export default {
             //拼凑卡片对象
             let portCards = [];
             //1.对象的属性
-            let allRecords = result.data.data; //记录数组
+            let allRecords = result.data.data.gisVOList;
             for (let i = 0; i < allRecords.length; i++) {
               //几个卡片
               that.portRecord.push(allRecords[i]);
@@ -200,20 +293,6 @@ export default {
           that.isHide = false;
         });
     },
-    getChartData() {
-      var that = this;
-      that.histogramData = [];
-      var platform = localStorage.getItem("platFormId");
-      getData(platform)
-        .then(function (result) {
-          var histogram = result.data.data;
-          for (let i = 0; i < histogram.length; i++) {
-            that.histogramData.push(histogram[i]);
-          }
-          that.drawHistogramChart(that.histogramData);
-        })
-        .catch(function (error) {});
-    },
     getAbnormal() {
       var that = this;
       var platform = localStorage.getItem("platFormId");
@@ -229,7 +308,6 @@ export default {
   },
   mounted() {
     this.getAbnormal();
-    this.getChartData();
     this.getCycleChartData()
     this.getPortDetail();
   },

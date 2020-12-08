@@ -200,7 +200,7 @@ export default {
           this.$router.push("/airQuality/index");
           break;
         case "99"://餐饮油烟
-          this.$router.push("/regulations");
+          this.$router.push("/airPollution/index");
           break;
         case "31"://大气环境
           this.$router.push("/airPollution/index");
