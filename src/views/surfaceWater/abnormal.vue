@@ -351,7 +351,7 @@ export default {
 .detailCard {
   margin-bottom: 15px;
   width: 90%;
-  height: 250px;
+  padding: 10px 5px;
   background-color: white;
   border-radius: 3px;
 
@@ -370,19 +370,20 @@ export default {
   width: 100%;
   margin-bottom: 8px;
   margin-left: 5px;
+  border-bottom: #DEDEDE 1px dashed;
 }
 
 .singleFactor {
   display: flex;
   justify-content: left;
   align-items: left;
-  width: 45%;
-  border-bottom: #DEDEDE 1px dashed;
+  width: 48%;
+  // border-bottom: #DEDEDE 1px dashed;
 }
 
 .factorName {
   height: 100%;
-  width: 55%;
+  // width: 55%;
 
   font-size: 12px;
   font-family: PingFang SC;
@@ -404,10 +405,11 @@ export default {
   display: flex;
   justify-content: left;
   align-items: left;
+  border-bottom: #DEDEDE 1px dashed;
 }
 .inlineFactorName {
   margin-left: 10px;
-  margin-top: 5px;
+  // margin-top: 5px;
   font-size: 12px;
   font-family: PingFang SC;
   font-weight: 400;
