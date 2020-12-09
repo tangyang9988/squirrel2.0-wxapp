@@ -112,7 +112,7 @@ export default {
   flex-wrap: wrap;
   justify-content: space-between;
   flex-direction:column;
-   background-image: url(../../assets/images/login03.png);
+  background-image: url(../../assets/images/login.png);
   background-size:cover;
 }
 .bodyForm{
