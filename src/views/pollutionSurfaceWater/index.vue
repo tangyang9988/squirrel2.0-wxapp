@@ -82,10 +82,10 @@
               <div class="factorValue">{{factorValue}}</div>
             </div>
           </div>
-          <div class="inlineFactor">
+          <!-- <div class="inlineFactor">
                 <div class="inlineFactorName">水质类别：</div>
                 <div class="factorValue inlineFactorValue">{{value.wqiLevel}}</div>
-          </div>
+          </div> -->
         </div>
 
       </div>
@@ -210,12 +210,15 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-.header {
-  margin: 10px 15px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+.van-search {
+  padding: 2px 12px 5px 12px;
 }
+.header{
+    margin:10px 15px;
+    overflow-x: scroll;
+    white-space: nowrap;
+  }
+.header::-webkit-scrollbar { width:0; height:0; display: none; } 
 .pieBody {
   width: 100%;
   height: 100%;
@@ -236,13 +239,13 @@ export default {
   justify-content: center;
   align-items: center;
 }
-
 .detailCard {
   margin-bottom: 15px;
+  padding-bottom: 15px;
   width: 90%;
   background-color: white;
   border-radius: 3px;
-  box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.05); //阴影
+  box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.05);
 }
 .abnormal {
   display: flex;
@@ -362,7 +365,6 @@ export default {
   opacity: 1;
 }
 .factorList {
-  // height: 25px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -378,24 +380,21 @@ export default {
   justify-content: left;
   align-items: left;
   width: 45%;
+  border-bottom: #DEDEDE 1px dashed;
 }
-
 .factorName {
-  height: 100%;
-  width: 52%;
   font-size: 12px;
   font-family: PingFang SC;
   font-weight: 400;
-  line-height: 17px;
+  line-height: 25px;
   color: #000000;
   opacity: 1;
 }
 
 .factorValue {
   font-size: 12px;
-  font-family: PingFang SC;
   font-weight: bold;
-  line-height: 17px;
+  line-height: 25px;
   color: #000000;
   opacity: 1;
 }
@@ -406,17 +405,15 @@ export default {
 }
 .inlineFactorName {
   margin-left: 5%;
-  // margin-top: 5px;
   font-size: 12px;
   font-family: PingFang SC;
   font-weight: 400;
-  line-height: 17px;
+  line-height: 25px;
   color: #000000;
   opacity: 1;
 }
 .inlineFactorValue {
   float: left;
-  // margin-top: 5px;
 }
 
 .chartTitle {

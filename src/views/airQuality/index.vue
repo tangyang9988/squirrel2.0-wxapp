@@ -411,12 +411,15 @@
 
 </script>
 <style scoped lang="scss">
-  .header{
+.van-search {
+  padding: 2px 12px 5px 12px;
+}
+.header{
     margin:10px 15px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    overflow-x: scroll;
+    white-space: nowrap;
   }
+.header::-webkit-scrollbar { width:0; height:0; display: none; } 
   .pieBody {
     width: 100%;
     height: 100%;
@@ -442,7 +445,7 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    margin-top: -20px;
+    margin-top: -10px;
   }
 
   .cycleChart {
@@ -502,7 +505,6 @@
   }
 
   .factorList {
-    // height: 25px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -518,25 +520,23 @@
     justify-content: left;
     align-items: left;
     width: 45%;
+     border-bottom: #DEDEDE 1px dashed;
   }
 
   .factorName {
     height: 100%;
-    width: 55%;
-
     font-size: 12px;
     font-family: PingFang SC;
     font-weight: 400;
-    line-height: 17px;
+    line-height: 25px;
     color: #000000;
     opacity: 1;
   }
 
   .factorValue {
     font-size: 12px;
-    font-family: PingFang SC;
     font-weight: bold;
-    line-height: 17px;
+    line-height: 25px;
     color: #000000;
     opacity: 1;
   }
@@ -547,11 +547,10 @@
   }
   .inlineFactorName {
     margin-left: 5%;
-    // margin-top: 5px;
     font-size: 12px;
     font-family: PingFang SC;
     font-weight: 400;
-    line-height: 17px;
+    line-height: 25px;
     color: #000000;
     opacity: 1;
   }
@@ -571,10 +570,7 @@
     flex-wrap: wrap;
     justify-content: space-between;
     width: 90%;
-    // height: 320px;
-    // margin-left: 5%;
     margin-right: 5%;
-    // margin-bottom: 5px;
   }
   .chartMainTitle{
     margin-top: 10px;
@@ -649,8 +645,7 @@
     justify-content: left;
     width: 90%;
     margin-left: 5%;
-    padding-left: 5px;
-    
+    padding: 5px;
     background: #FFFFFF;
     box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
     opacity: 1;
@@ -765,6 +760,12 @@
   margin-left: 4px;
 }
 .dropDownMenu{
-  margin-right: 15px;
+margin:8px -15px;
+width: 100px;
+height: 30px;
+background: #FFFFFF;
+border: 1px solid #A5A5A5;
+opacity: 1;
+border-radius: 8px;
 }
 </style>

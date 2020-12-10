@@ -110,19 +110,29 @@
             <div class="content_factorName">
               {{ factor.factorName }}{{ factor.unit }}
             </div>
-            <div>
-              <span class="content_value_name">最大值：</span
-              ><span class="content_value">{{ factor.maxVal }}</span
-              ><span class="content_value_name">最小值：</span
-              ><span class="content_value">{{ factor.minVal }}</span
-              ><span class="content_value_name">平均值：</span
+            <div class="display_row">
+              <div>
+              <span class="content_value_name">最大值：</span>
+              <span class="content_value">{{ factor.maxVal }}</span>
+              </div>
+              <div>
+              <span class="content_value_name">最小值：</span
               ><span class="content_value">{{ factor.minVal }}</span>
+              </div>
+              <div>
+              <span class="content_value_name">平均值：</span
+              ><span class="content_value">{{ factor.minVal }}</span>
+              </div>
             </div>
-            <div>
-              <span class="content_value_name">达标率：</span
-              ><span class="content_value">{{ factor.standardRate }}</span
-              ><span class="content_value_name">在线率：</span
-              ><span class="content_value">{{ factor.onlineRate }}</span>
+            <div class="display_row" style="width:57%">
+              <div>
+              <span class="content_value_name">达标率：</span>
+              <span class="content_value">{{ factor.standardRate }}</span>
+              </div>
+              <div>
+              <span class="content_value_name">在线率：</span>
+              <span class="content_value">{{ factor.onlineRate }}</span>
+              </div>
             </div>
             <div class="line"></div>
           </div>
@@ -287,12 +297,15 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-.header {
-  margin: 10px 15px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+.van-search {
+  padding: 2px 12px 5px 12px;
 }
+.header{
+    margin:10px 15px;
+    overflow-x: scroll;
+    white-space: nowrap;
+  }
+.header::-webkit-scrollbar { width:0; height:0; display: none; } 
 .header_search {
   margin: 10px 15px;
   display: flex;
@@ -315,9 +328,7 @@ export default {
   min-width: 45px;
 }
 .detailCard {
-  // width: 95%;
-  margin: 10px 15px;
-  height: 670px;
+  margin: 15px;
   background: #ffffff;
   border: 1px solid #efefef;
   box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.05);
@@ -342,10 +353,10 @@ export default {
   line-height: 17px;
   color: #000000;
   opacity: 1;
-  padding: 10px;
+  padding: 10px 0;
 }
 .content_factorName {
-  margin: 10px;
+  margin: 6px 20px;
   height: 17px;
   font-size: 12px;
   font-family: PingFang SC;
@@ -355,8 +366,7 @@ export default {
   opacity: 1;
 }
 .content_value_name {
-  margin: 0px 10px;
-  // width: 30px;
+  margin-left:10px;
   height: 17px;
   font-size: 12px;
   font-family: PingFang SC;
@@ -365,12 +375,15 @@ export default {
   color: #000000;
   opacity: 1;
 }
+.display_row{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 10px;
+}
 .content_value {
-  margin: 0px 10px;
-  // width: 14px;
   height: 17px;
   font-size: 12px;
-  font-family: PingFang SC;
   font-weight: bold;
   line-height: 17px;
   color: #000000;
@@ -379,7 +392,7 @@ export default {
 .line {
   margin: 10px;
   height: 0px;
-  border: 1px dashed #DEDEDE;
+  border-bottom: #DEDEDE 1px dashed;
   opacity: 1;
 }
 .timeStyle{

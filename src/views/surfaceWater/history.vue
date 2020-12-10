@@ -143,14 +143,12 @@
           <div
             v-for="(value, key) in item.factorMap"
             :key="key"
-            class="singleFactor"
-          >
+            class="singleFactor">
             <span class="content_value_name">{{ key }}：</span
             ><span class="content_value">{{ value }}</span>
-            <!-- <div class="line"></div> -->
           </div>
-          <span class="content_value_name">水质类别：</span
-          ><span class="content_value">{{ "II" }}</span>
+          <!-- <span class="content_value_name">水质类别：</span
+          ><span class="content_value">{{ "II" }}</span> -->
         </div>
       </div>
     </div>
@@ -360,14 +358,17 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-.header {
-  margin: 10px 15px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+.van-search {
+  padding: 2px 12px;
 }
+.header{
+    margin:10px 15px;
+    overflow-x: scroll;
+    white-space: nowrap;
+  }
+.header::-webkit-scrollbar { width:0; height:0; display: none; } 
 .header_search {
-  margin: 10px 15px;
+  margin: 10px 15px 2px 15px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -381,13 +382,13 @@ export default {
   border: 1px solid #a5a5a5;
 }
 .detailCard {
-  margin: 10px 15px;
-  // height: 670px;
+  margin: 0px 15px 10px 15px;
   background: #ffffff;
   border: 1px solid #efefef;
   box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.05);
   opacity: 1;
   border-radius: 12px;
+  padding-bottom: 10px;
 }
 .detailCard_header {
   display: flex;
@@ -399,7 +400,6 @@ export default {
   border-radius: 12px 12px 0px 0px;
 }
 .header_title {
-  width: 151px;
   height: 17px;
   font-size: 12px;
   font-family: PingFang SC;
@@ -407,7 +407,7 @@ export default {
   line-height: 17px;
   color: #000000;
   opacity: 1;
-  padding: 10px;
+  padding: 10px 0;
 }
 .button {
   background: #ffffff;
@@ -415,22 +415,19 @@ export default {
   border-radius: 8px;
 }
 .content_value_name {
-  margin: 5px;
-  height: 17px;
+  margin-left:5px;
+  height: 25px;
   font-size: 12px;
-  font-family: PingFang SC;
   font-weight: 400;
-  line-height: 17px;
+  line-height: 25px;
   color: #000000;
   opacity: 1;
 }
 .content_value {
-  margin: 5px;
-  height: 17px;
+  height: 25px;
   font-size: 12px;
-  font-family: PingFang SC;
   font-weight: bold;
-  line-height: 17px;
+  line-height: 25px;
   color: #000000;
   opacity: 1;
 }
@@ -447,14 +444,8 @@ export default {
   display: flex;
   justify-content: left;
   align-items: left;
-  width: 45%;
+  width: 48%;
   border-bottom: #DEDEDE 1px dashed;
-}
-.line {
-  margin: 10px;
-  height: 0px;
-  border: 1px solid #dedede;
-  opacity: 1;
 }
 .timeStyle {
   font-size: 10px;

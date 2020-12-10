@@ -56,7 +56,7 @@
 
           <div class="factorList">
             <div class="singleFactor">
-              <div class="factorName">设备编号：</div>
+              <div class="factorName">设备号：</div>
               <div class="factorValue">{{item.deviceSn}}</div>
             </div>
             <div class="singleFactor">
@@ -64,29 +64,27 @@
               <div class="factorValue">{{item.deviceLocation}}</div>
             </div>
           </div>
-
-
-            <div class="factorList">
-                <div class="singleFactor">
-                  <div class="factorName">监控因子：</div>
-                  <div class="factorValue">{{item.alias}}</div>
-                </div>
-                <div class="singleFactor">
-                  <div class="factorName">预警类型：</div>
-                  <div class="factorValue">{{item.alertTypeName}}</div>
-                </div>
-            </div>
-              <div class="inlineFactor">
-                <div class="inlineFactorName">预警阈值：</div>
-                <div class="factorValue ">{{item.standardVal}}</div>
+          <div class="factorList">
+              <div class="singleFactor">
+                <div class="factorName">监控因子：</div>
+                <div class="factorValue">{{item.alias}}</div>
               </div>
+              <div class="singleFactor">
+                <div class="factorName">预警类型：</div>
+                <div class="factorValue">{{item.alertTypeName}}</div>
+              </div>
+          </div>
+          <div class="inlineFactor">
+            <div class="inlineFactorName">预警阈值：</div>
+            <div class="inlineFactorValue ">{{item.standardVal}}</div>
+          </div>
               <div class="inlineFactor">
                 <div class="inlineFactorName">开始时间：</div>
-                <div class="factorValue ">{{item.startTime}}</div>
+                <div class="inlineFactorValue ">{{item.startTime}}</div>
               </div>
               <div class="inlineFactor">
                 <div class="inlineFactorName">结束时间：</div>
-                <div class="factorValue ">{{item.endTime}}</div>
+                <div class="inlineFactorValue ">{{item.endTime}}</div>
               </div>
                <div class="factorList">
                 <div class="singleFactor">
@@ -322,12 +320,15 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-.header {
-  margin: 10px 15px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+.van-search {
+  padding: 2px 12px 5px 12px;
 }
+.header{
+    margin:10px 15px;
+    overflow-x: scroll;
+    white-space: nowrap;
+  }
+.header::-webkit-scrollbar { width:0; height:0; display: none; } 
 .header_search {
   margin: 10px 15px;
   display: flex;
@@ -349,12 +350,11 @@ export default {
 }
 
 .detailCard {
-  margin-bottom: 15px;
+  margin: 8px 15px;
   width: 90%;
   padding: 10px 5px;
   background-color: white;
-  border-radius: 3px;
-
+  border-radius: 12px;
   //box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.05);//阴影
   box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.05),
     /*左边阴影*/ 2px 3px 10px rgba(0, 0, 0, 0.05),
@@ -377,14 +377,11 @@ export default {
   display: flex;
   justify-content: left;
   align-items: left;
-  width: 48%;
-  // border-bottom: #DEDEDE 1px dashed;
+  width: 50%;
 }
 
 .factorName {
   height: 100%;
-  // width: 55%;
-
   font-size: 12px;
   font-family: PingFang SC;
   font-weight: 400;
@@ -395,30 +392,35 @@ export default {
 
 .factorValue {
   font-size: 12px;
-  font-family: PingFang SC;
   font-weight: bold;
   line-height: 17px;
   color: #000000;
   opacity: 1;
 }
 .inlineFactor {
+  margin-left: 5px;
   display: flex;
   justify-content: left;
   align-items: left;
   border-bottom: #DEDEDE 1px dashed;
+  height:25px;
 }
 .inlineFactorName {
-  margin-left: 10px;
-  // margin-top: 5px;
+  height: 100%;
+  margin-left: 0px;
   font-size: 12px;
   font-family: PingFang SC;
   font-weight: 400;
-  line-height: 17px;
+  line-height: 25px;
   color: #000000;
   opacity: 1;
 }
 .inlineFactorValue {
-  float: left;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 25px;
+  color: #000000;
+  opacity: 1;
 }
 
 .chartTitle {

@@ -7,29 +7,29 @@
       style="background-color: #f5f5f5"
     />
     <div class="header">
-      <van-button
+        <van-button
         id="index"
         color="#587DF7"
         size="small"
-        style="background: #F2F5FF; opacity: 1; border-radius: 8px;width: 90px"
+        style="background: #F2F5FF; opacity: 1; border-radius: 8px;width: 90px;display: inline-block;"
         @click="selected($event)"
         >首页</van-button>
       <van-button
         id="his"
         size="small"
-        style="background: #F2F5FF; opacity: 1; border-radius: 8px;width: 90px"
+        style="background: #F2F5FF; opacity: 1; border-radius: 8px;width: 90px;display: inline-block;"
         @click="selected($event)"
         >历史数据</van-button>
       <van-button
         id="warning"
         size="small"
-        style="background: #F2F5FF; opacity: 1; border-radius: 8px;width: 90px"
+        style="background: #F2F5FF; opacity: 1; border-radius: 8px;width: 90px;display: inline-block;"
         @click="selected($event)"
         >预警管理</van-button>
       <van-button
         id="point"
         size="small"
-        style="background: #F2F5FF; opacity: 1; border-radius: 8px;width: 90px"
+        style="background: #F2F5FF; opacity: 1; border-radius: 8px;width: 90px;display: inline-block;"
         @click="selected($event)"
         >站点报表</van-button>
     </div>
@@ -337,7 +337,6 @@
       //卡片单数因子补充长度
       lastFactorClass(){
          let allFactorDom=document.getElementsByClassName("singleFactor");
-          
           for (let i=0;i<this.changeFactorIndex.length;i++){
             allFactorDom[this.changeFactorIndex[i]].style.width="90%"
             
@@ -373,39 +372,34 @@
 <style scoped lang="scss">
   .header{
     margin:10px 15px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    overflow-x: scroll;
+    white-space: nowrap;
   }
+  .header::-webkit-scrollbar { width:0; height:0; display: none; } 
   .pieBody {
     width: 100%;
     height: 100%;
     background-color: white;
   }
-
   .wholeCard {
     width: 90%;
-    // height: 240px;
     padding-left: 5%;
     padding-right: 5%;
   }
-
   .chartsCard {
     width: 100%;
-    // height: 240px;
     background-color: white;
      //卡片阴影
     box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
     opacity: 1;
     border-radius: 12px;
-
   }
-
   .charts {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    padding-top: 4%;
   }
 
   .cycleChart {
@@ -437,7 +431,6 @@
 
   .detailCards {
     width: 100%;
-    // height: 400px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -445,54 +438,46 @@
   }
 
   .detailCard {
-    margin-bottom: 15px;
-    // height: 110px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
     width: 90%;
-    // height: 290px;
     background-color: white;
     border-radius: 3px;
-
     box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.05);//阴影
   }
 
   .factorList {
-    // height: 25px;
     display: flex;
-    justify-content: flex-start;
+    // justify-content: flex-start;
     align-items: center;
     flex-wrap:  wrap ;
     flex-direction: row;
-    width: 100%;
-    // margin-bottom: 8px;
     margin-left: 5%;
   }
-
   .singleFactor {
     display: flex;
     justify-content: left;
     align-items: left;
-    width: 45%;
+    width: 50%;
     border-bottom: #DEDEDE 1px dashed;
   }
-
   .factorName {
     height: 100%;
-    // width: 55%;
-
     font-size: 12px;
     font-family: PingFang SC;
     font-weight: 400;
-    line-height: 17px;
+    line-height: 25px;
     color: #000000;
     opacity: 1;
+    word-break:break-all;
   }
-
   .factorValue {
     font-size: 12px;
-    font-family: PingFang SC;
-    font-weight: bold;
-    line-height: 17px;
+    // font-family: SimHei;//宋体 
+    font-weight: 500;
+    line-height: 25px;
     color: #000000;
+    font-weight: bold;
     opacity: 1;
   }
   .inlineFactor{
@@ -502,17 +487,15 @@
   }
   .inlineFactorName {
     margin-left: 5%;
-    // margin-top: 5px;
     font-size: 12px;
     font-family: PingFang SC;
     font-weight: 400;
-    line-height: 17px;
+    line-height: 25px;
     color: #000000;
     opacity: 1;
   }
   .inlineFactorValue{
     float:left;
-    // margin-top: 5px;
   }
 
   .chartTitle {

@@ -205,12 +205,15 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-.header {
-  margin: 10px 15px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+.van-search {
+  padding: 2px 12px 5px 12px;
 }
+.header{
+    margin:10px 15px;
+    overflow-x: scroll;
+    white-space: nowrap;
+  }
+.header::-webkit-scrollbar { width:0; height:0; display: none; } 
 .pieBody {
   width: 100%;
   height: 100%;
@@ -373,15 +376,15 @@ export default {
   justify-content: left;
   align-items: left;
   width: 45%;
+  border-bottom: #DEDEDE 1px dashed;
 }
 
 .factorName {
   height: 100%;
-  // width: 45%;
   font-size: 12px;
   font-family: PingFang SC;
   font-weight: 400;
-  line-height: 17px;
+  line-height: 25px;
   color: #000000;
   opacity: 1;
 }
@@ -393,9 +396,8 @@ export default {
 }
 .factorValue {
   font-size: 12px;
-  font-family: PingFang SC;
   font-weight: bold;
-  line-height: 17px;
+  line-height: 25px;
   color: #000000;
   opacity: 1;
 }
@@ -410,7 +412,7 @@ export default {
   font-size: 12px;
   font-family: PingFang SC;
   font-weight: 400;
-  line-height: 17px;
+  line-height: 25px;
   color: #000000;
   opacity: 1;
 }

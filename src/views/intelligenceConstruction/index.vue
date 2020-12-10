@@ -41,13 +41,14 @@
         <div v-for = "(value,key) in presentRecord" :key="key" class="detailCard">
           <div class="cardTitle">
             <div class="cardTitleIcon"></div>
-            <div class="cardTitleWord">{{value.siteName}}</div>
+            <div style="margin-left:5px">{{value.siteName}}</div>
           </div>
 
           <div   class="factorList">
             <div v-for = "(factorValue,factorKey) in value.factorMap" :factorKey="factorKey" class="singleFactor">
               <div class="factorName">{{factorKey}}：</div>
               <div class="factorValue">{{factorValue}}</div>
+              <div class="line"></div>
             </div>
           </div>
         
@@ -132,15 +133,17 @@ import { presentData } from "@/api/intelligenceConstruction";
 
 </script>
 <style scoped lang="scss">
+.van-search {
+  padding: 2px 12px;
+}
 .header{
     margin:10px 15px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    overflow-x: scroll;
+    white-space: nowrap;
   }
+.header::-webkit-scrollbar { width:0; height:0; display: none; } 
   .detailCards {
     width: 100%;
-    // height: 400px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -149,12 +152,10 @@ import { presentData } from "@/api/intelligenceConstruction";
 
   .detailCard {
     margin-bottom: 15px;
-    // height: 110px;
+    padding-bottom: 10px;
     width: 90%;
-    // height: 290px;
     background-color: white;
     border-radius: 3px;
-
     box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.05);//阴影
   }
 
@@ -207,22 +208,19 @@ import { presentData } from "@/api/intelligenceConstruction";
   }
 
   .factorName {
-    height: 100%;
-    // width: 55%;
-
+    height: 25px;
     font-size: 12px;
     font-family: PingFang SC;
     font-weight: 400;
-    line-height: 17px;
+    line-height: 25px;
     color: #000000;
     opacity: 1;
   }
 
   .factorValue {
     font-size: 12px;
-    font-family: PingFang SC;
     font-weight: bold;
-    line-height: 17px;
+    line-height: 25px;
     color: #000000;
     opacity: 1;
   }
