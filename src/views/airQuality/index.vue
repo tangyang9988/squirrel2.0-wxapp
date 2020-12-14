@@ -520,7 +520,7 @@
     justify-content: left;
     align-items: left;
     width: 45%;
-     border-bottom: #DEDEDE 1px dashed;
+    border-bottom: #DEDEDE 1px dashed;
   }
 
   .factorName {
